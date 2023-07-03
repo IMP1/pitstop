@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbh6raeyrtyd1"]
+
+[ext_resource type="Script" path="res://test/pipe_retration_test.gd" id="1_g6itj"]
+
+[node name="PipeRetrationTest" type="Node2D" node_paths=PackedStringArray("target", "anchor", "line")]
+script = ExtResource("1_g6itj")
+target = NodePath("Target")
+anchor = NodePath("Anchor")
+line = NodePath("Line2D")
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(14, 20)
+points = PackedVector2Array(-4, -1, 10, 2, 23, 10, 32, 22, 36, 35, 45, 47, 59, 52, 76, 57, 91, 52, 104, 59, 111, 72, 125, 79, 142, 85, 159, 90, 177, 92, 195, 93, 212, 88, 223, 78, 226, 64, 227, 48, 219, 34, 206, 30)
+width = 3.0
+
+[node name="Anchor" type="Node2D" parent="."]
+position = Vector2(13, 21)
+
+[node name="Target" type="Node2D" parent="."]
+position = Vector2(221, 52)

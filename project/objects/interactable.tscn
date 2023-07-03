@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bewn521oc6sby"]
+
+[ext_resource type="Script" path="res://objects/interactable.gd" id="1_t526g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_phjm1"]
+resource_local_to_scene = true
+radius = 16.0
+
+[node name="Interactable" type="Node2D"]
+script = ExtResource("1_t526g")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_phjm1")
+debug_color = Color(0.713726, 0.262745, 1, 0)

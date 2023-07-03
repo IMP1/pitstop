@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://byuolgdyddoex"
+path="res://.godot/imported/Billy's Sacrifice.mp3-965c171a6c8f2675da83c238fb4835e7.mp3str"
+
+[deps]
+
+source_file="res://assets/music/Billy's Sacrifice.mp3"
+dest_files=["res://.godot/imported/Billy's Sacrifice.mp3-965c171a6c8f2675da83c238fb4835e7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

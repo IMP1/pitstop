@@ -1,0 +1,866 @@
+[gd_scene load_steps=70 format=3 uid="uid://d0fnyfjglery6"]
+
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_77n8k"]
+[ext_resource type="Texture2D" uid="uid://hg70qgk1xe71" path="res://assets/backgrounds/Blue Nebula 6 - 1024x1024.png" id="1_cs1ea"]
+[ext_resource type="PackedScene" uid="uid://dkawkwtobauxn" path="res://objects/moving_sprite_2d.tscn" id="2_8buhw"]
+[ext_resource type="Texture2D" uid="uid://df6slwrgo75w0" path="res://assets/decor/CelestialObjects.png" id="2_rive1"]
+[ext_resource type="Texture2D" uid="uid://uqtpkrhr774u" path="res://assets/ships/Ship3.png" id="2_st84s"]
+[ext_resource type="Texture2D" uid="uid://q04ysyxvgysl" path="res://assets/characters/particle.png" id="2_whmxn"]
+[ext_resource type="PackedScene" uid="uid://bqcjgp7k2susp" path="res://objects/player.tscn" id="3_8ujh1"]
+[ext_resource type="Script" path="res://scenes/game_music.gd" id="3_n11h0"]
+[ext_resource type="AudioStream" uid="uid://dvouxc5jkkoo4" path="res://assets/music/Checking Manifest.mp3" id="4_8lbwf"]
+[ext_resource type="Texture2D" uid="uid://dr4vwetk2iw07" path="res://assets/ships/Ship1.png" id="5_g2rdk"]
+[ext_resource type="AudioStream" uid="uid://cb3ahfv25o52b" path="res://assets/music/Smooth Sailing.mp3" id="5_wpa3n"]
+[ext_resource type="AudioStream" uid="uid://ct5ncjl3khwbv" path="res://assets/music/Parabola.mp3" id="6_4g7m6"]
+[ext_resource type="AudioStream" uid="uid://d0sgggibxfbay" path="res://assets/sounds/dungeon-air-6983.mp3" id="7_2ymvv"]
+[ext_resource type="PackedScene" uid="uid://t7wbwy1pdgdp" path="res://objects/tool.tscn" id="8_l5xo8"]
+[ext_resource type="Texture2D" uid="uid://drrpx24ym0d6g" path="res://assets/ships/Ship5.png" id="9_o1ci4"]
+[ext_resource type="Texture2D" uid="uid://bd8ufixrm75n8" path="res://assets/ships/pipe.png" id="11_4okey"]
+[ext_resource type="Script" path="res://objects/components/fuel_pump.gd" id="11_miphq"]
+[ext_resource type="PackedScene" uid="uid://bewn521oc6sby" path="res://objects/interactable.tscn" id="12_26md6"]
+[ext_resource type="PackedScene" uid="uid://b086rvhoeesnh" path="res://objects/ship.tscn" id="12_u0tyq"]
+[ext_resource type="AudioStream" uid="uid://dsjj3md5jygbr" path="res://assets/sounds/pick_up.ogg" id="16_iqlbm"]
+[ext_resource type="Script" path="res://objects/components/fuel_pump_motor.gd" id="17_6ykmh"]
+[ext_resource type="AudioStream" uid="uid://be7jw6wt1d4nr" path="res://assets/sounds/switch_on.ogg" id="17_v3ua8"]
+[ext_resource type="AudioStream" uid="uid://c0ja5ea67ycd3" path="res://assets/sounds/slam_down.ogg" id="17_vemoy"]
+[ext_resource type="AudioStream" uid="uid://ceh7lqd4k5w7e" path="res://assets/sounds/switch_off.ogg" id="18_f6mf5"]
+[ext_resource type="AudioStream" uid="uid://c3agy2owt28hg" path="res://assets/sounds/viscous-liquid-fall-in-83980.mp3" id="20_a5wp4"]
+[ext_resource type="Script" path="res://objects/components/ship_fuel_intake.gd" id="20_s118x"]
+[ext_resource type="Texture2D" uid="uid://2kg7rhaemmeb" path="res://assets/ships/Ship4.png" id="22_leejl"]
+[ext_resource type="Script" path="res://objects/components/fuel_pipe_retractor.gd" id="22_petaf"]
+[ext_resource type="AudioStream" uid="uid://4nkyrw4cvbnw" path="res://assets/sounds/spinning-reel-27903.ogg" id="23_6jed2"]
+[ext_resource type="Script" path="res://objects/shipyard/clock.gd" id="25_1g3l0"]
+[ext_resource type="AudioStream" uid="uid://0josb8gaiavo" path="res://assets/sounds/vintage-car-horn-153264.mp3" id="26_iyj7s"]
+[ext_resource type="FontFile" uid="uid://0vh6csaq2gfa" path="res://assets/fonts/Bruno_Ace_SC/BrunoAceSC-Regular.ttf" id="28_aicjc"]
+[ext_resource type="Script" path="res://objects/shipyard/ship_maneuvering_zone.gd" id="28_fd3n4"]
+[ext_resource type="Texture2D" uid="uid://bbtfx5eqwa75h" path="res://assets/icons/hazard-sign.png" id="29_vnwkf"]
+[ext_resource type="Script" path="res://objects/components/patch_dispenser.gd" id="30_mm62e"]
+[ext_resource type="Texture2D" uid="uid://c6lpbl81unq14" path="res://assets/ships/cracks.png" id="33_2e7pl"]
+[ext_resource type="Script" path="res://objects/components/ship_crack.gd" id="34_rgc4q"]
+[ext_resource type="AudioStream" uid="uid://br8nrfnjgx8qf" path="res://assets/sounds/lassen-35052.mp3" id="36_whpp4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2j4ni"]
+atlas = ExtResource("2_rive1")
+region = Rect2(256, 96, 128, 128)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43ujk"]
+atlas = ExtResource("2_rive1")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brlu8"]
+atlas = ExtResource("2_rive1")
+region = Rect2(32, 224, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0e4iq"]
+atlas = ExtResource("2_rive1")
+region = Rect2(96, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nf02q"]
+atlas = ExtResource("2_rive1")
+region = Rect2(256, 224, 128, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eetwm"]
+size = Vector2(689, 41)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdvd1"]
+size = Vector2(41, 385.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7s5un"]
+resource_local_to_scene = true
+radius = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_24kma"]
+resource_local_to_scene = true
+size = Vector2(7, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsq15"]
+atlas = ExtResource("9_o1ci4")
+region = Rect2(52, 41, 14, 7)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5txj6"]
+resource_local_to_scene = true
+radius = 12.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aione"]
+atlas = ExtResource("5_g2rdk")
+region = Rect2(27, 17, 35, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_med10"]
+atlas = ExtResource("22_leejl")
+region = Rect2(14, 46, 19, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nc1h5"]
+size = Vector2(454, 127)
+
+[sub_resource type="Gradient" id="Gradient_ti7q1"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ccif3"]
+gradient = SubResource("Gradient_ti7q1")
+fill_to = Vector2(0.063, 0.063)
+repeat = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fh25"]
+atlas = ExtResource("22_leejl")
+region = Rect2(72, 40, 40, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eks8i"]
+resource_local_to_scene = true
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_um7r4"]
+atlas = ExtResource("9_o1ci4")
+region = Rect2(81, 62, 17, 17)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qtcgy"]
+resource_local_to_scene = true
+radius = 15.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p4sfn"]
+bg_color = Color(0.878431, 0.878431, 0.878431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o22ge"]
+bg_color = Color(0.145098, 0.145098, 0.145098, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.878431, 0.878431, 0.878431, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uak3a"]
+atlas = ExtResource("33_2e7pl")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_egpts"]
+resource_local_to_scene = true
+size = Vector2(8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvajn"]
+atlas = ExtResource("9_o1ci4")
+region = Rect2(96, 80, 8, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ytyi1"]
+resource_local_to_scene = true
+radius = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ew2fe"]
+bg_color = Color(0, 0, 0, 1)
+draw_center = false
+skew = Vector2(1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 2
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 2
+expand_margin_left = 12.0
+expand_margin_right = 12.0
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00y10"]
+bg_color = Color(0, 0, 0, 1)
+skew = Vector2(1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 3
+corner_radius_top_left = 4
+corner_radius_top_right = 2
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 2
+expand_margin_left = 12.0
+expand_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wc667"]
+bg_color = Color(0, 0, 0, 1)
+skew = Vector2(1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 4
+corner_radius_top_right = 2
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 2
+expand_margin_left = 12.0
+expand_margin_top = 2.0
+expand_margin_right = 12.0
+
+[sub_resource type="Theme" id="Theme_ki26h"]
+default_font = ExtResource("28_aicjc")
+default_font_size = 12
+Button/styles/focus = SubResource("StyleBoxFlat_ew2fe")
+Button/styles/normal = SubResource("StyleBoxFlat_00y10")
+Button/styles/pressed = SubResource("StyleBoxFlat_wc667")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xyvcw"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_77n8k")
+particle_texture = ExtResource("2_whmxn")
+player_colours = Array[Color]([Color(0, 0.8, 0.545098, 1), Color(0.988235, 0.54902, 0, 1), Color(0.92549, 0.447059, 1, 1), Color(0.294118, 0.713726, 1, 1)])
+
+[node name="Music" type="Node" parent="."]
+script = ExtResource("3_n11h0")
+autoplay = true
+tracks = Array[AudioStream]([ExtResource("4_8lbwf"), ExtResource("5_wpa3n"), ExtResource("6_4g7m6")])
+shuffle = false
+cross_fade_duration = 4.0
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_2ymvv")
+autoplay = true
+
+[node name="PlayerSpawns" type="Node2D" parent="."]
+
+[node name="1" type="Marker2D" parent="PlayerSpawns"]
+position = Vector2(88, 294)
+gizmo_extents = 4.0
+
+[node name="2" type="Marker2D" parent="PlayerSpawns"]
+position = Vector2(234, 295)
+gizmo_extents = 4.0
+
+[node name="3" type="Marker2D" parent="PlayerSpawns"]
+position = Vector2(390, 296)
+gizmo_extents = 4.0
+
+[node name="4" type="Marker2D" parent="PlayerSpawns"]
+position = Vector2(549, 298)
+gizmo_extents = 4.0
+
+[node name="5" type="Marker2D" parent="PlayerSpawns"]
+position = Vector2(555, 73)
+gizmo_extents = 4.0
+
+[node name="6" type="Marker2D" parent="PlayerSpawns"]
+position = Vector2(412, 74)
+gizmo_extents = 4.0
+
+[node name="7" type="Marker2D" parent="PlayerSpawns"]
+position = Vector2(250, 85)
+gizmo_extents = 4.0
+
+[node name="8" type="Marker2D" parent="PlayerSpawns"]
+position = Vector2(81, 94)
+gizmo_extents = 4.0
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Space" type="Sprite2D" parent="Background"]
+z_index = -10
+texture_repeat = 2
+position = Vector2(-12, -100)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_cs1ea")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 2048, 2048)
+
+[node name="Galaxy" parent="Background" instance=ExtResource("2_8buhw")]
+modulate = Color(0.568627, 0.568627, 0.741176, 0.690196)
+position = Vector2(551, 113)
+texture = SubResource("AtlasTexture_2j4ni")
+velocity = Vector2(2, 0.5)
+scroll = true
+scroll_bounds = Rect2(-128, -128, 960, 608)
+
+[node name="AsteroidBelt" type="Node2D" parent="Background"]
+modulate = Color(0.231373, 0.184314, 0.341176, 1)
+position = Vector2(21, -93)
+
+[node name="Asteroid1" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(136, 364)
+texture = SubResource("AtlasTexture_43ujk")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid7" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(283, 371)
+texture = SubResource("AtlasTexture_43ujk")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid12" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(494, 366)
+texture = SubResource("AtlasTexture_43ujk")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid26" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(636, 355)
+texture = SubResource("AtlasTexture_43ujk")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid13" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(383, 415)
+texture = SubResource("AtlasTexture_43ujk")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid8" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(210, 349)
+texture = SubResource("AtlasTexture_43ujk")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid9" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(77, 396)
+texture = SubResource("AtlasTexture_43ujk")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid19" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(2, 405)
+texture = SubResource("AtlasTexture_43ujk")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid20" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(-98, 370)
+texture = SubResource("AtlasTexture_43ujk")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid21" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(-73, 422)
+texture = SubResource("AtlasTexture_43ujk")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid2" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(397, 369)
+texture = SubResource("AtlasTexture_brlu8")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid6" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(175, 396)
+texture = SubResource("AtlasTexture_brlu8")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid17" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(-43, 384)
+texture = SubResource("AtlasTexture_brlu8")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid18" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(-166, 409)
+texture = SubResource("AtlasTexture_brlu8")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid3" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(322, 403)
+texture = SubResource("AtlasTexture_0e4iq")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid4" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(264, 438)
+texture = SubResource("AtlasTexture_0e4iq")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid5" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(488, 407)
+texture = SubResource("AtlasTexture_0e4iq")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid10" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(134, 428)
+texture = SubResource("AtlasTexture_0e4iq")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid11" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(571, 370)
+texture = SubResource("AtlasTexture_0e4iq")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid16" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(28, 372)
+texture = SubResource("AtlasTexture_0e4iq")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid22" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(-118, 437)
+texture = SubResource("AtlasTexture_0e4iq")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid23" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(-195, 375)
+texture = SubResource("AtlasTexture_0e4iq")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid24" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(-216, 443)
+texture = SubResource("AtlasTexture_0e4iq")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid25" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(609, 412)
+texture = SubResource("AtlasTexture_0e4iq")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid14" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(538, 327)
+texture = SubResource("AtlasTexture_0e4iq")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Asteroid15" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
+position = Vector2(274, 321)
+texture = SubResource("AtlasTexture_0e4iq")
+velocity = Vector2(8, 0)
+scroll = true
+scroll_bounds = Rect2(-64, -64, 768, 768)
+
+[node name="Shipyard" type="Node2D" parent="."]
+
+[node name="Boundaries" type="Node2D" parent="Shipyard"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Shipyard/Boundaries"]
+position = Vector2(415, 11)
+scale = Vector2(7.69531, 1)
+texture = SubResource("AtlasTexture_nf02q")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Shipyard/Boundaries"]
+position = Vector2(374, 352)
+scale = Vector2(7.69531, 1)
+texture = SubResource("AtlasTexture_nf02q")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Shipyard/Boundaries"]
+position = Vector2(3, 182)
+rotation = -1.5708
+scale = Vector2(7.69531, 1)
+texture = SubResource("AtlasTexture_nf02q")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Shipyard/Boundaries"]
+position = Vector2(640, 253)
+rotation = -1.5708
+scale = Vector2(7.69531, 1)
+texture = SubResource("AtlasTexture_nf02q")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/Boundaries"]
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shipyard/Boundaries/StaticBody2D"]
+position = Vector2(311, -1)
+shape = SubResource("RectangleShape2D_eetwm")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Shipyard/Boundaries/StaticBody2D"]
+position = Vector2(306, 366)
+shape = SubResource("RectangleShape2D_eetwm")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Shipyard/Boundaries/StaticBody2D"]
+position = Vector2(-11, 183)
+shape = SubResource("RectangleShape2D_xdvd1")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Shipyard/Boundaries/StaticBody2D"]
+position = Vector2(646, 184)
+shape = SubResource("RectangleShape2D_xdvd1")
+
+[node name="FuelPump" type="Node2D" parent="Shipyard"]
+position = Vector2(98, 20)
+
+[node name="NozzleSlot" parent="Shipyard/FuelPump" instance=ExtResource("12_26md6")]
+position = Vector2(1, 34)
+script = ExtResource("11_miphq")
+
+[node name="CollisionShape2D" parent="Shipyard/FuelPump/NozzleSlot/Area2D" index="0"]
+shape = SubResource("CircleShape2D_7s5un")
+
+[node name="Pipe" type="Line2D" parent="Shipyard/FuelPump/NozzleSlot"]
+texture_repeat = 2
+points = PackedVector2Array(0, -34, 0, 0, 0, 0)
+texture = ExtResource("11_4okey")
+texture_mode = 1
+joint_mode = 2
+
+[node name="Nozzle" parent="Shipyard/FuelPump/NozzleSlot" instance=ExtResource("8_l5xo8")]
+rotation = 3.14159
+
+[node name="CollisionShape2D" parent="Shipyard/FuelPump/NozzleSlot/Nozzle" index="0"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_24kma")
+
+[node name="Sprite2D" parent="Shipyard/FuelPump/NozzleSlot/Nozzle" index="1"]
+texture = SubResource("AtlasTexture_tsq15")
+
+[node name="CollisionShape2D" parent="Shipyard/FuelPump/NozzleSlot/Nozzle/GrabArea" index="0"]
+shape = SubResource("CircleShape2D_5txj6")
+disabled = true
+
+[node name="GrabNozzleAudio" type="AudioStreamPlayer2D" parent="Shipyard/FuelPump/NozzleSlot"]
+stream = ExtResource("16_iqlbm")
+bus = &"Sounds"
+
+[node name="DropNozzleAudio" type="AudioStreamPlayer2D" parent="Shipyard/FuelPump/NozzleSlot"]
+stream = ExtResource("17_vemoy")
+bus = &"Sounds"
+
+[node name="PumpSwitch" parent="Shipyard/FuelPump" node_paths=PackedStringArray("ship_fuel_intake", "nozzle_slot", "nozzle") instance=ExtResource("12_26md6")]
+position = Vector2(16, 6)
+script = ExtResource("17_6ykmh")
+fuel_per_second = 10.0
+ship_fuel_intake = NodePath("../../../Ship/TestShip/Components/FuelIntake")
+nozzle_slot = NodePath("../NozzleSlot")
+nozzle = NodePath("../NozzleSlot/Nozzle")
+
+[node name="SwitchOn" type="AudioStreamPlayer2D" parent="Shipyard/FuelPump/PumpSwitch"]
+stream = ExtResource("17_v3ua8")
+bus = &"Sounds"
+
+[node name="SwitchOff" type="AudioStreamPlayer2D" parent="Shipyard/FuelPump/PumpSwitch"]
+stream = ExtResource("18_f6mf5")
+bus = &"Sounds"
+
+[node name="Fluid" type="AudioStreamPlayer2D" parent="Shipyard/FuelPump/PumpSwitch"]
+stream = ExtResource("20_a5wp4")
+volume_db = -10.0
+bus = &"Sounds"
+
+[node name="Retractor" parent="Shipyard/FuelPump" node_paths=PackedStringArray("pipe", "nozzle", "nozzle_slot", "loose_tool_container") instance=ExtResource("12_26md6")]
+position = Vector2(-13, 1)
+script = ExtResource("22_petaf")
+pipe = NodePath("../NozzleSlot/Pipe")
+nozzle = NodePath("../NozzleSlot/Nozzle")
+nozzle_slot = NodePath("../NozzleSlot")
+hold_to_interact = true
+retraction_speed = 48.0
+loose_tool_container = NodePath("../../../LooseTools")
+
+[node name="RayCast2D" type="RayCast2D" parent="Shipyard/FuelPump/Retractor"]
+position = Vector2(14, 33)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Shipyard/FuelPump/Retractor"]
+stream = ExtResource("23_6jed2")
+pitch_scale = 0.5
+bus = &"Sounds"
+
+[node name="Sprite2D" type="Sprite2D" parent="Shipyard/FuelPump"]
+position = Vector2(1, 17)
+rotation = 1.5708
+texture = SubResource("AtlasTexture_aione")
+
+[node name="Clock" type="Node2D" parent="Shipyard"]
+position = Vector2(314, 17)
+script = ExtResource("25_1g3l0")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/Clock"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Shipyard/Clock/StaticBody2D"]
+polygon = PackedVector2Array(42, -2, 21, 32, -21, 32, -39, -2)
+
+[node name="Sprite2D" type="Sprite2D" parent="Shipyard/Clock"]
+position = Vector2(-1, 9)
+rotation = 1.5708
+scale = Vector2(2.44738, 2.50129)
+texture = SubResource("AtlasTexture_med10")
+
+[node name="Label" type="Label" parent="Shipyard/Clock"]
+offset_left = -47.0
+offset_top = 5.0
+offset_right = 49.0
+offset_bottom = 37.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Klaxon" type="AudioStreamPlayer2D" parent="Shipyard/Clock"]
+stream = ExtResource("26_iyj7s")
+bus = &"Sounds"
+
+[node name="Timer" type="Timer" parent="Shipyard/Clock"]
+wait_time = 60.0
+one_shot = true
+
+[node name="WarningTimer" type="Timer" parent="Shipyard/Clock"]
+wait_time = 50.0
+one_shot = true
+
+[node name="ShipManeuveringZone" type="Area2D" parent="Shipyard"]
+position = Vector2(461, 187)
+collision_layer = 64
+collision_mask = 12
+script = ExtResource("28_fd3n4")
+hazard_icon = ExtResource("29_vnwkf")
+hazard_colour = Color(0.945098, 0.180392, 0.14902, 1)
+hazard_z_index = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shipyard/ShipManeuveringZone"]
+position = Vector2(-8, -1)
+shape = SubResource("RectangleShape2D_nc1h5")
+debug_color = Color(0.992157, 0.839216, 0, 0.243137)
+
+[node name="Sprite2D" type="Sprite2D" parent="Shipyard/ShipManeuveringZone"]
+modulate = Color(1, 1, 1, 0.25098)
+texture_repeat = 2
+position = Vector2(85, -1)
+texture = SubResource("GradientTexture2D_ccif3")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 128)
+
+[node name="Border" type="Line2D" parent="Shipyard/ShipManeuveringZone"]
+points = PackedVector2Array(376, -66, -236, -66, -236, 63, 379, 64)
+width = 3.0
+default_color = Color(1, 1, 0, 1)
+
+[node name="HazardIndicators" type="Node2D" parent="Shipyard/ShipManeuveringZone"]
+position = Vector2(-338, 33)
+
+[node name="Label" type="Label" parent="Shipyard/ShipManeuveringZone"]
+offset_left = -212.0
+offset_top = -123.0
+offset_right = -75.0
+offset_bottom = -97.0
+text = "! CLEAR THE SMZ !"
+
+[node name="PatchDispenser" type="Node2D" parent="Shipyard"]
+position = Vector2(13, 226)
+
+[node name="Sprite2D" type="Sprite2D" parent="Shipyard/PatchDispenser"]
+position = Vector2(14, -2)
+texture = SubResource("AtlasTexture_5fh25")
+
+[node name="Output" type="Marker2D" parent="Shipyard/PatchDispenser"]
+position = Vector2(34, 2)
+
+[node name="Dispenser" parent="Shipyard/PatchDispenser" node_paths=PackedStringArray("output", "patch") instance=ExtResource("12_26md6")]
+position = Vector2(9, -18)
+script = ExtResource("30_mm62e")
+output = NodePath("../Output")
+velocity = Vector2(0, 0)
+patch = NodePath("../Patch")
+
+[node name="Patch" parent="Shipyard/PatchDispenser" instance=ExtResource("8_l5xo8")]
+position = Vector2(-58, 3)
+
+[node name="CollisionShape2D" parent="Shipyard/PatchDispenser/Patch" index="0"]
+shape = SubResource("RectangleShape2D_eks8i")
+
+[node name="Sprite2D" parent="Shipyard/PatchDispenser/Patch" index="1"]
+texture = SubResource("AtlasTexture_um7r4")
+
+[node name="CollisionShape2D" parent="Shipyard/PatchDispenser/Patch/GrabArea" index="0"]
+shape = SubResource("CircleShape2D_qtcgy")
+
+[node name="Ship" type="Node2D" parent="."]
+
+[node name="TestShip" parent="Ship" instance=ExtResource("12_u0tyq")]
+position = Vector2(333, 189)
+
+[node name="CollisionPolygon2D" parent="Ship/TestShip" index="0"]
+scale = Vector2(0.5, 0.5)
+polygon = PackedVector2Array(-90, -65, -72, -49, -49, -73, -20, -62, 15, -63, 20, -75, 63, -72, 115, -48, 149, -13, 160, -13, 175, 1, 154, 6, 153, 39, 174, 38, 161, 57, 145, 57, 132, 73, 107, 76, 103, 63, 110, 47, 80, 50, 77, 54, 66, 68, 29, 68, 22, 77, 14, 68, -27, 68, -34, 78, -41, 69, -80, 68, -64, 49, -72, 40, -91, 56, -110, 57, -173, 36, -134, 30, -145, 22, -163, 20, -164, -23, -145, -24, -133, -39, -173, -40, -110, -65)
+
+[node name="Sprite2D" parent="Ship/TestShip" index="1"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_st84s")
+
+[node name="FuelIntake" parent="Ship/TestShip/Components" index="0" instance=ExtResource("12_26md6")]
+position = Vector2(-30, -34)
+script = ExtResource("20_s118x")
+capacity = 100.0
+
+[node name="InsertionPoint" type="Marker2D" parent="Ship/TestShip/Components/FuelIntake"]
+position = Vector2(-3, -3)
+rotation = 0.785398
+
+[node name="AttachAudio" type="AudioStreamPlayer2D" parent="Ship/TestShip/Components/FuelIntake"]
+stream = ExtResource("17_vemoy")
+bus = &"Sounds"
+
+[node name="ProgressBar" type="ProgressBar" parent="Ship/TestShip/Components/FuelIntake"]
+visible = false
+offset_left = -12.0
+offset_top = -14.0
+offset_right = 12.0
+offset_bottom = -10.0
+theme_override_styles/background = SubResource("StyleBoxFlat_p4sfn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_o22ge")
+show_percentage = false
+
+[node name="Crack1" parent="Ship/TestShip/Components" index="1" instance=ExtResource("12_26md6")]
+position = Vector2(62, 31)
+script = ExtResource("34_rgc4q")
+time_to_patch = 2.0
+
+[node name="ProgressBar" type="ProgressBar" parent="Ship/TestShip/Components/Crack1"]
+offset_left = -12.0
+offset_top = -14.0
+offset_right = 12.0
+offset_bottom = -10.0
+theme_override_styles/background = SubResource("StyleBoxFlat_p4sfn")
+theme_override_styles/fill = SubResource("StyleBoxFlat_o22ge")
+show_percentage = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Ship/TestShip/Components/Crack1"]
+position = Vector2(-2, -1)
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_uak3a")
+vframes = 2
+frame = 1
+
+[node name="WeldingAudio" type="AudioStreamPlayer2D" parent="Ship/TestShip/Components/Crack1"]
+position = Vector2(-220.001, 395)
+rotation = -1.57079
+stream = ExtResource("36_whpp4")
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="1" parent="Players" instance=ExtResource("3_8ujh1")]
+position = Vector2(172, 84)
+device_id = 0
+
+[node name="LooseTools" type="Node2D" parent="."]
+
+[node name="Blowtorch" parent="LooseTools" instance=ExtResource("8_l5xo8")]
+position = Vector2(417, 269)
+
+[node name="CollisionShape2D" parent="LooseTools/Blowtorch" index="0"]
+shape = SubResource("RectangleShape2D_egpts")
+
+[node name="Sprite2D" parent="LooseTools/Blowtorch" index="1"]
+texture = SubResource("AtlasTexture_cvajn")
+
+[node name="CollisionShape2D" parent="LooseTools/Blowtorch/GrabArea" index="0"]
+shape = SubResource("CircleShape2D_ytyi1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Menu" type="CanvasLayer" parent="."]
+process_mode = 2
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_ki26h")
+color = Color(0, 0, 0, 0.501961)
+
+[node name="Options" type="VBoxContainer" parent="Menu/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Label" type="Label" parent="Menu/ColorRect/Options"]
+layout_mode = 2
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 2
+uppercase = true
+
+[node name="ColorRect" type="ColorRect" parent="Menu/ColorRect/Options"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="Menu/ColorRect/Options"]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_xyvcw")
+
+[node name="Resume" type="Button" parent="Menu/ColorRect/Options"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../Quit")
+text = "Resume"
+
+[node name="RemoveInput" type="Button" parent="Menu/ColorRect/Options"]
+layout_mode = 2
+text = "Remove Input"
+
+[node name="Settings" type="Button" parent="Menu/ColorRect/Options"]
+layout_mode = 2
+disabled = true
+text = "Settings"
+
+[node name="Quit" type="Button" parent="Menu/ColorRect/Options"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Resume")
+text = "Exit"
+
+[connection signal="thrown" from="Shipyard/FuelPump/NozzleSlot/Nozzle" to="." method="_throw_tool"]
+[connection signal="fuel_spilled" from="Shipyard/FuelPump/PumpSwitch" to="." method="_add_particle" binds= [75, Color(0.376471, 0.188235, 0.419608, 1), 3.0]]
+[connection signal="timelow" from="Shipyard/Clock" to="." method="_time_low"]
+[connection signal="timeout" from="Shipyard/Clock" to="." method="_timeup"]
+[connection signal="timeout" from="Shipyard/Clock/Timer" to="Shipyard/Clock" method="_timeout"]
+[connection signal="timeout" from="Shipyard/Clock/WarningTimer" to="Shipyard/Clock" method="_timelow"]
+[connection signal="body_entered" from="Shipyard/ShipManeuveringZone" to="Shipyard/ShipManeuveringZone" method="_body_entered"]
+[connection signal="body_exited" from="Shipyard/ShipManeuveringZone" to="Shipyard/ShipManeuveringZone" method="_body_exited"]
+[connection signal="patch_released" from="Shipyard/PatchDispenser/Dispenser" to="." method="_throw_tool"]
+[connection signal="thrown" from="Shipyard/PatchDispenser/Patch" to="." method="_throw_tool"]
+[connection signal="thrown" from="LooseTools/Blowtorch" to="." method="_throw_tool"]
+[connection signal="pressed" from="Menu/ColorRect/Options/Resume" to="." method="_resume"]
+[connection signal="pressed" from="Menu/ColorRect/Options/RemoveInput" to="." method="_remove_player"]
+[connection signal="pressed" from="Menu/ColorRect/Options/Settings" to="." method="_settings"]
+[connection signal="pressed" from="Menu/ColorRect/Options/Quit" to="." method="_quit"]
+
+[editable path="Shipyard/FuelPump/NozzleSlot"]
+[editable path="Shipyard/FuelPump/NozzleSlot/Nozzle"]
+[editable path="Shipyard/PatchDispenser/Patch"]
+[editable path="Ship/TestShip"]
+[editable path="LooseTools/Blowtorch"]

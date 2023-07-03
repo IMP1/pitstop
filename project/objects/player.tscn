@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://bqcjgp7k2susp"]
+
+[ext_resource type="Script" path="res://objects/player.gd" id="1_77f0j"]
+[ext_resource type="Texture2D" uid="uid://qotbv7bwjxk3" path="res://assets/characters/buddie0 sprite sheet x1.png" id="1_yoku2"]
+[ext_resource type="AudioStream" uid="uid://dnamrdb0k2jjb" path="res://assets/sounds/good-jetpack-sound-loop-96693.mp3" id="3_nulyg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5jcba"]
+size = Vector2(10, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyllt"]
+atlas = ExtResource("1_yoku2")
+region = Rect2(0, 424, 128, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_liy3i"]
+radius = 11.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1jiv6"]
+radius = 9.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_77f0j")
+colour = Color(0, 0.8, 0.545098, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -2.5)
+shape = SubResource("RectangleShape2D_5jcba")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_uyllt")
+hframes = 4
+
+[node name="GrabRange" type="Area2D" parent="."]
+position = Vector2(0, -3)
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabRange"]
+shape = SubResource("CircleShape2D_liy3i")
+debug_color = Color(0.686275, 0.501961, 0, 0)
+
+[node name="InteractionRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionRange"]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_1jiv6")
+debug_color = Color(0.713726, 0.262745, 1, 0)
+
+[node name="HeldTools" type="Marker2D" parent="."]
+position = Vector2(5, -5)
+rotation = 0.785398
+
+[node name="Jetpack" type="Node2D" parent="."]
+position = Vector2(-4, -1)
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="Jetpack"]
+stream = ExtResource("3_nulyg")

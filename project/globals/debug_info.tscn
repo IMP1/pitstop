@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://do4ilnrljnhep"]
+
+[ext_resource type="Script" path="res://globals/debug_info.gd" id="1_6k0nb"]
+[ext_resource type="FontFile" uid="uid://b675j83yhn3ox" path="res://assets/fonts/Space_Mono/SpaceMono-Regular.ttf" id="2_8elly"]
+
+[node name="DebugInfo" type="CanvasLayer"]
+script = ExtResource("1_6k0nb")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -240.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Panel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = -6
+theme_override_fonts/font = ExtResource("2_8elly")
+theme_override_font_sizes/font_size = 10
+clip_text = true
+max_lines_visible = 35
