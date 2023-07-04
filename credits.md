@@ -29,3 +29,5 @@
 [Job Klaxon](https://pixabay.com/sound-effects/vintage-car-horn-153264/)
 
 [Welding](https://pixabay.com/sound-effects/lassen-35052/)
+
+[Splash Screen Animation](http://cargocollective.com/laurarobinson/About-Contact)

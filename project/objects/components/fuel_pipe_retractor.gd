@@ -1,7 +1,7 @@
 extends Interactable
 
 @export var pipe: Line2D
-@export var nozzle: Tool
+@export var nozzle: Nozzle
 @export var nozzle_slot: Interactable
 @export var hold_to_interact: bool = true
 @export var retraction_speed: float = 1.0
@@ -68,7 +68,7 @@ func _retract_end(delta: float) -> void:
 		var next_move := pipe.get_point_position(pipe.get_point_count() - 2) - pipe.to_local(nozzle.global_position)
 		_last_retraction_direction = next_move
 		var move_distance := minf(distance, next_move.length())
-		nozzle.position += next_move.normalized() * move_distance
+		nozzle.move_and_collide(next_move.normalized() * move_distance)
 		distance -= move_distance
 		if pipe.get_point_position(pipe.get_point_count() - 2) == pipe.to_local(nozzle.global_position):
 			pipe.remove_point(pipe.get_point_count() - 2)

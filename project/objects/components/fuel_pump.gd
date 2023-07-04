@@ -12,7 +12,7 @@ var _nozzle_initial_position: Vector2
 func interact(player: Player) -> void:
 	if has_node("Nozzle"):
 		_nozzle_taken(player)
-	elif player.has_tool("Nozzle"):
+	elif player.current_tool() is Nozzle:
 		_nozzle_returned()
 
 

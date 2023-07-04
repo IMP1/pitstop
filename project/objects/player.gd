@@ -20,7 +20,7 @@ const PROPULSION_PARTICLE_SPEED = 16
 @onready var _interaction_range := $InteractionRange as Area2D
 @onready var _grab_range := $GrabRange as Area2D
 @onready var _sprite := $Sprite2D as Sprite2D
-@onready var _held_tools := $HeldTools as Node2D
+@onready var _held_tools := $HeldTool as Node2D
 @onready var _jetpack_audio := $Jetpack/Audio as AudioStreamPlayer2D
 
 
@@ -44,6 +44,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _try_grab() -> void:
+	if _held_tools.get_child_count() > 0:
+		return
 	if not _grab_range.has_overlapping_areas():
 		return
 	var obj := _grab_range.get_overlapping_areas()[0].get_parent() as Tool
@@ -71,6 +73,12 @@ func _try_throw() -> void:
 	else:
 		aim_direction *= throw_strength
 	tool.throw(aim_direction)
+
+
+func current_tool() -> Tool:
+	if _held_tools.get_child_count() == 0:
+		return null
+	return _held_tools.get_child(0) as Tool
 
 
 func has_tool(tool_name: NodePath) -> bool:

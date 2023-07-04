@@ -22,7 +22,6 @@ func throw(vel: Vector2) -> void:
 	Debug.info("[Tool] Throwing")
 	thrown.emit(self, global_position, vel)
 	_grab_shape.disabled = false
-	await get_tree().create_timer(0.5).timeout
 
 
 func _physics_process(delta: float) -> void:

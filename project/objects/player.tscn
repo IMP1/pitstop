@@ -49,7 +49,7 @@ position = Vector2(0, -2)
 shape = SubResource("CircleShape2D_1jiv6")
 debug_color = Color(0.713726, 0.262745, 1, 0)
 
-[node name="HeldTools" type="Marker2D" parent="."]
+[node name="HeldTool" type="Marker2D" parent="."]
 position = Vector2(5, -5)
 rotation = 0.785398
 

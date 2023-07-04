@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @onready var _label := $Panel/Label as Label
 
-enum Severity { NONE, ERROR, WARNING, INFO, TRACE }
+enum Severity { NONE, ERROR, WARNING, INFO, DEBUG, TRACE }
 
 var severity_level := Severity.INFO
 
@@ -16,7 +16,9 @@ func _input(event: InputEvent) -> void:
 		visible = not visible
 
 
-func _write(message) -> void:
+func _write(message, importance: Severity) -> void:
+	if severity_level < importance:
+		return
 	print(message)
 	_label.text += str(message) + "\n"
 	_label.lines_skipped = maxi(0, _label.text.count("\n") - _label.max_lines_visible)
@@ -24,23 +26,18 @@ func _write(message) -> void:
 
 
 func error(message) -> void:
-	if severity_level < Severity.ERROR:
-		return
-	_write(message)
+	_write(message, Severity.ERROR)
 
 func warning(message) -> void:
-	if severity_level < Severity.INFO:
-		return
-	_write(message)
+	_write(message, Severity.WARNING)
 
 func info(message) -> void:
-	if severity_level < Severity.INFO:
-		return
-	_write(message)
+	_write(message, Severity.INFO)
+
+func debug(message) -> void:
+	_write(message, Severity.DEBUG)
 
 func trace(message) -> void:
-	if severity_level < Severity.TRACE:
-		return
-	_write(message)
+	_write(message, Severity.TRACE)
 
 

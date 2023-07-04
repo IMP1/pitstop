@@ -5,7 +5,7 @@ signal fuel_spilled(pos, vel)
 @export var fuel_per_second: float = 10
 @export var ship_fuel_intake: FuelIntake
 @export var nozzle_slot: Interactable
-@export var nozzle: Tool
+@export var nozzle: Nozzle
 
 var _turned_on: bool = false
 var _spent_fuel: float = 0
@@ -42,6 +42,7 @@ func _process(delta: float) -> void:
 		_spent_fuel += amount
 		ship_fuel_intake.pump(amount)
 		if amount == 0 and _fluid_audio.playing:
+			Debug.info("[Fuel Motor] No more left to pump")
 			_fluid_audio.stop()
 		elif amount > 0 and not _fluid_audio.playing:
 			_fluid_audio.play()

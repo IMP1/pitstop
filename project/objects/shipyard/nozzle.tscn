@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwo5pvg2semkx"]
+
+[ext_resource type="PackedScene" uid="uid://t7wbwy1pdgdp" path="res://objects/tool.tscn" id="1_36v82"]
+[ext_resource type="Script" path="res://objects/shipyard/nozzle.gd" id="2_rk53m"]
+[ext_resource type="Texture2D" uid="uid://drrpx24ym0d6g" path="res://assets/ships/Ship5.png" id="3_n0y7p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgafs"]
+resource_local_to_scene = true
+size = Vector2(7, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xb5ab"]
+atlas = ExtResource("3_n0y7p")
+region = Rect2(52, 41, 14, 7)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q8lp3"]
+resource_local_to_scene = true
+radius = 12.0
+
+[node name="Nozzle" instance=ExtResource("1_36v82")]
+script = ExtResource("2_rk53m")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_wgafs")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = SubResource("AtlasTexture_xb5ab")
+
+[node name="CollisionShape2D" parent="GrabArea" index="0"]
+shape = SubResource("CircleShape2D_q8lp3")

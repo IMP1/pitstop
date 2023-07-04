@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwouhnpalyk1j"]
+
+[ext_resource type="PackedScene" uid="uid://t7wbwy1pdgdp" path="res://objects/tool.tscn" id="1_kr80j"]
+[ext_resource type="Script" path="res://objects/shipyard/patch.gd" id="2_qrf55"]
+[ext_resource type="Texture2D" uid="uid://drrpx24ym0d6g" path="res://assets/ships/Ship5.png" id="2_tc04y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lkdo8"]
+resource_local_to_scene = true
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxp11"]
+atlas = ExtResource("2_tc04y")
+region = Rect2(81, 62, 17, 17)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x6h8d"]
+resource_local_to_scene = true
+radius = 14.0
+
+[node name="Patch" instance=ExtResource("1_kr80j")]
+script = ExtResource("2_qrf55")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_lkdo8")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = SubResource("AtlasTexture_gxp11")
+
+[node name="CollisionShape2D" parent="GrabArea" index="0"]
+shape = SubResource("CircleShape2D_x6h8d")

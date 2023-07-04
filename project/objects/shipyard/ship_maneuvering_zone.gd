@@ -9,6 +9,7 @@ var _hazard_nodes: Dictionary = {}
 var _hazard_sprites: Dictionary = {}
 
 @onready var _hazard_indicators := $HazardIndicators as Node2D
+@onready var _instruction_label := $Label as Label
 
 
 func show_hazards() -> void:
@@ -20,7 +21,7 @@ func hide_hazards() -> void:
 
 
 func _body_entered(node: Node2D) -> void:
-	Debug.info("[SMZ] Body Entered (%s)" % node.name)
+	Debug.debug("[SMZ] Body Entered (%s)" % node.name)
 	var sprite := Sprite2D.new()
 	_hazard_indicators.add_child(sprite)
 	sprite.texture = hazard_icon
@@ -32,7 +33,7 @@ func _body_entered(node: Node2D) -> void:
 
 
 func _body_exited(node: Node2D) -> void:
-	Debug.info("[SMZ] Body Exited (%s)" % node.name)
+	Debug.debug("[SMZ] Body Exited (%s)" % node.name)
 	if _hazard_sprites.has(node):
 		var sprite := _hazard_sprites[node] as Sprite2D
 		_hazard_nodes.erase(sprite)
@@ -47,4 +48,5 @@ func _process(_delta) -> void:
 			sprite.global_position = node.global_position + hazard_offset
 		else:
 			Debug.error("[SMZ] There was a warning icon sprite not in the dictionary")
+	_instruction_label.visible = has_overlapping_bodies()
 

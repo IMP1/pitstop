@@ -1,6 +1,8 @@
 class_name HullCrack
 extends Interactable
 
+signal progress_changed(value)
+
 const UNPATCHED_FRAME = 0
 const PATCHED_FRAME = 1
 
@@ -25,9 +27,9 @@ func _ready():
 func interact(player: Player) -> void:
 	if _is_finished:
 		return
-	if not _has_patch and player.has_tool("Patch"):
+	if not _has_patch and player.current_tool() is Patch:
 		_apply_patch(player.get_tool("Patch"))
-	elif _has_patch and player.has_tool("Blowtorch"):
+	elif _has_patch and player.current_tool() is Blowtorch:
 		_start_welding(player.device_id)
 
 
@@ -71,3 +73,4 @@ func _process(delta: float) -> void:
 		_progress_bar.value = _progress_bar.max_value
 		_is_finished = true
 		_welding_audio.stop()
+	progress_changed.emit(_progress_bar.value / _progress_bar.max_value)
