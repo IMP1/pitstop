@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://d0fnyfjglery6"]
+[gd_scene load_steps=69 format=3 uid="uid://d0fnyfjglery6"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_77n8k"]
 [ext_resource type="Texture2D" uid="uid://hg70qgk1xe71" path="res://assets/backgrounds/Blue Nebula 6 - 1024x1024.png" id="1_cs1ea"]
@@ -33,7 +33,12 @@
 [ext_resource type="FontFile" uid="uid://0vh6csaq2gfa" path="res://assets/fonts/Bruno_Ace_SC/BrunoAceSC-Regular.ttf" id="28_aicjc"]
 [ext_resource type="Script" path="res://objects/shipyard/ship_maneuvering_zone.gd" id="28_fd3n4"]
 [ext_resource type="Texture2D" uid="uid://bbtfx5eqwa75h" path="res://assets/icons/hazard-sign.png" id="29_vnwkf"]
+[ext_resource type="Script" path="res://objects/shipyard/tool_station.gd" id="30_1rlo3"]
 [ext_resource type="Script" path="res://objects/components/patch_dispenser.gd" id="30_mm62e"]
+[ext_resource type="Texture2D" uid="uid://j7e6vmxvkxcr" path="res://assets/ships/conveyor.png" id="30_ued72"]
+[ext_resource type="Texture2D" uid="uid://dov3w0buupvge" path="res://assets/ships/tool_station.png" id="31_2ctx3"]
+[ext_resource type="AudioStream" uid="uid://fheewmp863nj" path="res://assets/sounds/error-warning-login-denied-trial-132113.mp3" id="31_fhe0a"]
+[ext_resource type="AudioStream" uid="uid://b4usds0sp276k" path="res://assets/sounds/laser-printer-31914.ogg" id="32_5naug"]
 [ext_resource type="Texture2D" uid="uid://c6lpbl81unq14" path="res://assets/ships/cracks.png" id="33_2e7pl"]
 [ext_resource type="Script" path="res://objects/components/ship_crack.gd" id="34_rgc4q"]
 [ext_resource type="PackedScene" uid="uid://p03y3l1mpyss" path="res://objects/ship_fault.tscn" id="36_lcqmr"]
@@ -94,12 +99,8 @@ repeat = 2
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rm2c3"]
 size = Vector2(639, 129)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5fh25"]
-atlas = ExtResource("22_leejl")
-region = Rect2(72, 40, 40, 48)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpfag"]
-size = Vector2(30, 30)
+size = Vector2(122, 20)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t6m4l"]
 resource_local_to_scene = true
@@ -471,56 +472,56 @@ shape = SubResource("RectangleShape2D_xdvd1")
 position = Vector2(646, 184)
 shape = SubResource("RectangleShape2D_xdvd1")
 
-[node name="FuelPump" type="Node2D" parent="Shipyard"]
+[node name="FuelStation" type="Node2D" parent="Shipyard"]
 position = Vector2(98, 20)
 
-[node name="NozzleSlot" parent="Shipyard/FuelPump" instance=ExtResource("12_26md6")]
+[node name="NozzleSlot" parent="Shipyard/FuelStation" instance=ExtResource("12_26md6")]
 position = Vector2(1, 34)
 script = ExtResource("11_miphq")
 
-[node name="CollisionShape2D" parent="Shipyard/FuelPump/NozzleSlot/Area2D" index="0"]
+[node name="CollisionShape2D" parent="Shipyard/FuelStation/NozzleSlot/Area2D" index="0"]
 shape = SubResource("CircleShape2D_7s5un")
 
-[node name="Pipe" type="Line2D" parent="Shipyard/FuelPump/NozzleSlot"]
+[node name="Pipe" type="Line2D" parent="Shipyard/FuelStation/NozzleSlot"]
 texture_repeat = 2
 points = PackedVector2Array(0, -34, 0, 0, 0, 0)
 texture = ExtResource("11_4okey")
 texture_mode = 1
 joint_mode = 2
 
-[node name="GrabNozzleAudio" type="AudioStreamPlayer2D" parent="Shipyard/FuelPump/NozzleSlot"]
+[node name="GrabNozzleAudio" type="AudioStreamPlayer2D" parent="Shipyard/FuelStation/NozzleSlot"]
 stream = ExtResource("16_iqlbm")
 bus = &"Sounds"
 
-[node name="DropNozzleAudio" type="AudioStreamPlayer2D" parent="Shipyard/FuelPump/NozzleSlot"]
+[node name="DropNozzleAudio" type="AudioStreamPlayer2D" parent="Shipyard/FuelStation/NozzleSlot"]
 stream = ExtResource("17_vemoy")
 bus = &"Sounds"
 
-[node name="Nozzle" parent="Shipyard/FuelPump/NozzleSlot" instance=ExtResource("18_aubvo")]
+[node name="Nozzle" parent="Shipyard/FuelStation/NozzleSlot" instance=ExtResource("18_aubvo")]
 
-[node name="PumpSwitch" parent="Shipyard/FuelPump" node_paths=PackedStringArray("ship_fuel_intake", "nozzle_slot", "nozzle") instance=ExtResource("12_26md6")]
+[node name="FuelPump" parent="Shipyard/FuelStation" node_paths=PackedStringArray("ship_fuel_intake", "nozzle_slot", "nozzle") instance=ExtResource("12_26md6")]
 position = Vector2(16, 6)
 script = ExtResource("17_6ykmh")
-fuel_cost = 10.0
+fuel_cost = 2.0
 fuel_per_second = 10.0
 ship_fuel_intake = NodePath("../../../Ship/TestShip/Components/FuelIntake")
 nozzle_slot = NodePath("../NozzleSlot")
 nozzle = NodePath("../NozzleSlot/Nozzle")
 
-[node name="SwitchOn" type="AudioStreamPlayer2D" parent="Shipyard/FuelPump/PumpSwitch"]
+[node name="SwitchOn" type="AudioStreamPlayer2D" parent="Shipyard/FuelStation/FuelPump"]
 stream = ExtResource("17_v3ua8")
 bus = &"Sounds"
 
-[node name="SwitchOff" type="AudioStreamPlayer2D" parent="Shipyard/FuelPump/PumpSwitch"]
+[node name="SwitchOff" type="AudioStreamPlayer2D" parent="Shipyard/FuelStation/FuelPump"]
 stream = ExtResource("18_f6mf5")
 bus = &"Sounds"
 
-[node name="Fluid" type="AudioStreamPlayer2D" parent="Shipyard/FuelPump/PumpSwitch"]
+[node name="Fluid" type="AudioStreamPlayer2D" parent="Shipyard/FuelStation/FuelPump"]
 stream = ExtResource("20_a5wp4")
 volume_db = -10.0
 bus = &"Sounds"
 
-[node name="Retractor" parent="Shipyard/FuelPump" node_paths=PackedStringArray("pipe", "nozzle", "nozzle_slot", "loose_tool_container") instance=ExtResource("12_26md6")]
+[node name="Retractor" parent="Shipyard/FuelStation" node_paths=PackedStringArray("pipe", "nozzle", "nozzle_slot", "loose_tool_container") instance=ExtResource("12_26md6")]
 position = Vector2(-13, 1)
 script = ExtResource("22_petaf")
 pipe = NodePath("../NozzleSlot/Pipe")
@@ -530,15 +531,15 @@ hold_to_interact = true
 retraction_speed = 48.0
 loose_tool_container = NodePath("../../../LooseTools")
 
-[node name="RayCast2D" type="RayCast2D" parent="Shipyard/FuelPump/Retractor"]
+[node name="RayCast2D" type="RayCast2D" parent="Shipyard/FuelStation/Retractor"]
 position = Vector2(14, 33)
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Shipyard/FuelPump/Retractor"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Shipyard/FuelStation/Retractor"]
 stream = ExtResource("23_6jed2")
 pitch_scale = 0.5
 bus = &"Sounds"
 
-[node name="Sprite2D" type="Sprite2D" parent="Shipyard/FuelPump"]
+[node name="Sprite2D" type="Sprite2D" parent="Shipyard/FuelStation"]
 position = Vector2(1, 17)
 rotation = 1.5708
 texture = SubResource("AtlasTexture_aione")
@@ -635,27 +636,49 @@ position = Vector2(538, -1)
 [node name="PatchDispenser" parent="Shipyard" instance=ExtResource("12_26md6")]
 position = Vector2(22, 208)
 script = ExtResource("30_mm62e")
-velocity = Vector2(2, 0)
+velocity = Vector2(0, 0)
 patch_price = 10.0
 recycled_patch_cost_reclaimed = 8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Shipyard/PatchDispenser"]
-position = Vector2(5, 16)
-texture = SubResource("AtlasTexture_5fh25")
+position = Vector2(-25, 13)
+texture = ExtResource("30_ued72")
 
 [node name="Output" type="Area2D" parent="Shipyard/PatchDispenser"]
-position = Vector2(25, 20)
+position = Vector2(21, 20)
 collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shipyard/PatchDispenser/Output"]
+position = Vector2(-51, 0)
 shape = SubResource("RectangleShape2D_xpfag")
+
+[node name="Input" type="Marker2D" parent="Shipyard/PatchDispenser"]
+position = Vector2(-78, 20)
+
+[node name="Failure" type="AudioStreamPlayer2D" parent="Shipyard/PatchDispenser"]
+stream = ExtResource("31_fhe0a")
+
+[node name="Generation" type="AudioStreamPlayer2D" parent="Shipyard/PatchDispenser"]
+stream = ExtResource("32_5naug")
+
+[node name="ToolStation" type="Node2D" parent="Shipyard"]
+position = Vector2(139, 339)
+script = ExtResource("30_1rlo3")
+
+[node name="Sprite2D" type="Sprite2D" parent="Shipyard/ToolStation"]
+texture = ExtResource("31_2ctx3")
+
+[node name="Blowtorch" parent="Shipyard/ToolStation" instance=ExtResource("37_7dyaj")]
+position = Vector2(-8, -12)
 
 [node name="Ship" type="Node2D" parent="."]
 position = Vector2(338, 188)
 
 [node name="TestShip" parent="Ship" instance=ExtResource("12_u0tyq")]
 position = Vector2(537, -129)
+repair_reward = 600.0
+early_bonus = 10.0
 
 [node name="CollisionPolygon2D" parent="Ship/TestShip" index="0"]
 scale = Vector2(0.5, 0.5)
@@ -709,13 +732,11 @@ device_id = 0
 
 [node name="LooseTools" type="Node2D" parent="."]
 
-[node name="Blowtorch" parent="LooseTools" instance=ExtResource("37_7dyaj")]
-position = Vector2(36, 267)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 
 [node name="Debrief" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("40_xmpib")
 
 [node name="ColorRect" type="ColorRect" parent="Debrief"]
@@ -859,8 +880,8 @@ layout_mode = 2
 focus_neighbor_bottom = NodePath("../Resume")
 text = "Exit"
 
-[connection signal="thrown" from="Shipyard/FuelPump/NozzleSlot/Nozzle" to="." method="_throw_tool"]
-[connection signal="fuel_spilled" from="Shipyard/FuelPump/PumpSwitch" to="." method="_add_particle" binds= [75, Color(0.376471, 0.188235, 0.419608, 1), 3.0]]
+[connection signal="thrown" from="Shipyard/FuelStation/NozzleSlot/Nozzle" to="." method="_throw_tool"]
+[connection signal="fuel_spilled" from="Shipyard/FuelStation/FuelPump" to="." method="_add_particle" binds= [75, Color(0.376471, 0.188235, 0.419608, 1), 3.0]]
 [connection signal="timelow" from="Shipyard/Clock" to="." method="_time_low"]
 [connection signal="timeout" from="Shipyard/Clock" to="." method="_repair_failure"]
 [connection signal="timeout" from="Shipyard/Clock/Timer" to="Shipyard/Clock" method="_timeout"]
@@ -868,13 +889,13 @@ text = "Exit"
 [connection signal="body_entered" from="Shipyard/ShipManeuveringZone" to="Shipyard/ShipManeuveringZone" method="_body_entered"]
 [connection signal="body_exited" from="Shipyard/ShipManeuveringZone" to="Shipyard/ShipManeuveringZone" method="_body_exited"]
 [connection signal="patch_released" from="Shipyard/PatchDispenser" to="." method="_add_tool"]
-[connection signal="thrown" from="LooseTools/Blowtorch" to="." method="_throw_tool"]
+[connection signal="thrown" from="Shipyard/ToolStation/Blowtorch" to="." method="_throw_tool"]
 [connection signal="pressed" from="Menu/Options/Resume" to="." method="_resume"]
 [connection signal="pressed" from="Menu/Options/RemoveInput" to="." method="_remove_player"]
 [connection signal="pressed" from="Menu/Options/Settings" to="." method="_settings"]
 [connection signal="pressed" from="Menu/Options/Quit" to="." method="_quit"]
 
-[editable path="Shipyard/FuelPump/NozzleSlot"]
+[editable path="Shipyard/FuelStation/NozzleSlot"]
 [editable path="Ship/TestShip"]
 [editable path="Ship/TestShip/Components/Crack2"]
 [editable path="Ship/TestShip/Components/FuelIntake"]

@@ -32,7 +32,10 @@
 
 [Splash Screen Animation](http://cargocollective.com/laurarobinson/About-Contact)
 
-[Ticking Sound](https://pixabay.com/sound-effects/ticking-clock-1-27477/)
+[Error Sound](https://pixabay.com/sound-effects/error-warning-login-denied-trial-132113/)
+[Dispenser Sound](https://pixabay.com/sound-effects/laser-printer-31914/)
+
+[Ticking Sound](https://pixabay.com/sound-effects/ticking-clock-1-27477/) (Unused I think?)
 
 
 

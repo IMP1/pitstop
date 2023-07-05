@@ -4,12 +4,19 @@ extends CanvasLayer
 signal confirmed
 
 @export var negative_colour: Color = Color.DARK_RED
+@export var result: String: 
+	set = _set_result
 
 var _running_total: float = 0.0
 var _confirmation_devices: Dictionary = {}
 
+@onready var _result := $Contents/Result as Label
 @onready var _tally := $Contents/Tally as VBoxContainer 
 @onready var _confirmations := $Contents/Confirmation/PlayersConfirmed as HBoxContainer
+
+
+func _set_result(new_result: String) -> void:
+	_result.text = new_result
 
 
 func _add_item(message: String, amount: float, loss:=false) -> void:
@@ -48,7 +55,7 @@ func add_break() -> void:
 
 
 func add_total(message: String = "Total") -> void:
-	_add_item(message, _running_total, _running_total < 0)
+	_add_item(message, absf(_running_total), _running_total < 0)
 
 
 func set_players_to_confirm(players: Array[Player]) -> void:
@@ -77,5 +84,5 @@ func _input(event: InputEvent) -> void:
 				break
 		if all_confirmed:
 			Debug.info("[Debrief] All players confirmed")
+			await get_tree().create_timer(0.2).timeout
 			confirmed.emit()
-

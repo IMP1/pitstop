@@ -26,8 +26,9 @@ var _is_ship_moving: bool = false
 # Shipyard Components
 @onready var _patch_dispenser := $Shipyard/PatchDispenser as PatchDispenser
 @onready var _ship_maneuvering_zone := $Shipyard/ShipManeuveringZone as ShipManeuveringZone
-@onready var _fuel_pump := $Shipyard/FuelPump/PumpSwitch as FuelPump
+@onready var _fuel_pump := $Shipyard/FuelStation/FuelPump as FuelPump
 @onready var _clock := $Shipyard/Clock as ShipyardClock
+@onready var _tool_station := $Shipyard/ToolStation as ToolStation
 
 
 func _ready() -> void:
@@ -81,6 +82,7 @@ func _setup_ship() -> void:
 func _begin() -> void:
 	_countdown_timer.start()
 	await _countdown_timer.timeout
+	_tool_station.release_tools()
 	await _ship_enter()
 	_setup_ship()
 	_ship_maneuvering_zone.visible = false
@@ -167,6 +169,7 @@ func _show_debrief() -> void:
 	var ship := $Ship.get_child(0) as Ship
 	var success := _repair_progress() >= 1.0
 	var result := "Success" if success else "Failure"
+	_debrief.result = result
 	if success:
 		_debrief.add_gain("Repair Job", ship.repair_reward)
 		_debrief.add_break()
@@ -174,9 +177,9 @@ func _show_debrief() -> void:
 	if _patch_dispenser.patches_created > 0:
 		var cost := _patch_dispenser.patches_created * _patch_dispenser.patch_price
 		_debrief.add_loss("Patches x%d" % _patch_dispenser.patches_created, cost)
-		if _patch_dispenser.recycled_patch_cost_reclaimed > 0:
-			pass # TODO: Get how many were unused (either children of loose-tools or a player)
-			var reclaimed := 0
+		pass # TODO: Get how many were unused (either children of loose-tools or a player)
+		var reclaimed := 0
+		if _patch_dispenser.recycled_patch_cost_reclaimed > 0 and reclaimed > 0:
 			var recouped := reclaimed * _patch_dispenser.recycled_patch_cost_reclaimed
 			_debrief.add_gain("Patches Recycled x%d" % reclaimed, recouped)
 	
@@ -199,6 +202,7 @@ func _show_debrief() -> void:
 	_debrief.visible = true
 	
 	await _debrief.confirmed
+	_debrief.visible = false
 
 
 func _process(_delta: float) -> void:
