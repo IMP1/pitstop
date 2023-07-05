@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://p03y3l1mpyss"]
+[gd_scene load_steps=5 format=3 uid="uid://p03y3l1mpyss"]
 
-[ext_resource type="PackedScene" uid="uid://bewn521oc6sby" path="res://objects/interactable.tscn" id="1_6hdsi"]
 [ext_resource type="Script" path="res://objects/ship_fault.gd" id="2_sip31"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ge7l6"]
@@ -18,17 +17,25 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.878431, 0.878431, 0.878431, 1)
 
-[node name="ShipFault" instance=ExtResource("1_6hdsi")]
+[node name="ShipFault" type="Node2D"]
 script = ExtResource("2_sip31")
 
-[node name="CollisionShape2D" parent="Area2D" index="0"]
-shape = SubResource("CircleShape2D_ge7l6")
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
 
-[node name="ProgressBar" type="ProgressBar" parent="." index="1"]
-offset_left = -43.0
-offset_top = -51.0
-offset_right = 42.0
-offset_bottom = -37.0
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ge7l6")
+debug_color = Color(0.713726, 0.262745, 1, 0)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+offset_left = -18.0
+offset_top = -14.0
+offset_right = 18.0
+offset_bottom = -8.0
 theme_override_styles/background = SubResource("StyleBoxFlat_tj3gi")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ful46")
 show_percentage = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,7 +1,5 @@
 class_name HullCrack
-extends Interactable
-
-signal progress_changed(value)
+extends ShipFault
 
 const UNPATCHED_FRAME = 0
 const PATCHED_FRAME = 1
@@ -13,8 +11,6 @@ var _is_welding: bool = false
 var _device_interacting: int
 var _is_finished: bool = false
 
-@onready var _sprite := $Sprite2D as Sprite2D
-@onready var _progress_bar := $ProgressBar as ProgressBar
 @onready var _welding_audio := $WeldingAudio as AudioStreamPlayer2D
 
 
@@ -73,4 +69,5 @@ func _process(delta: float) -> void:
 		_progress_bar.value = _progress_bar.max_value
 		_is_finished = true
 		_welding_audio.stop()
+		_progress_bar.visible = false
 	progress_changed.emit(_progress_bar.value / _progress_bar.max_value)

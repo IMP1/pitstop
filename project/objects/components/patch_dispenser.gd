@@ -1,13 +1,17 @@
+class_name PatchDispenser
 extends Interactable
 
 signal patch_released(patch)
 
 const PATCH_OBJECT = preload("res://objects/shipyard/patch.tscn")
 
-@export var spawn_area: Area2D
 @export var velocity: Vector2
+@export var patch_price: float = 10.0
+@export var recycled_patch_cost_reclaimed: float = 8.0
 
 var patches_created: int = 0
+
+@onready var spawn_area := $Output as Area2D
 
 
 func _spawn_area_clear() -> bool:

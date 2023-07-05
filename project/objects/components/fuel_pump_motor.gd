@@ -1,14 +1,16 @@
+class_name FuelPump
 extends Interactable
 
 signal fuel_spilled(pos, vel)
 
+@export var fuel_cost: float = 10
 @export var fuel_per_second: float = 10
-@export var ship_fuel_intake: FuelIntake
+@export var ship_fuel_intake: FuelIntake # TODO: How will this be set? In the Game script?
 @export var nozzle_slot: Interactable
 @export var nozzle: Nozzle
 
+var spent_fuel: float = 0
 var _turned_on: bool = false
-var _spent_fuel: float = 0
 
 @onready var _switch_on_audio := $SwitchOn as AudioStreamPlayer2D
 @onready var _switch_off_audio := $SwitchOff as AudioStreamPlayer2D
@@ -21,25 +23,29 @@ func interact(_player: Player) -> void:
 	if _turned_on:
 		_switch_on_audio.play()
 		_fluid_audio.play()
+		if not ship_fuel_intake:
+			Debug.warning("[Fuel Motor] No 'Ship Fuel Intake' found")
+			return
 		ship_fuel_intake.show_progress = true
 	else:
 		_switch_off_audio.play()
 		_fluid_audio.stop()
+		if not ship_fuel_intake:
+			Debug.warning("[Fuel Motor] No 'Ship Fuel Intake' found")
+			return
 		ship_fuel_intake.show_progress = false
-
-
-func _valid_nozzle_location() -> bool:
-	# TODO: Where the nozzle starts (and can be returned to) is also a valid nozzle location
-	return nozzle.get_parent() is FuelIntake
 
 
 func _process(delta: float) -> void:
 	if not _turned_on:
 		return
+	if not ship_fuel_intake:
+		Debug.warning("[Fuel Motor] No 'Ship Fuel Intake' found")
+		return
 	if nozzle.get_parent() is FuelIntake:
 		var remaining_capacity := ship_fuel_intake.capacity - ship_fuel_intake.fill_level
 		var amount := minf(fuel_per_second * delta, remaining_capacity)
-		_spent_fuel += amount
+		spent_fuel += amount
 		ship_fuel_intake.pump(amount)
 		if amount == 0 and _fluid_audio.playing:
 			Debug.info("[Fuel Motor] No more left to pump")
@@ -47,7 +53,7 @@ func _process(delta: float) -> void:
 		elif amount > 0 and not _fluid_audio.playing:
 			_fluid_audio.play()
 	elif not nozzle.get_parent() == nozzle_slot:
-		_spent_fuel += fuel_per_second * delta
+		spent_fuel += fuel_per_second * delta
 		fuel_spilled.emit(nozzle.global_position, Vector2.LEFT.rotated(nozzle.rotation) * 12)
 		if not _fluid_audio.playing:
 			_fluid_audio.play()

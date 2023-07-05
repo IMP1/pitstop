@@ -15,24 +15,28 @@ var _is_ship_moving: bool = false
 @onready var _players = $Players as Node2D
 @onready var _loose_tools := $LooseTools as Node2D
 @onready var _menu := $Menu as CanvasLayer
-@onready var _menu_colour := $Menu/ColorRect/Options/ColorRect as ColorRect
-@onready var _menu_selection := $Menu/ColorRect/Options/Resume as Button
+@onready var _debrief := $Debrief as Debrief
+@onready var _menu_colour := $Menu/Options/ColorRect as ColorRect
+@onready var _menu_selection := $Menu/Options/Resume as Button
 @onready var _player_spawns := $PlayerSpawns as Node2D
+@onready var _ship_container := $Ship as Node2D
 @onready var _klaxon := $Shipyard/Clock/Klaxon as AudioStreamPlayer2D
-@onready var _ship_maneuvering_zone := $Shipyard/ShipManeuveringZone as Area2D
-@onready var _smz_barriers := $Shipyard/ShipManeuveringZone/Barriers/CollisionShape2D as CollisionShape2D
+@onready var _countdown_timer := $Shipyard/Clock/CountdownTimer as Timer
+
+# Shipyard Components
+@onready var _patch_dispenser := $Shipyard/PatchDispenser as PatchDispenser
+@onready var _ship_maneuvering_zone := $Shipyard/ShipManeuveringZone as ShipManeuveringZone
+@onready var _fuel_pump := $Shipyard/FuelPump/PumpSwitch as FuelPump
 @onready var _clock := $Shipyard/Clock as ShipyardClock
-@onready var _ship_container := $Ship
 
 
 func _ready() -> void:
 	_menu.visible = false
+	_debrief.visible = false
 	for player in $Players.get_children():
 		(player as Player).accellerated.connect(_add_particle)
 		_device_players[player.device_id] = player
 	_begin()
-	for job in _ship_container.get_child(0).get_node("Components").get_children():
-		_job_progresses.append(0)
 
 
 func _add_player(device_id: int) -> void:
@@ -65,11 +69,22 @@ func _throw_tool(tool: Tool, _position: Vector2, velocity: Vector2) -> void:
 	tool.velocity = velocity
 
 
+func _setup_ship() -> void:
+	var ship := _ship_container.get_child(0) as Ship
+	for i in ship.get_node("Components").get_child_count():
+		var job := ship.get_node("Components").get_child(i) as ShipFault
+		_job_progresses.append(0)
+		job.progress_changed.connect(_update_repair_progress.bind(i))
+	_clock.time_limit = ship.time_limit
+
+
 func _begin() -> void:
+	_countdown_timer.start()
+	await _countdown_timer.timeout
 	await _ship_enter()
-	_klaxon.play()
+	_setup_ship()
 	_ship_maneuvering_zone.visible = false
-	_smz_barriers.disabled = true
+	_ship_maneuvering_zone.lower_barriers()
 	_clock.begin()
 
 
@@ -82,30 +97,51 @@ func _repair_success() -> void:
 	_clock.stop()
 	_is_level_over = true
 	Debug.info("[Game] Mission Success!")
-	_ship_exit()
-	# TODO: Show a debrief and losses/gains
+	await _ship_exit()
+	await _show_debrief()
+	# TODO: End the level
 
 
 func _repair_failure() -> void:
 	_is_level_over = true
 	Debug.info("[Game] Mission Failure")
-	# YOU LOSE! It's harsh, but I think better than just waiting for you to complete
-	# TODO: Show a debrief and losses/gains
+	_ship_exit()
+	await _show_debrief()
+	# TODO: End the level
 
 
 func _ship_enter() -> void:
-	Debug.info("[Game] Ship entering")
+	Debug.debug("[Game] Ship entering")
 	_is_ship_moving = true
-	await get_tree().create_timer(1.0).timeout
-	# TODO: Bring in the ship
+	var ship := _ship_container.get_child(0) as Ship
+	ship.global_position = _ship_maneuvering_zone.get_outside_position()
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_EXPO)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(ship, "position", Vector2.ZERO, 2.0)
+	# TODO: Set ease
+	await tween.finished
+	# TODO: Have some animation? A clamping thing?
+	_countdown_timer.start()
+	await _countdown_timer.timeout
 	_is_ship_moving = false
+	_klaxon.play()
 
 
 func _ship_exit() -> void:
 	Debug.info("[Game] Ship exiting")
+	_klaxon.play()
 	_is_ship_moving = true
-	await get_tree().create_timer(1.0).timeout
-	# TODO: Send out the ship
+	# TODO: Have some animation? An unclamping thing?
+	_countdown_timer.start()
+	await _countdown_timer.timeout
+	var ship := _ship_container.get_child(0) as Ship
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_IN)
+	tween.tween_property(ship, "global_position", _ship_maneuvering_zone.get_outside_position(), 2.0)
+	# TODO: Set ease
+	await tween.finished
 	_is_ship_moving = false
 
 
@@ -127,17 +163,54 @@ func _is_smz_clear() -> bool:
 	return not _ship_maneuvering_zone.has_overlapping_bodies()
 
 
+func _show_debrief() -> void:
+	var ship := $Ship.get_child(0) as Ship
+	var success := _repair_progress() >= 1.0
+	var result := "Success" if success else "Failure"
+	if success:
+		_debrief.add_gain("Repair Job", ship.repair_reward)
+		_debrief.add_break()
+		
+	if _patch_dispenser.patches_created > 0:
+		var cost := _patch_dispenser.patches_created * _patch_dispenser.patch_price
+		_debrief.add_loss("Patches x%d" % _patch_dispenser.patches_created, cost)
+		if _patch_dispenser.recycled_patch_cost_reclaimed > 0:
+			pass # TODO: Get how many were unused (either children of loose-tools or a player)
+			var reclaimed := 0
+			var recouped := reclaimed * _patch_dispenser.recycled_patch_cost_reclaimed
+			_debrief.add_gain("Patches Recycled x%d" % reclaimed, recouped)
+	
+	if _fuel_pump.spent_fuel > 0:
+		var cost := _fuel_pump.spent_fuel * _fuel_pump.fuel_cost
+		_debrief.add_loss("Fuel", cost)
+	
+	var time_left := _clock.time_left()
+	if time_left > 0:
+		var bonus := time_left * ship.early_bonus
+		_debrief.add_gain("Finished Early", bonus)
+	
+	_debrief.add_break()
+	_debrief.add_total()
+	
+	var players := [] as Array[Player]
+	for p in _players.get_children():
+		players.append(p as Player)
+	_debrief.set_players_to_confirm(players)
+	_debrief.visible = true
+	
+	await _debrief.confirmed
+
+
 func _process(_delta: float) -> void:
 	if _is_level_over:
 		return
 	if _is_ship_moving:
 		return
 	if _repair_progress() >= 1.0:
-		if _is_smz_clear() and _smz_barriers.disabled:
-			_smz_barriers.disabled = false
+		_ship_maneuvering_zone.visible = true
+		if _is_smz_clear() and not _ship_maneuvering_zone.is_barrier_raised():
+			_ship_maneuvering_zone.raise_barriers()
 			_repair_success()
-		elif not _ship_maneuvering_zone.visible:
-			_ship_maneuvering_zone.visible = true
 
 
 func _input(event: InputEvent) -> void:
@@ -152,6 +225,7 @@ func _input(event: InputEvent) -> void:
 		else:
 			_open_menu(_device_players[event.device])
 	if event.is_action_pressed("DEBUG_win_level"):
+		Debug.info("[Game] There is no cow level")
 		for i in _job_progresses.size():
 			_job_progresses[i] = 1.0
 

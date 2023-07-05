@@ -1,7 +1,5 @@
 class_name FuelIntake
-extends Interactable
-
-signal progress_changed(value)
+extends ShipFault
 
 @export var capacity: float = 100
 
@@ -16,7 +14,6 @@ var fill_level: float = 0
 
 @onready var _insertion_point := $InsertionPoint as Node2D
 @onready var _attach_nozzle_audio := $AttachAudio as AudioStreamPlayer2D
-@onready var _progress_bar := $ProgressBar as ProgressBar
 
 
 func _ready() -> void:

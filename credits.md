@@ -31,3 +31,8 @@
 [Welding](https://pixabay.com/sound-effects/lassen-35052/)
 
 [Splash Screen Animation](http://cargocollective.com/laurarobinson/About-Contact)
+
+[Ticking Sound](https://pixabay.com/sound-effects/ticking-clock-1-27477/)
+
+
+

@@ -1,3 +1,4 @@
+class_name ShipManeuveringZone
 extends Area2D
 
 @export var hazard_icon: Texture2D
@@ -10,6 +11,8 @@ var _hazard_sprites: Dictionary = {}
 
 @onready var _hazard_indicators := $HazardIndicators as Node2D
 @onready var _instruction_label := $Label as Label
+@onready var _barriers := $Barriers/CollisionShape2D as CollisionShape2D
+@onready var _outside := $Exit as Node2D
 
 
 func show_hazards() -> void:
@@ -18,6 +21,22 @@ func show_hazards() -> void:
 
 func hide_hazards() -> void:
 	_hazard_indicators.visible = false
+
+
+func is_barrier_raised() -> bool:
+	return not _barriers.disabled
+
+
+func raise_barriers() -> void:
+	_barriers.disabled = false
+
+
+func lower_barriers() -> void:
+	_barriers.disabled = true
+
+
+func get_outside_position() -> Vector2:
+	return _outside.global_position
 
 
 func _body_entered(node: Node2D) -> void:
