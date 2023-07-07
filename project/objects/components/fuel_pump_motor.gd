@@ -3,6 +3,9 @@ extends Interactable
 
 signal fuel_spilled(pos, vel)
 
+const FRAME_OFF = 0
+const FRAME_ON = 1
+
 @export var fuel_cost: float = 10
 @export var fuel_per_second: float = 10
 @export var ship_fuel_intake: FuelIntake # TODO: How will this be set? In the Game script?
@@ -15,6 +18,7 @@ var _turned_on: bool = false
 @onready var _switch_on_audio := $SwitchOn as AudioStreamPlayer2D
 @onready var _switch_off_audio := $SwitchOff as AudioStreamPlayer2D
 @onready var _fluid_audio := $Fluid as AudioStreamPlayer2D
+@onready var _switch_sprite := $SwitchSprite as Sprite2D
 
 
 func interact(_player: Player) -> void:
@@ -27,6 +31,7 @@ func interact(_player: Player) -> void:
 			Debug.warning("[Fuel Motor] No 'Ship Fuel Intake' found")
 			return
 		ship_fuel_intake.show_progress = true
+		_switch_sprite.frame = FRAME_ON
 	else:
 		_switch_off_audio.play()
 		_fluid_audio.stop()
@@ -34,6 +39,7 @@ func interact(_player: Player) -> void:
 			Debug.warning("[Fuel Motor] No 'Ship Fuel Intake' found")
 			return
 		ship_fuel_intake.show_progress = false
+		_switch_sprite.frame = FRAME_OFF
 
 
 func _process(delta: float) -> void:

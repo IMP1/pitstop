@@ -1,15 +1,15 @@
 [gd_scene load_steps=8 format=3 uid="uid://bqcjgp7k2susp"]
 
 [ext_resource type="Script" path="res://objects/player.gd" id="1_77f0j"]
-[ext_resource type="Texture2D" uid="uid://qotbv7bwjxk3" path="res://assets/characters/buddie0 sprite sheet x1.png" id="1_yoku2"]
+[ext_resource type="Texture2D" uid="uid://dusjkb5qu2e4f" path="res://assets/characters/players.png" id="2_qw6so"]
 [ext_resource type="AudioStream" uid="uid://dnamrdb0k2jjb" path="res://assets/sounds/good-jetpack-sound-loop-96693.mp3" id="3_nulyg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jcba"]
 size = Vector2(10, 13)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uyllt"]
-atlas = ExtResource("1_yoku2")
-region = Rect2(0, 424, 128, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_0x146"]
+atlas = ExtResource("2_qw6so")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_liy3i"]
 radius = 11.0
@@ -28,8 +28,8 @@ position = Vector2(-1, -2.5)
 shape = SubResource("RectangleShape2D_5jcba")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_uyllt")
-hframes = 4
+position = Vector2(-1, -3)
+texture = SubResource("AtlasTexture_0x146")
 
 [node name="GrabRange" type="Area2D" parent="."]
 position = Vector2(0, -3)

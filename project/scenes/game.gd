@@ -1,3 +1,4 @@
+class_name GameScene
 extends Node2D
 
 const PLAYER = preload("res://objects/player.tscn")
@@ -5,6 +6,7 @@ const PARTICLE = preload("res://objects/particle.tscn")
 
 @export var particle_texture: Texture2D
 @export var player_colours: Array[Color]
+@export var player_sprites: Array[Texture2D]
 
 var _device_players: Dictionary = {}
 var _job_progresses: Array[float] = []
@@ -80,9 +82,9 @@ func _setup_ship() -> void:
 
 
 func _begin() -> void:
+	_tool_station.release_tools()
 	_countdown_timer.start()
 	await _countdown_timer.timeout
-	_tool_station.release_tools()
 	await _ship_enter()
 	_setup_ship()
 	_ship_maneuvering_zone.visible = false
@@ -101,6 +103,8 @@ func _repair_success() -> void:
 	Debug.info("[Game] Mission Success!")
 	await _ship_exit()
 	await _show_debrief()
+	_ship_maneuvering_zone.visible = false
+	_ship_maneuvering_zone.lower_barriers()
 	# TODO: End the level
 
 
@@ -109,6 +113,8 @@ func _repair_failure() -> void:
 	Debug.info("[Game] Mission Failure")
 	_ship_exit()
 	await _show_debrief()
+	_ship_maneuvering_zone.visible = false
+	_ship_maneuvering_zone.lower_barriers()
 	# TODO: End the level
 
 

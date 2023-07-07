@@ -3,10 +3,16 @@ extends Interactable
 var _last_nozzle_position: Vector2
 var _nozzle_initial_position: Vector2
 
-@onready var _nozzle := $Nozzle as Tool
+@onready var _nozzle := $Nozzle as Nozzle
 @onready var _pipe := $Pipe as Line2D
 @onready var _grab_sound := $GrabNozzleAudio as AudioStreamPlayer2D
 @onready var _drop_sound := $DropNozzleAudio as AudioStreamPlayer2D
+
+
+func _ready() -> void:
+	_nozzle_initial_position = _nozzle.position
+	_last_nozzle_position = _pipe.get_point_position(1)
+	_nozzle.set_highlight(false)
 
 
 func interact(player: Player) -> void:
@@ -28,11 +34,6 @@ func _nozzle_returned() -> void:
 	_nozzle.reparent(self)
 	_nozzle.position = _nozzle_initial_position
 	_nozzle.velocity = Vector2.ZERO
-
-
-func _ready() -> void:
-	_nozzle_initial_position = _nozzle.position
-	_last_nozzle_position = _pipe.get_point_position(1)
 
 
 func _process(delta: float) -> void:

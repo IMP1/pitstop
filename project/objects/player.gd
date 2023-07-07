@@ -24,6 +24,10 @@ const PROPULSION_PARTICLE_SPEED = 16
 @onready var _jetpack_audio := $Jetpack/Audio as AudioStreamPlayer2D
 
 
+func set_sprite(tex: Texture2D) -> void:
+	_sprite.texture = tex
+
+
 func _ready() -> void:
 	if device_id >= 0:
 		InputManager.register_gamepad(device_id)

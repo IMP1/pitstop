@@ -13,6 +13,7 @@ var _last_retraction_direction: Vector2
 
 @onready var _raycast := $RayCast2D as RayCast2D
 @onready var _audio := $AudioStreamPlayer2D as AudioStreamPlayer2D
+@onready var _wheel_sprite := $WheelSprite as AnimatedSprite2D
 
 
 func interact(player: Player) -> void:
@@ -36,6 +37,7 @@ func _start_retracting(device_id: int) -> void:
 	_device_interacting = device_id
 	nozzle.velocity = Vector2.ZERO
 	_audio.play()
+	_wheel_sprite.play(&"default")
 
 
 func _stop_retracting() -> void:
@@ -43,6 +45,7 @@ func _stop_retracting() -> void:
 	_retracting = false
 	nozzle.velocity = _last_retraction_direction.normalized() * retraction_speed * 0.2
 	_audio.stop()
+	_wheel_sprite.stop()
 
 
 func _is_nozzle_fixed() -> bool:

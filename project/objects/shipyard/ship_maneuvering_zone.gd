@@ -10,7 +10,7 @@ var _hazard_nodes: Dictionary = {}
 var _hazard_sprites: Dictionary = {}
 
 @onready var _hazard_indicators := $HazardIndicators as Node2D
-@onready var _instruction_label := $Label as Label
+@onready var _instruction_label := $Warning as Label
 @onready var _barriers := $Barriers/CollisionShape2D as CollisionShape2D
 @onready var _outside := $Exit as Node2D
 
