@@ -11,6 +11,8 @@ signal timelow
 @onready var _timer := $Timer as Timer
 @onready var _warning_timer := $WarningTimer as Timer
 @onready var _label := $Label as Label
+@onready var _buzzer := $Buzzer as AnimatedSprite2D
+@onready var _light := $Buzzer/PointLight2D as PointLight2D
 
 
 func begin() -> void:
@@ -40,3 +42,16 @@ func _timelow() -> void:
 
 func _timeout() -> void:
 	timeout.emit()
+
+
+func start_flashing() -> void:
+	pass
+#	_buzzer.play(&"flash")
+#	_light.visible = true
+
+
+func stop_flashing() -> void:
+	pass
+#	_buzzer.play(&"default")
+#	_light.visible = false
+

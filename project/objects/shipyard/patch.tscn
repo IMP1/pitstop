@@ -1,16 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwouhnpalyk1j"]
+[gd_scene load_steps=8 format=3 uid="uid://bwouhnpalyk1j"]
 
 [ext_resource type="PackedScene" uid="uid://t7wbwy1pdgdp" path="res://objects/tool.tscn" id="1_kr80j"]
 [ext_resource type="Script" path="res://objects/shipyard/patch.gd" id="2_qrf55"]
-[ext_resource type="Texture2D" uid="uid://drrpx24ym0d6g" path="res://assets/ships/Ship5.png" id="2_tc04y"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="3_kbpkb"]
+[ext_resource type="Texture2D" uid="uid://c702un3gpqbwr" path="res://assets/ships/patch.png" id="4_f55wi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lkdo8"]
 resource_local_to_scene = true
 size = Vector2(16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gxp11"]
-atlas = ExtResource("2_tc04y")
-region = Rect2(81, 62, 17, 17)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_67vt6"]
+resource_local_to_scene = true
+shader = ExtResource("3_kbpkb")
+shader_parameter/color = Color(1, 1, 1, 0)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x6h8d"]
 resource_local_to_scene = true
@@ -23,7 +29,8 @@ script = ExtResource("2_qrf55")
 shape = SubResource("RectangleShape2D_lkdo8")
 
 [node name="Sprite2D" parent="." index="1"]
-texture = SubResource("AtlasTexture_gxp11")
+material = SubResource("ShaderMaterial_67vt6")
+texture = ExtResource("4_f55wi")
 
 [node name="CollisionShape2D" parent="GrabArea" index="0"]
 shape = SubResource("CircleShape2D_x6h8d")

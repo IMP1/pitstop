@@ -60,7 +60,8 @@ func _process(delta: float) -> void:
 			_fluid_audio.play()
 	elif not nozzle.get_parent() == nozzle_slot:
 		spent_fuel += fuel_per_second * delta
-		fuel_spilled.emit(nozzle.global_position, Vector2.LEFT.rotated(nozzle.rotation) * 12)
+		fuel_spilled.emit(nozzle.global_position, Vector2.ONE.rotated(nozzle.rotation + PI / 2) * 18)
+		fuel_spilled.emit(nozzle.global_position, Vector2.ONE.rotated(nozzle.rotation + PI / 2) * 12)
 		if not _fluid_audio.playing:
 			_fluid_audio.play()
 	elif nozzle.get_parent() == nozzle_slot and _fluid_audio.playing:

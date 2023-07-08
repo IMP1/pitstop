@@ -37,12 +37,16 @@ func _nozzle_returned() -> void:
 
 
 func _process(delta: float) -> void:
+	if _nozzle.position == _nozzle_initial_position:
+		return
 	_extend_pipe(delta)
 
 
 func _extend_pipe(_delta: float) -> void:
 	var pos := _pipe.to_local(_nozzle.global_position)
+	var movement := pos - _last_nozzle_position
 	if pos.distance_squared_to(_last_nozzle_position) > 64:
 		_pipe.add_point(pos, _pipe.get_point_count() - 1)
 		_last_nozzle_position = pos
 	_pipe.set_point_position(_pipe.get_point_count() - 1, pos)
+	_nozzle.rotation = movement.angle() + deg_to_rad(225)

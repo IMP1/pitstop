@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://d0fnyfjglery6"]
+[gd_scene load_steps=97 format=3 uid="uid://d0fnyfjglery6"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_77n8k"]
 [ext_resource type="Texture2D" uid="uid://hg70qgk1xe71" path="res://assets/backgrounds/Blue Nebula 6 - 1024x1024.png" id="1_cs1ea"]
@@ -26,7 +26,6 @@
 [ext_resource type="AudioStream" uid="uid://ceh7lqd4k5w7e" path="res://assets/sounds/switch_off.ogg" id="18_f6mf5"]
 [ext_resource type="AudioStream" uid="uid://c3agy2owt28hg" path="res://assets/sounds/viscous-liquid-fall-in-83980.mp3" id="20_a5wp4"]
 [ext_resource type="Script" path="res://objects/components/ship_fuel_intake.gd" id="20_s118x"]
-[ext_resource type="Texture2D" uid="uid://2kg7rhaemmeb" path="res://assets/ships/Ship4.png" id="22_leejl"]
 [ext_resource type="Script" path="res://objects/components/fuel_pipe_retractor.gd" id="22_petaf"]
 [ext_resource type="AudioStream" uid="uid://4nkyrw4cvbnw" path="res://assets/sounds/spinning-reel-27903.ogg" id="23_6jed2"]
 [ext_resource type="Texture2D" uid="uid://u1egwq0i2t1f" path="res://assets/ships/fuel_pump.png" id="24_ebxil"]
@@ -40,7 +39,9 @@
 [ext_resource type="Texture2D" uid="uid://j7e6vmxvkxcr" path="res://assets/ships/conveyor.png" id="30_ued72"]
 [ext_resource type="Texture2D" uid="uid://dov3w0buupvge" path="res://assets/ships/tool_station.png" id="31_2ctx3"]
 [ext_resource type="AudioStream" uid="uid://fheewmp863nj" path="res://assets/sounds/error-warning-login-denied-trial-132113.mp3" id="31_fhe0a"]
+[ext_resource type="Texture2D" uid="uid://b5poin3uc11l" path="res://assets/ships/clock.png" id="31_nijq8"]
 [ext_resource type="AudioStream" uid="uid://b4usds0sp276k" path="res://assets/sounds/laser-printer-31914.ogg" id="32_5naug"]
+[ext_resource type="Texture2D" uid="uid://cjpdjgo1jnm2x" path="res://assets/ships/light.png" id="32_5wipy"]
 [ext_resource type="Texture2D" uid="uid://c6lpbl81unq14" path="res://assets/ships/cracks.png" id="33_2e7pl"]
 [ext_resource type="Script" path="res://objects/components/ship_crack.gd" id="34_rgc4q"]
 [ext_resource type="PackedScene" uid="uid://p03y3l1mpyss" path="res://objects/ship_fault.tscn" id="36_lcqmr"]
@@ -49,6 +50,7 @@
 [ext_resource type="Script" path="res://objects/shipyard/uniform_station.gd" id="37_te6ei"]
 [ext_resource type="Texture2D" uid="uid://c6fcmdi0hw2uq" path="res://assets/ships/lockers.png" id="38_8hh14"]
 [ext_resource type="Script" path="res://gui/debrief.gd" id="40_xmpib"]
+[ext_resource type="Texture2D" uid="uid://jece3whe1fxo" path="res://assets/ships/Ship3_thrusters.png" id="49_k1d1g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwaia"]
 atlas = ExtResource("3_gfman")
@@ -76,7 +78,7 @@ region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2j4ni"]
 atlas = ExtResource("2_rive1")
-region = Rect2(256, 96, 128, 128)
+region = Rect2(257, 96, 127, 128)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_43ujk"]
@@ -136,14 +138,48 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7s5un"]
 resource_local_to_scene = true
-radius = 16.0
+radius = 12.0416
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85w6d"]
 size = Vector2(25, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_med10"]
-atlas = ExtResource("22_leejl")
-region = Rect2(14, 46, 19, 40)
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnc3j"]
+atlas = ExtResource("31_nijq8")
+region = Rect2(0, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wkx0j"]
+atlas = ExtResource("31_nijq8")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odf0n"]
+atlas = ExtResource("31_nijq8")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgrvl"]
+atlas = ExtResource("31_nijq8")
+region = Rect2(48, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qprji"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wkx0j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odf0n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgrvl")
+}],
+"loop": true,
+"name": &"flash",
+"speed": 10.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nc1h5"]
 size = Vector2(454, 127)
@@ -159,11 +195,48 @@ repeat = 2
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rm2c3"]
 size = Vector2(639, 129)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02f20"]
+size = Vector2(3, 15)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_41hrp"]
 size = Vector2(41, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ptsxt"]
-size = Vector2(35, 37)
+size = Vector2(35, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgavr"]
+atlas = ExtResource("49_k1d1g")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g30tk"]
+atlas = ExtResource("49_k1d1g")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4swv3"]
+atlas = ExtResource("49_k1d1g")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5y86b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgavr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g30tk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4swv3")
+}],
+"loop": true,
+"name": &"firing",
+"speed": 10.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t6m4l"]
 resource_local_to_scene = true
@@ -254,35 +327,35 @@ autoplay = true
 [node name="PlayerSpawns" type="Node2D" parent="."]
 
 [node name="1" type="Marker2D" parent="PlayerSpawns"]
-position = Vector2(88, 294)
+position = Vector2(162, 212)
 gizmo_extents = 4.0
 
 [node name="2" type="Marker2D" parent="PlayerSpawns"]
-position = Vector2(234, 295)
+position = Vector2(227, 285)
 gizmo_extents = 4.0
 
 [node name="3" type="Marker2D" parent="PlayerSpawns"]
-position = Vector2(390, 296)
+position = Vector2(327, 286)
 gizmo_extents = 4.0
 
 [node name="4" type="Marker2D" parent="PlayerSpawns"]
-position = Vector2(549, 298)
+position = Vector2(410, 279)
 gizmo_extents = 4.0
 
 [node name="5" type="Marker2D" parent="PlayerSpawns"]
-position = Vector2(555, 73)
+position = Vector2(470, 97)
 gizmo_extents = 4.0
 
 [node name="6" type="Marker2D" parent="PlayerSpawns"]
-position = Vector2(412, 74)
+position = Vector2(392, 101)
 gizmo_extents = 4.0
 
 [node name="7" type="Marker2D" parent="PlayerSpawns"]
-position = Vector2(250, 85)
+position = Vector2(271, 98)
 gizmo_extents = 4.0
 
 [node name="8" type="Marker2D" parent="PlayerSpawns"]
-position = Vector2(81, 94)
+position = Vector2(184, 132)
 gizmo_extents = 4.0
 
 [node name="Background" type="Node2D" parent="."]
@@ -298,6 +371,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 2048, 2048)
 
 [node name="Galaxy" parent="Background" instance=ExtResource("2_8buhw")]
+visible = false
 modulate = Color(0.568627, 0.568627, 0.741176, 0.690196)
 position = Vector2(551, 113)
 texture = SubResource("AtlasTexture_2j4ni")
@@ -614,7 +688,6 @@ bus = &"Sounds"
 [node name="SwitchSprite" type="Sprite2D" parent="Shipyard/FuelStation/FuelPump"]
 texture = SubResource("AtlasTexture_tyvga")
 vframes = 2
-frame = 1
 
 [node name="Retractor" parent="Shipyard/FuelStation" node_paths=PackedStringArray("pipe", "nozzle", "nozzle_slot", "loose_tool_container") instance=ExtResource("12_26md6")]
 position = Vector2(-19, 9)
@@ -641,6 +714,9 @@ sprite_frames = SubResource("SpriteFrames_poaht")
 position = Vector2(1, 30)
 script = ExtResource("11_miphq")
 
+[node name="Area2D" parent="Shipyard/FuelStation/NozzleSlot" index="0"]
+position = Vector2(0, 5)
+
 [node name="CollisionShape2D" parent="Shipyard/FuelStation/NozzleSlot/Area2D" index="0"]
 shape = SubResource("CircleShape2D_7s5un")
 
@@ -661,6 +737,7 @@ stream = ExtResource("17_vemoy")
 bus = &"Sounds"
 
 [node name="Nozzle" parent="Shipyard/FuelStation/NozzleSlot" instance=ExtResource("18_aubvo")]
+position = Vector2(0, 7)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/FuelStation"]
 collision_layer = 15
@@ -679,21 +756,32 @@ script = ExtResource("25_1g3l0")
 polygon = PackedVector2Array(42, -2, 21, 32, -21, 32, -39, -2)
 
 [node name="Sprite2D" type="Sprite2D" parent="Shipyard/Clock"]
-position = Vector2(-1, 9)
-rotation = 1.5708
-scale = Vector2(2.44738, 2.50129)
-texture = SubResource("AtlasTexture_med10")
+position = Vector2(0, 28)
+texture = SubResource("AtlasTexture_fnc3j")
 
 [node name="Label" type="Label" parent="Shipyard/Clock"]
 offset_left = -47.0
-offset_top = 5.0
+offset_top = 12.0
 offset_right = 49.0
-offset_bottom = 37.0
+offset_bottom = 44.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Buzzer" type="AnimatedSprite2D" parent="Shipyard/Clock"]
+position = Vector2(0, 51)
+sprite_frames = SubResource("SpriteFrames_qprji")
+autoplay = "default"
+frame_progress = 0.635076
+
+[node name="PointLight2D" type="PointLight2D" parent="Shipyard/Clock/Buzzer"]
+visible = false
+color = Color(1, 0.243137, 0, 1)
+energy = 2.0
+texture = ExtResource("32_5wipy")
+texture_scale = 2.0
 
 [node name="Klaxon" type="AudioStreamPlayer2D" parent="Shipyard/Clock"]
 stream = ExtResource("26_iyj7s")
@@ -739,13 +827,16 @@ width = 3.0
 default_color = Color(1, 1, 0, 1)
 
 [node name="HazardIndicators" type="Node2D" parent="Shipyard/ShipManeuveringZone"]
-position = Vector2(-338, 33)
 
 [node name="Warning" type="Label" parent="Shipyard/ShipManeuveringZone"]
-offset_left = -212.0
-offset_top = -123.0
-offset_right = -75.0
-offset_bottom = -97.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -215.0
+offset_top = -107.0
+offset_right = -78.0
+offset_bottom = -81.0
+grow_horizontal = 2
 text = "! CLEAR THE SMZ !"
 
 [node name="Barriers" type="StaticBody2D" parent="Shipyard/ShipManeuveringZone"]
@@ -764,7 +855,7 @@ offset_top = -66.0
 offset_right = 189.0
 offset_bottom = 63.0
 theme_override_colors/font_color = Color(0, 0, 0, 0.12549)
-theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.188235)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.12549)
 theme_override_constants/shadow_outline_size = 2
 theme_override_fonts/font = ExtResource("28_aicjc")
 theme_override_font_sizes/font_size = 31
@@ -782,13 +873,29 @@ script = ExtResource("30_1rlo3")
 texture = ExtResource("31_2ctx3")
 
 [node name="Blowtorch" parent="Shipyard/ToolStation" instance=ExtResource("37_7dyaj")]
-position = Vector2(-8, -12)
+position = Vector2(-18, -13)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/ToolStation"]
 collision_mask = 15
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Shipyard/ToolStation/StaticBody2D"]
-polygon = PackedVector2Array(-21, -5, -26, 0, -26, 20, 25, 20, 25, 0, 20, -5)
+polygon = PackedVector2Array(-33, -5, -38, 0, -38, 20, 38, 20, 38, 0, 33, -5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shipyard/ToolStation/StaticBody2D"]
+position = Vector2(-28.5, -11.5)
+shape = SubResource("RectangleShape2D_02f20")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Shipyard/ToolStation/StaticBody2D"]
+position = Vector2(-9.5, -11.5)
+shape = SubResource("RectangleShape2D_02f20")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Shipyard/ToolStation/StaticBody2D"]
+position = Vector2(9.5, -11.5)
+shape = SubResource("RectangleShape2D_02f20")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Shipyard/ToolStation/StaticBody2D"]
+position = Vector2(28.5, -11.5)
+shape = SubResource("RectangleShape2D_02f20")
 
 [node name="UniformStation" parent="Shipyard" node_paths=PackedStringArray("game") instance=ExtResource("12_26md6")]
 position = Vector2(515, 32)
@@ -807,7 +914,7 @@ texture = ExtResource("38_8hh14")
 collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shipyard/UniformStation/StaticBody2D"]
-position = Vector2(-0.5, -14.5)
+position = Vector2(-0.5, -18.5)
 shape = SubResource("RectangleShape2D_ptsxt")
 
 [node name="Ship" type="Node2D" parent="."]
@@ -825,6 +932,12 @@ polygon = PackedVector2Array(-90, -65, -72, -49, -49, -73, -20, -62, 15, -63, 20
 [node name="Sprite2D" parent="Ship/TestShip" index="1"]
 scale = Vector2(2, 2)
 texture = ExtResource("2_st84s")
+
+[node name="Thrusters" parent="Ship/TestShip" index="2"]
+position = Vector2(-90, -2)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_5y86b")
+autoplay = "default"
 
 [node name="Crack2" parent="Ship/TestShip/Components" index="0" instance=ExtResource("36_lcqmr")]
 position = Vector2(60, 30)
@@ -865,7 +978,7 @@ bus = &"Sounds"
 [node name="Players" type="Node2D" parent="."]
 
 [node name="1" parent="Players" instance=ExtResource("3_8ujh1")]
-position = Vector2(124, 121)
+position = Vector2(196, 288)
 device_id = 0
 
 [node name="LooseTools" type="Node2D" parent="."]

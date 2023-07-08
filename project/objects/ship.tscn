@@ -9,4 +9,8 @@ script = ExtResource("1_tuegr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
+[node name="Thrusters" type="AnimatedSprite2D" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
 [node name="Components" type="Node2D" parent="."]

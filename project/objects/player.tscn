@@ -58,3 +58,4 @@ position = Vector2(-4, -1)
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="Jetpack"]
 stream = ExtResource("3_nulyg")
+volume_db = -5.0

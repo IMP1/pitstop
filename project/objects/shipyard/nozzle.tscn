@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://t7wbwy1pdgdp" path="res://objects/tool.tscn" id="1_36v82"]
 [ext_resource type="Script" path="res://objects/shipyard/nozzle.gd" id="2_rk53m"]
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="3_n7wxd"]
-[ext_resource type="Texture2D" uid="uid://d06rcmhgptqc" path="res://assets/ships/blowtorch.png" id="4_endhd"]
+[ext_resource type="Texture2D" uid="uid://bf7bqo025qbjs" path="res://assets/ships/nozzle.png" id="4_ck11i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wgafs"]
 resource_local_to_scene = true
@@ -30,7 +30,8 @@ shape = SubResource("RectangleShape2D_wgafs")
 
 [node name="Sprite2D" parent="." index="1"]
 material = SubResource("ShaderMaterial_xfdmq")
-texture = ExtResource("4_endhd")
+rotation = 1.5708
+texture = ExtResource("4_ck11i")
 
 [node name="CollisionShape2D" parent="GrabArea" index="0"]
 shape = SubResource("CircleShape2D_q8lp3")

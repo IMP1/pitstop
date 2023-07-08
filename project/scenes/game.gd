@@ -84,8 +84,10 @@ func _setup_ship() -> void:
 func _begin() -> void:
 	_tool_station.release_tools()
 	_countdown_timer.start()
+	_clock.start_flashing()
 	await _countdown_timer.timeout
 	await _ship_enter()
+	_clock.stop_flashing()
 	_setup_ship()
 	_ship_maneuvering_zone.visible = false
 	_ship_maneuvering_zone.lower_barriers()
@@ -102,6 +104,7 @@ func _repair_success() -> void:
 	_is_level_over = true
 	Debug.info("[Game] Mission Success!")
 	await _ship_exit()
+	_clock.stop_flashing()
 	await _show_debrief()
 	_ship_maneuvering_zone.visible = false
 	_ship_maneuvering_zone.lower_barriers()
@@ -113,6 +116,7 @@ func _repair_failure() -> void:
 	Debug.info("[Game] Mission Failure")
 	_ship_exit()
 	await _show_debrief()
+	_clock.stop_flashing()
 	_ship_maneuvering_zone.visible = false
 	_ship_maneuvering_zone.lower_barriers()
 	# TODO: End the level
@@ -122,6 +126,7 @@ func _ship_enter() -> void:
 	Debug.debug("[Game] Ship entering")
 	_is_ship_moving = true
 	var ship := _ship_container.get_child(0) as Ship
+	ship.fire_thrusters()
 	ship.global_position = _ship_maneuvering_zone.get_outside_position()
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_EXPO)
@@ -129,6 +134,7 @@ func _ship_enter() -> void:
 	tween.tween_property(ship, "position", Vector2.ZERO, 2.0)
 	# TODO: Set ease
 	await tween.finished
+	ship.cut_thrusters()
 	# TODO: Have some animation? A clamping thing?
 	_countdown_timer.start()
 	await _countdown_timer.timeout
@@ -140,16 +146,18 @@ func _ship_exit() -> void:
 	Debug.info("[Game] Ship exiting")
 	_klaxon.play()
 	_is_ship_moving = true
+	var ship := _ship_container.get_child(0) as Ship
+	ship.fire_thrusters()
 	# TODO: Have some animation? An unclamping thing?
 	_countdown_timer.start()
 	await _countdown_timer.timeout
-	var ship := _ship_container.get_child(0) as Ship
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_IN)
 	tween.tween_property(ship, "global_position", _ship_maneuvering_zone.get_outside_position(), 2.0)
 	# TODO: Set ease
 	await tween.finished
+	ship.cut_thrusters()
 	_is_ship_moving = false
 
 
@@ -218,6 +226,7 @@ func _process(_delta: float) -> void:
 		return
 	if _repair_progress() >= 1.0:
 		_ship_maneuvering_zone.visible = true
+		_clock.start_flashing()
 		if _is_smz_clear() and not _ship_maneuvering_zone.is_barrier_raised():
 			_ship_maneuvering_zone.raise_barriers()
 			_repair_success()
