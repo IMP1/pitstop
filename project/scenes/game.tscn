@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://d0fnyfjglery6"]
+[gd_scene load_steps=111 format=3 uid="uid://d0fnyfjglery6"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_77n8k"]
 [ext_resource type="Texture2D" uid="uid://hg70qgk1xe71" path="res://assets/backgrounds/Blue Nebula 6 - 1024x1024.png" id="1_cs1ea"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://bewn521oc6sby" path="res://objects/interactable.tscn" id="12_26md6"]
 [ext_resource type="Texture2D" uid="uid://c2tsw2srrbtmm" path="res://assets/ships/struts.png" id="12_opyon"]
 [ext_resource type="PackedScene" uid="uid://b086rvhoeesnh" path="res://objects/ship.tscn" id="12_u0tyq"]
+[ext_resource type="Texture2D" uid="uid://da3u2liybfgxg" path="res://assets/ships/conveyor-cover.png" id="15_51tlw"]
 [ext_resource type="AudioStream" uid="uid://dsjj3md5jygbr" path="res://assets/sounds/pick_up.ogg" id="16_iqlbm"]
 [ext_resource type="Script" path="res://objects/components/fuel_pump_motor.gd" id="17_6ykmh"]
 [ext_resource type="AudioStream" uid="uid://be7jw6wt1d4nr" path="res://assets/sounds/switch_on.ogg" id="17_v3ua8"]
@@ -50,7 +51,11 @@
 [ext_resource type="Script" path="res://objects/shipyard/uniform_station.gd" id="37_te6ei"]
 [ext_resource type="Texture2D" uid="uid://c6fcmdi0hw2uq" path="res://assets/ships/lockers.png" id="38_8hh14"]
 [ext_resource type="Script" path="res://gui/debrief.gd" id="40_xmpib"]
+[ext_resource type="Script" path="res://objects/shipyard/diagnostic-display.gd" id="43_de1ih"]
+[ext_resource type="Texture2D" uid="uid://coox2vjyq25ni" path="res://assets/ships/diagnostic-display.png" id="43_vlcp1"]
 [ext_resource type="Texture2D" uid="uid://jece3whe1fxo" path="res://assets/ships/Ship3_thrusters.png" id="49_k1d1g"]
+[ext_resource type="Texture2D" uid="uid://uwp03iqwerrd" path="res://assets/icons/gdb-xbox-2 (1).png" id="52_twyig"]
+[ext_resource type="PackedScene" uid="uid://u13iu6yho54k" path="res://gui/group_confirmable.tscn" id="54_jwr14"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwaia"]
 atlas = ExtResource("3_gfman")
@@ -95,6 +100,9 @@ region = Rect2(96, 224, 32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpfag"]
 size = Vector2(122, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5ld3"]
+size = Vector2(12, 2)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nf02q"]
 atlas = ExtResource("2_rive1")
@@ -204,6 +212,9 @@ size = Vector2(41, 17)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ptsxt"]
 size = Vector2(35, 29)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qiqg5"]
+size = Vector2(64, 30)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_bgavr"]
 atlas = ExtResource("49_k1d1g")
 region = Rect2(0, 32, 32, 32)
@@ -305,7 +316,35 @@ Button/styles/focus = SubResource("StyleBoxFlat_ew2fe")
 Button/styles/normal = SubResource("StyleBoxFlat_00y10")
 Button/styles/pressed = SubResource("StyleBoxFlat_wc667")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyxy8"]
+atlas = ExtResource("52_twyig")
+region = Rect2(48, 64, 64, 16)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xyvcw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ichgf"]
+atlas = ExtResource("52_twyig")
+region = Rect2(216, 72, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdmyb"]
+atlas = ExtResource("52_twyig")
+region = Rect2(336, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qobav"]
+atlas = ExtResource("52_twyig")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqk4v"]
+atlas = ExtResource("52_twyig")
+region = Rect2(280, 72, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uc7b1"]
+atlas = ExtResource("52_twyig")
+region = Rect2(16, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8uuj4"]
+atlas = ExtResource("52_twyig")
+region = Rect2(16, 32, 16, 16)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_77n8k")
@@ -578,6 +617,11 @@ recycled_patch_cost_reclaimed = 8.0
 position = Vector2(-25, 13)
 texture = ExtResource("30_ued72")
 
+[node name="Cover" type="Sprite2D" parent="Shipyard/PatchDispenser"]
+z_index = 2
+position = Vector2(-25, 13)
+texture = ExtResource("15_51tlw")
+
 [node name="Output" type="Area2D" parent="Shipyard/PatchDispenser"]
 position = Vector2(21, 20)
 collision_layer = 0
@@ -595,6 +639,26 @@ stream = ExtResource("31_fhe0a")
 
 [node name="Generation" type="AudioStreamPlayer2D" parent="Shipyard/PatchDispenser"]
 stream = ExtResource("32_5naug")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/PatchDispenser"]
+position = Vector2(-16, 21)
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shipyard/PatchDispenser/StaticBody2D"]
+position = Vector2(-8, -11)
+shape = SubResource("RectangleShape2D_c5ld3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Shipyard/PatchDispenser/StaticBody2D"]
+position = Vector2(21, -11)
+shape = SubResource("RectangleShape2D_c5ld3")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Shipyard/PatchDispenser/StaticBody2D"]
+position = Vector2(18, 9)
+shape = SubResource("RectangleShape2D_c5ld3")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Shipyard/PatchDispenser/StaticBody2D"]
+position = Vector2(-11, 9)
+shape = SubResource("RectangleShape2D_c5ld3")
 
 [node name="Boundaries" type="Node2D" parent="Shipyard"]
 
@@ -644,6 +708,7 @@ position = Vector2(646, 184)
 shape = SubResource("RectangleShape2D_xdvd1")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Shipyard/Boundaries"]
+z_index = 10
 offset_left = -24.0
 offset_top = -14.0
 offset_right = 661.0
@@ -917,12 +982,32 @@ collision_mask = 15
 position = Vector2(-0.5, -18.5)
 shape = SubResource("RectangleShape2D_ptsxt")
 
+[node name="DiagnosticDisplay" parent="Shipyard" instance=ExtResource("12_26md6")]
+position = Vector2(374, 321)
+script = ExtResource("43_de1ih")
+
+[node name="CollisionShape2D" parent="Shipyard/DiagnosticDisplay/Area2D" index="0"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_qiqg5")
+
+[node name="Sprite2D" type="Sprite2D" parent="Shipyard/DiagnosticDisplay"]
+z_index = 3
+position = Vector2(0, 8)
+texture = ExtResource("43_vlcp1")
+vframes = 6
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/DiagnosticDisplay"]
+collision_mask = 15
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Shipyard/DiagnosticDisplay/StaticBody2D"]
+polygon = PackedVector2Array(-46, 21, -46, 2, -41, 2, -32, 11, 32, 11, 41, 2, 46, 2, 46, 20, 39, 27, -39, 27)
+
 [node name="Ship" type="Node2D" parent="."]
 position = Vector2(338, 188)
 
 [node name="TestShip" parent="Ship" instance=ExtResource("12_u0tyq")]
 position = Vector2(537, -129)
-repair_reward = 600.0
+repair_reward = 400.0
 early_bonus = 10.0
 
 [node name="CollisionPolygon2D" parent="Ship/TestShip" index="0"]
@@ -985,6 +1070,28 @@ device_id = 0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
+
+[node name="Prelude" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="Prelude"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -30.0
+offset_top = 71.0
+offset_right = 31.0
+offset_bottom = 97.0
+grow_horizontal = 2
+text = "Clock In"
+horizontal_alignment = 1
+
+[node name="GroupConfirmable" parent="Prelude" instance=ExtResource("54_jwr14")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 90.0
+offset_bottom = 90.0
+grow_horizontal = 2
 
 [node name="Debrief" type="CanvasLayer" parent="."]
 visible = false
@@ -1056,13 +1163,18 @@ grow_horizontal = 2
 text = "Continue"
 horizontal_alignment = 1
 
+[node name="Sprite2D" type="Sprite2D" parent="Debrief/Contents/Confirmation"]
+position = Vector2(30, 25)
+texture = SubResource("AtlasTexture_kyxy8")
+hframes = 4
+
 [node name="PlayersConfirmed" type="HBoxContainer" parent="Debrief/Contents/Confirmation"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -17.0
+offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
@@ -1131,6 +1243,94 @@ layout_mode = 2
 focus_neighbor_bottom = NodePath("../Resume")
 text = "Exit"
 
+[node name="Controls" type="VBoxContainer" parent="Menu"]
+anchors_preset = -1
+anchor_bottom = 0.5
+offset_left = 14.0
+offset_top = 11.0
+offset_right = 173.0
+offset_bottom = 18.0
+grow_vertical = 2
+theme = SubResource("Theme_ki26h")
+
+[node name="Move" type="HBoxContainer" parent="Menu/Controls"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menu/Controls/Move"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ichgf")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Menu/Controls/Move"]
+layout_mode = 2
+text = "Move"
+vertical_alignment = 1
+
+[node name="Brake" type="HBoxContainer" parent="Menu/Controls"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menu/Controls/Brake"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_tdmyb")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Menu/Controls/Brake"]
+layout_mode = 2
+text = "Brake"
+vertical_alignment = 1
+
+[node name="Grab" type="HBoxContainer" parent="Menu/Controls"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menu/Controls/Grab"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_qobav")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Menu/Controls/Grab"]
+layout_mode = 2
+text = "Grab"
+vertical_alignment = 1
+
+[node name="Aim" type="HBoxContainer" parent="Menu/Controls"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menu/Controls/Aim"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_bqk4v")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Menu/Controls/Aim"]
+layout_mode = 2
+text = "Aim Throw"
+vertical_alignment = 1
+
+[node name="Throw" type="HBoxContainer" parent="Menu/Controls"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menu/Controls/Throw"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_uc7b1")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Menu/Controls/Throw"]
+layout_mode = 2
+text = "Throw"
+vertical_alignment = 1
+
+[node name="Interact" type="HBoxContainer" parent="Menu/Controls"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menu/Controls/Interact"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_8uuj4")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Menu/Controls/Interact"]
+layout_mode = 2
+text = "Interact"
+vertical_alignment = 1
+
 [connection signal="patch_released" from="Shipyard/PatchDispenser" to="." method="_add_tool"]
 [connection signal="fuel_spilled" from="Shipyard/FuelStation/FuelPump" to="." method="_add_particle" binds= [75, Color(0.376471, 0.188235, 0.419608, 1), 3.0]]
 [connection signal="thrown" from="Shipyard/FuelStation/NozzleSlot/Nozzle" to="." method="_throw_tool"]
@@ -1148,6 +1348,7 @@ text = "Exit"
 
 [editable path="Shipyard/FuelStation/NozzleSlot"]
 [editable path="Shipyard/UniformStation"]
+[editable path="Shipyard/DiagnosticDisplay"]
 [editable path="Ship/TestShip"]
 [editable path="Ship/TestShip/Components/Crack2"]
 [editable path="Ship/TestShip/Components/FuelIntake"]

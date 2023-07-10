@@ -15,6 +15,7 @@ var _is_finished: bool = false
 
 
 func _ready():
+	super()
 	_sprite.frame = UNPATCHED_FRAME
 	_progress_bar.visible = false
 	_progress_bar.max_value = time_to_patch

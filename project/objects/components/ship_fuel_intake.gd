@@ -17,6 +17,7 @@ var fill_level: float = 0
 
 
 func _ready() -> void:
+	super()
 	_progress_bar.max_value = capacity
 
 

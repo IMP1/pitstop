@@ -9,6 +9,7 @@ const THRUSTERS_STOPPED = &"default"
 @export var early_bonus: float = 25
 
 @onready var _thrusters := $Thrusters as AnimatedSprite2D
+@onready var _components := $Components as Node2D
 
 
 func fire_thrusters() -> void:
@@ -18,3 +19,10 @@ func fire_thrusters() -> void:
 func cut_thrusters() -> void:
 	_thrusters.play(THRUSTERS_STOPPED)
 
+
+func get_fault(fault_type) -> ShipFault:
+	for comp in _components.get_children():
+		if comp is ShipFault:
+			if is_instance_of(comp, fault_type):
+				return comp as ShipFault
+	return null

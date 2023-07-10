@@ -7,6 +7,8 @@
 [Background Texture](https://screamingbrainstudios.itch.io/seamless-space-backgrounds)
 
 [Warning Icon](https://game-icons.net/1x1/lorc/hazard-sign.html#download)
+[Game Controller Icons](https://greatdocbrown.itch.io/gamepad-ui)
+[Repair Icon](https://game-icons.net/1x1/lorc/auto-repair.html)
 
 [Celestial Object Sprites](https://norma-2d.itch.io/celestial-objects-pixel-art-pack)
 
@@ -36,6 +38,8 @@
 [Dispenser Sound](https://pixabay.com/sound-effects/laser-printer-31914/)
 
 [Ticking Sound](https://pixabay.com/sound-effects/ticking-clock-1-27477/) (Unused I think?)
+
+[Thruster Sound](https://pixabay.com/sound-effects/jet-engine-startup-14537/)
 
 [Outline Shader](https://godotshaders.com/shader/2d-outline-inline/)
 

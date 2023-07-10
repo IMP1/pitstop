@@ -22,6 +22,7 @@ const PROPULSION_PARTICLE_SPEED = 16
 @onready var _sprite := $Sprite2D as Sprite2D
 @onready var _held_tools := $HeldTool as Node2D
 @onready var _jetpack_audio := $Jetpack/Audio as AudioStreamPlayer2D
+@onready var _interact_prompt := $InputPromptInteract as Sprite2D
 
 
 func set_sprite(tex: Texture2D) -> void:
@@ -31,6 +32,8 @@ func set_sprite(tex: Texture2D) -> void:
 func _ready() -> void:
 	if device_id >= 0:
 		InputManager.register_gamepad(device_id)
+	_interact_prompt.visible = false
+	# TODO: Show input prompt when around interactables
 
 
 func _input(event: InputEvent) -> void:
@@ -133,4 +136,8 @@ func _physics_process(delta: float):
 	if collision:
 		velocity = velocity.bounce(collision.get_normal()) * bounce_factor
 	# TODO: Copy physics from Punt to have that sweet sweet conservation of momentum
+
+
+func show_interact_prompt(obj: Interactable) -> void:
+	pass
 

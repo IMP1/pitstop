@@ -17,6 +17,8 @@ var _is_ship_moving: bool = false
 @onready var _players = $Players as Node2D
 @onready var _loose_tools := $LooseTools as Node2D
 @onready var _menu := $Menu as CanvasLayer
+@onready var _prelude := $Prelude as CanvasLayer
+@onready var _prelude_confirmation := $Prelude/GroupConfirmable as GroupConfirmable
 @onready var _debrief := $Debrief as Debrief
 @onready var _menu_colour := $Menu/Options/ColorRect as ColorRect
 @onready var _menu_selection := $Menu/Options/Resume as Button
@@ -31,6 +33,7 @@ var _is_ship_moving: bool = false
 @onready var _fuel_pump := $Shipyard/FuelStation/FuelPump as FuelPump
 @onready var _clock := $Shipyard/Clock as ShipyardClock
 @onready var _tool_station := $Shipyard/ToolStation as ToolStation
+@onready var _diagnostic_display := $Shipyard/DiagnosticDisplay as DiagnosticDisplay
 
 
 func _ready() -> void:
@@ -39,6 +42,8 @@ func _ready() -> void:
 	for player in $Players.get_children():
 		(player as Player).accellerated.connect(_add_particle)
 		_device_players[player.device_id] = player
+	_ship_maneuvering_zone.visible = false
+	_ship_maneuvering_zone.lower_barriers()
 	_begin()
 
 
@@ -48,6 +53,7 @@ func _add_player(device_id: int) -> void:
 	_players.add_child(p)
 	p.device_id = device_id
 	p.colour = player_colours[i]
+	p.set_sprite(player_sprites[i])
 	p.position = (_player_spawns.get_child(i) as Node2D).position
 	p.accellerated.connect(_add_particle)
 	_device_players[device_id] = p
@@ -68,6 +74,7 @@ func _add_tool(tool: Tool) -> void:
 
 
 func _throw_tool(tool: Tool, _position: Vector2, velocity: Vector2) -> void:
+	Debug.info("[Game] Throwing tool %s" % tool.name)
 	tool.reparent(_loose_tools)
 	tool.velocity = velocity
 
@@ -79,10 +86,28 @@ func _setup_ship() -> void:
 		_job_progresses.append(0)
 		job.progress_changed.connect(_update_repair_progress.bind(i))
 	_clock.time_limit = ship.time_limit
+	_fuel_pump.ship_fuel_intake = ship.get_fault(FuelIntake) as FuelIntake
+	_diagnostic_display.ship = ship
 
 
 func _begin() -> void:
-	_tool_station.release_tools()
+	_prelude.visible = true
+	var players := [] as Array[Player]
+	for p in _players.get_children():
+		players.append(p as Player)
+	_prelude_confirmation.set_players_to_confirm(players)
+	await _prelude_confirmation.confirmed
+	_prelude.visible = false
+	
+	await get_tree().process_frame
+	
+	_ship_maneuvering_zone.visible = true
+	if not _ship_maneuvering_zone.is_clear():
+		await _ship_maneuvering_zone.zone_cleared
+	Debug.info("[Game] Raising barriers")
+	_ship_maneuvering_zone.raise_barriers()
+	
+	_tool_station.release_tools.call_deferred()
 	_countdown_timer.start()
 	_clock.start_flashing()
 	await _countdown_timer.timeout
@@ -132,6 +157,7 @@ func _ship_enter() -> void:
 	tween.set_trans(Tween.TRANS_EXPO)
 	tween.set_ease(Tween.EASE_OUT)
 	tween.tween_property(ship, "position", Vector2.ZERO, 2.0)
+	_diagnostic_display.add_ship()
 	# TODO: Set ease
 	await tween.finished
 	ship.cut_thrusters()
@@ -155,6 +181,7 @@ func _ship_exit() -> void:
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_IN)
 	tween.tween_property(ship, "global_position", _ship_maneuvering_zone.get_outside_position(), 2.0)
+	_diagnostic_display.remove_ship()
 	# TODO: Set ease
 	await tween.finished
 	ship.cut_thrusters()
@@ -227,7 +254,7 @@ func _process(_delta: float) -> void:
 	if _repair_progress() >= 1.0:
 		_ship_maneuvering_zone.visible = true
 		_clock.start_flashing()
-		if _is_smz_clear() and not _ship_maneuvering_zone.is_barrier_raised():
+		if _ship_maneuvering_zone.is_clear() and not _ship_maneuvering_zone.is_barrier_raised():
 			_ship_maneuvering_zone.raise_barriers()
 			_repair_success()
 
@@ -250,6 +277,11 @@ func _input(event: InputEvent) -> void:
 
 
 func _open_menu(player: Player) -> void:
+	# Only player opening menu can interact with it
+	for action in InputMap.get_actions():
+		if action.begins_with("ui_"):
+			for event in InputMap.action_get_events(action):
+				event.device = player.device_id
 	_menu.visible = true
 	_menu_colour.color = player.colour
 	get_tree().paused = true
@@ -260,6 +292,11 @@ func _open_menu(player: Player) -> void:
 func _resume() -> void:
 	get_tree().paused = false
 	_menu.visible = false
+	# All players may interact with UI again
+	for action in InputMap.get_actions():
+		if action.begins_with("ui_"):
+			for event in InputMap.action_get_events(action):
+				event.device = -1
 
 
 func _remove_player() -> void:

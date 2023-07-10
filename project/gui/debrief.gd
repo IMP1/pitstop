@@ -70,6 +70,8 @@ func set_players_to_confirm(players: Array[Player]) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if not visible:
+		return
 	if event.is_action_pressed("vote_DEVICE"):
 		if not _confirmation_devices.has(event.device):
 			Debug.error("[Debrief] Unrecognised device confirming: %d" % event.device)

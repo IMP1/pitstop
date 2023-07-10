@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://p03y3l1mpyss"]
+[gd_scene load_steps=6 format=3 uid="uid://p03y3l1mpyss"]
 
+[ext_resource type="Texture2D" uid="uid://dj85ykjjogbhw" path="res://assets/icons/auto-repair.png" id="2_lrovi"]
 [ext_resource type="Script" path="res://objects/ship_fault.gd" id="2_sip31"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ge7l6"]
@@ -19,6 +20,7 @@ border_color = Color(0.878431, 0.878431, 0.878431, 1)
 
 [node name="ShipFault" type="Node2D"]
 script = ExtResource("2_sip31")
+icon = ExtResource("2_lrovi")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 16
@@ -39,3 +41,6 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_ful46")
 show_percentage = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)

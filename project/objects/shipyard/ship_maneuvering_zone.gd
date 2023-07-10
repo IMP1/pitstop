@@ -1,6 +1,8 @@
 class_name ShipManeuveringZone
 extends Area2D
 
+signal zone_cleared
+
 @export var hazard_icon: Texture2D
 @export var hazard_colour: Color
 @export var hazard_z_index: int = 0
@@ -28,11 +30,17 @@ func is_barrier_raised() -> bool:
 
 
 func raise_barriers() -> void:
-	_barriers.disabled = false
+	Debug.info("[SMZ] Barriers raised")
+	_barriers.set_deferred("disabled", false)
 
 
 func lower_barriers() -> void:
-	_barriers.disabled = true
+	Debug.info("[SMZ] Barriers lowered")
+	_barriers.set_deferred("disabled", true)
+
+
+func is_clear() -> bool:
+	return not has_overlapping_bodies()
 
 
 func get_outside_position() -> Vector2:
@@ -58,14 +66,17 @@ func _body_exited(node: Node2D) -> void:
 		_hazard_nodes.erase(sprite)
 		_hazard_sprites.erase(node)
 		sprite.queue_free()
+	if is_clear():
+		Debug.info("[SMZ] Cleared")
+		zone_cleared.emit()
 
 
-func _process(_delta) -> void:
+func _process(_delta: float) -> void:
 	for sprite in _hazard_indicators.get_children():
 		if _hazard_nodes.has(sprite):
-			var node: Node2D = _hazard_nodes[sprite]
+			var node := _hazard_nodes[sprite] as Node2D
 			sprite.global_position = node.global_position + hazard_offset
 		else:
 			Debug.error("[SMZ] There was a warning icon sprite not in the dictionary")
-	_instruction_label.visible = has_overlapping_bodies()
+	_instruction_label.visible = not is_clear()
 
