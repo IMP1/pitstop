@@ -239,10 +239,10 @@ func _show_debrief() -> void:
 	var players := [] as Array[Player]
 	for p in _players.get_children():
 		players.append(p as Player)
-	_debrief.set_players_to_confirm(players)
+	_debrief.confirmation.set_players_to_confirm(players)
 	_debrief.visible = true
 	
-	await _debrief.confirmed
+	await _debrief.confirmation.confirmed
 	_debrief.visible = false
 
 

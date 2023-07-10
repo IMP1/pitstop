@@ -12,7 +12,7 @@ var _confirmation_devices: Dictionary = {}
 
 @onready var _result := $Contents/Result as Label
 @onready var _tally := $Contents/Tally as VBoxContainer 
-@onready var _confirmations := $Contents/Confirmation/PlayersConfirmed as HBoxContainer
+@onready var confirmation := $Contents/GroupConfirmable as GroupConfirmable
 
 
 func _set_result(new_result: String) -> void:
@@ -56,35 +56,3 @@ func add_break() -> void:
 
 func add_total(message: String = "Total") -> void:
 	_add_item(message, absf(_running_total), _running_total < 0)
-
-
-func set_players_to_confirm(players: Array[Player]) -> void:
-	for player in players:
-		var box := ColorRect.new()
-		_confirmations.add_child(box)
-		box.custom_minimum_size = Vector2(12, 12)
-		box.color = player.colour
-		box.visible = false
-		_confirmation_devices[player.device_id] = box
-	Debug.info("[Debrief] %d players to confirm" % players.size())
-
-
-func _input(event: InputEvent) -> void:
-	if not visible:
-		return
-	if event.is_action_pressed("vote_DEVICE"):
-		if not _confirmation_devices.has(event.device):
-			Debug.error("[Debrief] Unrecognised device confirming: %d" % event.device)
-			return
-		var box := _confirmation_devices[event.device] as ColorRect
-		box.visible = not box.visible
-		
-		var all_confirmed := true
-		for confirmation in _confirmations.get_children():
-			if not confirmation.visible:
-				all_confirmed = false
-				break
-		if all_confirmed:
-			Debug.info("[Debrief] All players confirmed")
-			await get_tree().create_timer(0.2).timeout
-			confirmed.emit()

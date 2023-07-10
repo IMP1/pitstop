@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://d0fnyfjglery6"]
+[gd_scene load_steps=110 format=3 uid="uid://d0fnyfjglery6"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_77n8k"]
 [ext_resource type="Texture2D" uid="uid://hg70qgk1xe71" path="res://assets/backgrounds/Blue Nebula 6 - 1024x1024.png" id="1_cs1ea"]
@@ -315,10 +315,6 @@ default_font_size = 12
 Button/styles/focus = SubResource("StyleBoxFlat_ew2fe")
 Button/styles/normal = SubResource("StyleBoxFlat_00y10")
 Button/styles/pressed = SubResource("StyleBoxFlat_wc667")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kyxy8"]
-atlas = ExtResource("52_twyig")
-region = Rect2(48, 64, 64, 16)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xyvcw"]
 
@@ -1072,6 +1068,7 @@ device_id = 0
 anchor_mode = 0
 
 [node name="Prelude" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Label" type="Label" parent="Prelude"]
 anchors_preset = 5
@@ -1094,7 +1091,6 @@ offset_bottom = 90.0
 grow_horizontal = 2
 
 [node name="Debrief" type="CanvasLayer" parent="."]
-visible = false
 script = ExtResource("40_xmpib")
 
 [node name="ColorRect" type="ColorRect" parent="Debrief"]
@@ -1140,44 +1136,29 @@ offset_bottom = -125.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Confirmation" type="Control" parent="Debrief/Contents"]
+[node name="GroupConfirmable" parent="Debrief/Contents" instance=ExtResource("54_jwr14")]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -30.0
-offset_top = -89.0
-offset_right = 31.0
-offset_bottom = -49.0
+offset_top = -73.0
+offset_bottom = -73.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Label" type="Label" parent="Debrief/Contents/Confirmation"]
+[node name="Label" type="Label" parent="Debrief/Contents/GroupConfirmable"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 26.0
+offset_left = -32.0
+offset_top = -16.0
+offset_right = 33.0
+offset_bottom = 10.0
 grow_horizontal = 2
 text = "Continue"
 horizontal_alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="Debrief/Contents/Confirmation"]
-position = Vector2(30, 25)
-texture = SubResource("AtlasTexture_kyxy8")
-hframes = 4
-
-[node name="PlayersConfirmed" type="HBoxContainer" parent="Debrief/Contents/Confirmation"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = 13.0
-grow_horizontal = 2
-grow_vertical = 0
-alignment = 1
 
 [node name="Menu" type="CanvasLayer" parent="."]
 process_mode = 2
