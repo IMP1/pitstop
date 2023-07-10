@@ -10,6 +10,7 @@ var _next_tracks: Array[int] = []
 
 
 func _ready() -> void:
+	MusicManager.track_finished.connect(_next_track)
 	if autoplay:
 		_next_track()
 

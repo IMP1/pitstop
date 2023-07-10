@@ -10,3 +10,6 @@ bus = &"Music"
 
 [node name="Track2" type="AudioStreamPlayer" parent="."]
 bus = &"Music"
+
+[connection signal="finished" from="Track1" to="." method="_track_finished"]
+[connection signal="finished" from="Track2" to="." method="_track_finished"]

@@ -91,15 +91,16 @@ func _setup_ship() -> void:
 
 
 func _begin() -> void:
+	_tool_station.release_tools.call_deferred()
+	
 	_prelude.visible = true
 	var players := [] as Array[Player]
 	for p in _players.get_children():
 		players.append(p as Player)
 	_prelude_confirmation.set_players_to_confirm(players)
+	# TODO: Add any players that join to this list if not already confirmed
 	await _prelude_confirmation.confirmed
 	_prelude.visible = false
-	
-	await get_tree().process_frame
 	
 	_ship_maneuvering_zone.visible = true
 	if not _ship_maneuvering_zone.is_clear():
@@ -107,7 +108,6 @@ func _begin() -> void:
 	Debug.info("[Game] Raising barriers")
 	_ship_maneuvering_zone.raise_barriers()
 	
-	_tool_station.release_tools.call_deferred()
 	_countdown_timer.start()
 	_clock.start_flashing()
 	await _countdown_timer.timeout

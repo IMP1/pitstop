@@ -1,5 +1,7 @@
 extends Node
 
+signal track_finished
+
 @onready var _track_1 := $Track1 as AudioStreamPlayer
 @onready var _track_2 := $Track2 as AudioStreamPlayer
 
@@ -29,3 +31,8 @@ func play(stream: AudioStream) -> void:
 		_track_2.stop()
 	_track_1.stream = stream
 	_track_1.play()
+
+
+func _track_finished() -> void:
+	track_finished.emit()
+

@@ -406,7 +406,6 @@ region_enabled = true
 region_rect = Rect2(0, 0, 2048, 2048)
 
 [node name="Galaxy" parent="Background" instance=ExtResource("2_8buhw")]
-visible = false
 modulate = Color(0.568627, 0.568627, 0.741176, 0.690196)
 position = Vector2(551, 113)
 texture = SubResource("AtlasTexture_2j4ni")
@@ -861,6 +860,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="ShipManeuveringZone" type="Area2D" parent="Shipyard"]
+visible = false
 position = Vector2(461, 187)
 collision_layer = 64
 collision_mask = 12
@@ -1091,6 +1091,7 @@ offset_bottom = 90.0
 grow_horizontal = 2
 
 [node name="Debrief" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("40_xmpib")
 
 [node name="ColorRect" type="ColorRect" parent="Debrief"]
