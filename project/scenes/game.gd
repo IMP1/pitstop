@@ -158,7 +158,6 @@ func _ship_enter() -> void:
 	tween.set_ease(Tween.EASE_OUT)
 	tween.tween_property(ship, "position", Vector2.ZERO, 2.0)
 	_diagnostic_display.add_ship()
-	# TODO: Set ease
 	await tween.finished
 	ship.cut_thrusters()
 	# TODO: Have some animation? A clamping thing?
@@ -182,7 +181,6 @@ func _ship_exit() -> void:
 	tween.set_ease(Tween.EASE_IN)
 	tween.tween_property(ship, "global_position", _ship_maneuvering_zone.get_outside_position(), 2.0)
 	_diagnostic_display.remove_ship()
-	# TODO: Set ease
 	await tween.finished
 	ship.cut_thrusters()
 	_is_ship_moving = false
@@ -310,6 +308,7 @@ func _remove_player() -> void:
 
 
 func _settings() -> void:
+	# TODO: Settings menu (deadzone, sensitivity, ...)
 	pass
 
 
