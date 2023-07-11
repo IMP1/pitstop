@@ -41,5 +41,7 @@
 
 [Thruster Sound](https://pixabay.com/sound-effects/jet-engine-startup-14537/)
 
+[Bump Sound](https://pixabay.com/sound-effects/thump-on-carpet-107101/)
+
 [Outline Shader](https://godotshaders.com/shader/2d-outline-inline/)
 

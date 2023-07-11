@@ -11,7 +11,6 @@ const PROPULSION_PARTICLE_SPEED = 16
 @export var colour: Color = Color.WEB_GREEN
 @export var accelleration: float = 2.0
 @export var braking_strength: float = 0.9
-@export var bounce_factor: float = 0.9
 @export var velocity_max: float = 64
 @export var braking_strength_min: float = 0.8
 @export var braking_strength_max: float = 0.1
@@ -22,6 +21,7 @@ const PROPULSION_PARTICLE_SPEED = 16
 @onready var _sprite := $Sprite2D as Sprite2D
 @onready var _held_tools := $HeldTool as Node2D
 @onready var _jetpack_audio := $Jetpack/Audio as AudioStreamPlayer2D
+@onready var _bump_audio := $BumpAudio as AudioStreamPlayer2D
 @onready var _interact_prompt := $InputPromptInteract as Sprite2D
 
 
@@ -135,8 +135,7 @@ func _physics_process(delta: float):
 	var collision := move_and_collide(velocity * delta)
 	if collision:
 		_collide(collision)
-		# velocity = velocity.bounce(collision.get_normal()) * bounce_factor
-	# TODO: Copy physics from Punt to have that sweet sweet conservation of momentum
+		_bump_audio.play()
 
 
 func show_interact_prompt(obj: Interactable) -> void:

@@ -801,6 +801,7 @@ bus = &"Sounds"
 
 [node name="Nozzle" parent="Shipyard/FuelStation/NozzleSlot" instance=ExtResource("18_aubvo")]
 position = Vector2(0, 7)
+bounce_coefficient = 0.9
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/FuelStation"]
 collision_layer = 15
@@ -938,6 +939,7 @@ texture = ExtResource("31_2ctx3")
 
 [node name="Blowtorch" parent="Shipyard/ToolStation" instance=ExtResource("37_7dyaj")]
 position = Vector2(-18, -13)
+bounce_coefficient = 0.9
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/ToolStation"]
 collision_mask = 15
