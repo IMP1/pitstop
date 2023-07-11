@@ -1,5 +1,5 @@
 class_name Tool
-extends CharacterBody2D
+extends BounceBody2D
 
 signal thrown(tool, position, velocity)
 
@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 		return
 	var collision := move_and_collide(velocity * delta)
 	if collision:
-		velocity = velocity.bounce(collision.get_normal()) * bounce_factor
+		_collide(collision)
 
 
 func set_highlight(val: bool) -> void:

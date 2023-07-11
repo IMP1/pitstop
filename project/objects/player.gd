@@ -1,5 +1,5 @@
 class_name Player
-extends CharacterBody2D
+extends BounceBody2D
 
 signal accellerated(position, velocity)
 
@@ -134,7 +134,8 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float):
 	var collision := move_and_collide(velocity * delta)
 	if collision:
-		velocity = velocity.bounce(collision.get_normal()) * bounce_factor
+		_collide(collision)
+		# velocity = velocity.bounce(collision.get_normal()) * bounce_factor
 	# TODO: Copy physics from Punt to have that sweet sweet conservation of momentum
 
 

@@ -394,6 +394,7 @@ position = Vector2(184, 132)
 gizmo_extents = 4.0
 
 [node name="Background" type="Node2D" parent="."]
+z_index = -10
 
 [node name="Space" type="Sprite2D" parent="Background"]
 z_index = -10
@@ -415,6 +416,7 @@ scroll_bounds = Rect2(-128, -128, 960, 608)
 
 [node name="AsteroidBelt" type="Node2D" parent="Background"]
 modulate = Color(0.231373, 0.184314, 0.341176, 1)
+z_index = -5
 position = Vector2(21, -93)
 
 [node name="Asteroid1" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
@@ -609,6 +611,7 @@ patch_price = 10.0
 recycled_patch_cost_reclaimed = 8.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Shipyard/PatchDispenser"]
+z_index = -5
 position = Vector2(-25, 13)
 texture = ExtResource("30_ued72")
 
