@@ -58,6 +58,7 @@ func _add_player(device_id: int) -> void:
 	p.position = (_player_spawns.get_child(i) as Node2D).position
 	p.accellerated.connect(_add_particle)
 	_device_players[p.device_id] = p
+	await get_tree().process_frame
 	if _prelude.visible:
 		var players := [] as Array[Player]
 		for player in _players.get_children():
@@ -310,6 +311,12 @@ func _remove_player() -> void:
 		player.queue_free()
 		_device_players.erase(id)
 		_resume()
+	await get_tree().process_frame
+	if _prelude.visible:
+		var players := [] as Array[Player]
+		for player in _players.get_children():
+			players.append(player as Player)
+		_prelude_confirmation.set_players_to_confirm(players)
 
 
 func _settings() -> void:
