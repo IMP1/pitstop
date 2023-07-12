@@ -4,6 +4,8 @@ extends Interactable
 signal progress_changed(value)
 
 @export var icon: Texture2D
+@export var todo_header: String
+@export var todo_list: Array[String]
 
 var progress: float = 0.0
 

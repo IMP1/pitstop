@@ -1,4 +1,4 @@
-[gd_scene load_steps=110 format=3 uid="uid://d0fnyfjglery6"]
+[gd_scene load_steps=111 format=3 uid="uid://d0fnyfjglery6"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_77n8k"]
 [ext_resource type="Texture2D" uid="uid://hg70qgk1xe71" path="res://assets/backgrounds/Blue Nebula 6 - 1024x1024.png" id="1_cs1ea"]
@@ -53,6 +53,7 @@
 [ext_resource type="Script" path="res://gui/debrief.gd" id="40_xmpib"]
 [ext_resource type="Script" path="res://objects/shipyard/diagnostic-display.gd" id="43_de1ih"]
 [ext_resource type="Texture2D" uid="uid://coox2vjyq25ni" path="res://assets/ships/diagnostic-display.png" id="43_vlcp1"]
+[ext_resource type="PackedScene" uid="uid://t5qvf61l1lt8" path="res://gui/to_do_list.tscn" id="45_bjx01"]
 [ext_resource type="Texture2D" uid="uid://jece3whe1fxo" path="res://assets/ships/Ship3_thrusters.png" id="49_k1d1g"]
 [ext_resource type="Texture2D" uid="uid://uwp03iqwerrd" path="res://assets/icons/gdb-xbox-2 (1).png" id="52_twyig"]
 [ext_resource type="PackedScene" uid="uid://u13iu6yho54k" path="res://gui/group_confirmable.tscn" id="54_jwr14"]
@@ -215,52 +216,6 @@ size = Vector2(35, 29)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qiqg5"]
 size = Vector2(64, 30)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bgavr"]
-atlas = ExtResource("49_k1d1g")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g30tk"]
-atlas = ExtResource("49_k1d1g")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4swv3"]
-atlas = ExtResource("49_k1d1g")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_5y86b"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bgavr")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g30tk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4swv3")
-}],
-"loop": true,
-"name": &"firing",
-"speed": 10.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_t6m4l"]
-resource_local_to_scene = true
-radius = 16.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uak3a"]
-atlas = ExtResource("33_2e7pl")
-region = Rect2(32, 0, 16, 32)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_h7p3u"]
-resource_local_to_scene = true
-radius = 16.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ew2fe"]
 bg_color = Color(0, 0, 0, 1)
 draw_center = false
@@ -315,6 +270,52 @@ default_font_size = 12
 Button/styles/focus = SubResource("StyleBoxFlat_ew2fe")
 Button/styles/normal = SubResource("StyleBoxFlat_00y10")
 Button/styles/pressed = SubResource("StyleBoxFlat_wc667")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgavr"]
+atlas = ExtResource("49_k1d1g")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g30tk"]
+atlas = ExtResource("49_k1d1g")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4swv3"]
+atlas = ExtResource("49_k1d1g")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5y86b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgavr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g30tk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4swv3")
+}],
+"loop": true,
+"name": &"firing",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t6m4l"]
+resource_local_to_scene = true
+radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uak3a"]
+atlas = ExtResource("33_2e7pl")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h7p3u"]
+resource_local_to_scene = true
+radius = 16.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xyvcw"]
 
@@ -1003,6 +1004,13 @@ collision_mask = 15
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Shipyard/DiagnosticDisplay/StaticBody2D"]
 polygon = PackedVector2Array(-46, 21, -46, 2, -41, 2, -32, 11, 32, 11, 41, 2, 46, 2, 46, 20, 39, 27, -39, 27)
 
+[node name="ToDoList" parent="Shipyard/DiagnosticDisplay" instance=ExtResource("45_bjx01")]
+offset_left = 104.0
+offset_top = -262.0
+offset_right = 244.0
+offset_bottom = -13.0
+theme = SubResource("Theme_ki26h")
+
 [node name="Ship" type="Node2D" parent="."]
 position = Vector2(338, 188)
 
@@ -1029,6 +1037,8 @@ autoplay = "default"
 position = Vector2(60, 30)
 script = ExtResource("34_rgc4q")
 time_to_patch = 2.0
+todo_header = "Hull Crack"
+todo_list = Array[String](["Apply Patch", "Weld Patch"])
 
 [node name="CollisionShape2D" parent="Ship/TestShip/Components/Crack2/Area2D" index="0"]
 shape = SubResource("CircleShape2D_t6m4l")
@@ -1047,6 +1057,8 @@ stream = ExtResource("36_whpp4")
 position = Vector2(-30, -34)
 script = ExtResource("20_s118x")
 capacity = 100.0
+todo_header = "Refuel Engines"
+todo_list = Array[String](["Insert Nozzle", "Pump Fuel"])
 
 [node name="CollisionShape2D" parent="Ship/TestShip/Components/FuelIntake/Area2D" index="0"]
 shape = SubResource("CircleShape2D_h7p3u")
@@ -1084,6 +1096,7 @@ offset_top = 71.0
 offset_right = 31.0
 offset_bottom = 97.0
 grow_horizontal = 2
+theme = SubResource("Theme_ki26h")
 text = "Clock In"
 horizontal_alignment = 1
 

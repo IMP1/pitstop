@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://t5qvf61l1lt8"]
+
+[ext_resource type="Script" path="res://gui/to_do_list.gd" id="1_snrhp"]
+
+[node name="ToDoList" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_snrhp")

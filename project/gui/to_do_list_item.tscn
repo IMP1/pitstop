@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5ogpq7t4j7ag"]
+
+[ext_resource type="Script" path="res://gui/to_do_list_item.gd" id="1_e2qkx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qtwey"]
+
+[node name="ToDoListItem" type="HBoxContainer"]
+offset_right = 1280.0
+offset_bottom = 37.0
+script = ExtResource("1_e2qkx")
+
+[node name="Indent" type="VSeparator" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 16
+theme_override_styles/separator = SubResource("StyleBoxEmpty_qtwey")
+
+[node name="CheckBox" type="CheckBox" parent="."]
+layout_mode = 2
+mouse_filter = 2

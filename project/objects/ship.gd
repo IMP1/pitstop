@@ -26,3 +26,12 @@ func get_fault(fault_type) -> ShipFault:
 			if is_instance_of(comp, fault_type):
 				return comp as ShipFault
 	return null
+
+
+func get_faults() -> Array[ShipFault]:
+	var list := [] as Array[ShipFault]
+	for comp in _components.get_children():
+		if comp is ShipFault:
+			list.append(comp)
+	return list
+

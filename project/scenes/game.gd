@@ -40,6 +40,7 @@ func _ready() -> void:
 	_menu.visible = false
 	_debrief.visible = false
 	for player in $Players.get_children():
+		Debug.info("[Game] Adding player %d" % player.device_id)
 		(player as Player).accellerated.connect(_add_particle)
 		_device_players[player.device_id] = player
 	_ship_maneuvering_zone.visible = false
@@ -56,7 +57,12 @@ func _add_player(device_id: int) -> void:
 	p.set_sprite(player_sprites[i])
 	p.position = (_player_spawns.get_child(i) as Node2D).position
 	p.accellerated.connect(_add_particle)
-	_device_players[device_id] = p
+	_device_players[p.device_id] = p
+	if _prelude.visible:
+		var players := [] as Array[Player]
+		for player in _players.get_children():
+			players.append(player as Player)
+		_prelude_confirmation.set_players_to_confirm(players)
 
 
 func _add_particle(pos: Vector2, vel: Vector2, spread:= 30, colour:=Color.WHITE, lifetime:=1.0) -> void:
@@ -87,18 +93,17 @@ func _setup_ship() -> void:
 		job.progress_changed.connect(_update_repair_progress.bind(i))
 	_clock.time_limit = ship.time_limit
 	_fuel_pump.ship_fuel_intake = ship.get_fault(FuelIntake) as FuelIntake
-	_diagnostic_display.ship = ship
+	_diagnostic_display.set_ship(ship)
 
 
 func _begin() -> void:
 	_tool_station.release_tools.call_deferred()
 	
-	_prelude.visible = true
 	var players := [] as Array[Player]
 	for p in _players.get_children():
 		players.append(p as Player)
 	_prelude_confirmation.set_players_to_confirm(players)
-	# TODO: Add any players that join to this list if not already confirmed
+	_prelude.visible = true
 	await _prelude_confirmation.confirmed
 	_prelude.visible = false
 	

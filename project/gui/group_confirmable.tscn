@@ -12,7 +12,7 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_l87oe")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Prompt" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5

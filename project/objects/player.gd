@@ -6,6 +6,7 @@ signal accellerated(position, velocity)
 const NO_DEVICE = -1
 const VELOCITY_EPSILON = 1.4
 const PROPULSION_PARTICLE_SPEED = 16
+const FACING_DIRECTION_WEIGHTING = 16 # Affects tool grabbing
 
 @export var device_id: int = NO_DEVICE
 @export var colour: Color = Color.WEB_GREEN
@@ -15,6 +16,8 @@ const PROPULSION_PARTICLE_SPEED = 16
 @export var braking_strength_min: float = 0.8
 @export var braking_strength_max: float = 0.1
 @export var throw_strength: float = 64.0
+
+var _direction: Vector2
 
 @onready var _interaction_range := $InteractionRange as Area2D
 @onready var _grab_range := $GrabRange as Area2D
@@ -55,8 +58,25 @@ func _try_grab() -> void:
 		return
 	if not _grab_range.has_overlapping_areas():
 		return
-	var obj := _grab_range.get_overlapping_areas()[0].get_parent() as Tool
+	var obj := _get_nearest_tool()
 	obj.grab(self)
+
+
+func _get_nearest_tool() -> Tool:
+	var nearest_tool: Tool = null
+	var nearest_distance_squared: float = 0
+	for obj in _grab_range.get_overlapping_areas():
+		var tool := obj.get_parent() as Tool
+		var vector := tool.global_position - global_position
+		Debug.info("[Player] Dot to %s is %f" % [tool.name, vector.dot(_direction)])
+		var dist_squared := vector.length_squared()
+		if vector.dot(_direction) > 0:
+			dist_squared /= FACING_DIRECTION_WEIGHTING
+		if nearest_tool == null or dist_squared < nearest_distance_squared:
+			nearest_tool = tool
+			nearest_distance_squared = dist_squared
+	# TODO: Use distance facing as a weighting somehow.
+	return nearest_tool
 
 
 func _try_interact() -> void:
@@ -114,17 +134,18 @@ func _process(delta: float) -> void:
 		velocity = Vector2.ZERO
 	if velocity.length_squared() > velocity_max * velocity_max:
 		velocity = velocity.normalized() * velocity_max
-	var direction := velocity.normalized()
+	var motion_direction = velocity.normalized()
 	if movement.x < 0:
 		_sprite.flip_h = true
 	if movement.x > 0:
 		_sprite.flip_h = false
 	if movement != Vector2.ZERO:
 		accellerated.emit(position, -movement * PROPULSION_PARTICLE_SPEED, 30, colour)
+		_direction = movement
 	if braking_input > 0:
 		var brake_amount := velocity.length() / 4
 		var particle_speed := PROPULSION_PARTICLE_SPEED * clampf(brake_amount, 0, 3)
-		accellerated.emit(position + direction * 6, direction * particle_speed, 60, colour)
+		accellerated.emit(position + motion_direction * 6, motion_direction * particle_speed, 60, colour)
 	if (movement != Vector2.ZERO or (braking_input > 0 and velocity != Vector2.ZERO)) and not _jetpack_audio.playing:
 		_jetpack_audio.play()
 	if movement == Vector2.ZERO and (braking_input == 0 or velocity == Vector2.ZERO) and _jetpack_audio.playing:
