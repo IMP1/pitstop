@@ -3,12 +3,10 @@ extends Interactable
 @export var pipe: Line2D
 @export var nozzle: Nozzle
 @export var nozzle_slot: Interactable
-@export var hold_to_interact: bool = true
 @export var retraction_speed: float = 1.0
 @export var loose_tool_container: Node2D
 
 var _retracting: bool = false
-var _device_interacting: int
 var _last_retraction_direction: Vector2
 
 @onready var _raycast := $RayCast2D as RayCast2D
@@ -17,18 +15,15 @@ var _last_retraction_direction: Vector2
 
 
 func interact(player: Player) -> void:
+	super(player)
 	if not _retracting:
 		_start_retracting(player.device_id)
 	elif not hold_to_interact:
 		_stop_retracting()
 
 
-func _input(event: InputEvent) -> void:
-	if not _retracting:
-		return
-	var action := "use_%d" % _device_interacting
-	if event.is_action_released(action) and hold_to_interact:
-		_stop_retracting()
+func stop_interacting() -> void:
+	_stop_retracting()
 
 
 func _start_retracting(device_id: int) -> void:
@@ -41,6 +36,8 @@ func _start_retracting(device_id: int) -> void:
 
 
 func _stop_retracting() -> void:
+	if not _retracting:
+		return
 	Debug.info("[Fuel Pipe Retractor] Disengaging")
 	_retracting = false
 	nozzle.velocity = _last_retraction_direction.normalized() * retraction_speed * 0.2

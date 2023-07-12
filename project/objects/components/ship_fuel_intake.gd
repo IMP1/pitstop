@@ -45,7 +45,8 @@ func pump(amount: float) -> void:
 	fill_level += amount
 	_progress_bar.value = fill_level
 	Debug.trace("[Fuel Intake] Level at %.2f (%.2f%%)" % [fill_level, _progress_bar.value / _progress_bar.max_value])
-	progress_changed.emit(_progress_bar.value / _progress_bar.max_value)
+	progress = _progress_bar.value / _progress_bar.max_value
+	progress_changed.emit(progress)
 	if _progress_bar.value / _progress_bar.max_value >= 1.0:
 		Debug.info("[Fuel Intake] Fuel full")
 

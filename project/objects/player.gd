@@ -1,7 +1,7 @@
 class_name Player
 extends BounceBody2D
 
-signal accellerated(position, velocity)
+signal accellerated(position, velocity, spread, colour)
 
 const NO_DEVICE = -1
 const VELOCITY_EPSILON = 1.4
@@ -18,11 +18,14 @@ const FACING_DIRECTION_WEIGHTING = 16 # Affects tool grabbing
 @export var throw_strength: float = 64.0
 
 var _direction: Vector2
+var _potential_grab: Tool
+var _potential_interact: Interactable
 
 @onready var _interaction_range := $InteractionRange as Area2D
 @onready var _grab_range := $GrabRange as Area2D
 @onready var _sprite := $Sprite2D as Sprite2D
-@onready var _held_tools := $HeldTool as Node2D
+@onready var _held_tool_pivot := $HeldToolPivot as Node2D
+@onready var _held_tools := $HeldToolPivot/HeldTool as Node2D
 @onready var _jetpack_audio := $Jetpack/Audio as AudioStreamPlayer2D
 @onready var _bump_audio := $BumpAudio as AudioStreamPlayer2D
 @onready var _interact_prompt := $InputPromptInteract as Sprite2D
@@ -60,6 +63,7 @@ func _try_grab() -> void:
 		return
 	var obj := _get_nearest_tool()
 	obj.grab(self)
+	obj.set_deferred("transform", _held_tools.transform)
 
 
 func _get_nearest_tool() -> Tool:
@@ -68,14 +72,12 @@ func _get_nearest_tool() -> Tool:
 	for obj in _grab_range.get_overlapping_areas():
 		var tool := obj.get_parent() as Tool
 		var vector := tool.global_position - global_position
-		Debug.info("[Player] Dot to %s is %f" % [tool.name, vector.dot(_direction)])
 		var dist_squared := vector.length_squared()
 		if vector.dot(_direction) > 0:
 			dist_squared /= FACING_DIRECTION_WEIGHTING
 		if nearest_tool == null or dist_squared < nearest_distance_squared:
 			nearest_tool = tool
 			nearest_distance_squared = dist_squared
-	# TODO: Use distance facing as a weighting somehow.
 	return nearest_tool
 
 
@@ -84,6 +86,21 @@ func _try_interact() -> void:
 		return
 	var obj := _interaction_range.get_overlapping_areas()[0].get_parent() as Interactable
 	obj.interact(self)
+
+
+func _get_nearest_interactable() -> Interactable:
+	var nearest_interactable: Interactable = null
+	var nearest_distance_squared: float = 0
+	for obj in _interaction_range.get_overlapping_areas():
+		var interactable := obj.get_parent() as Interactable
+		var vector := interactable.global_position - global_position
+		var dist_squared := vector.length_squared()
+		if vector.dot(_direction) > 0:
+			dist_squared /= FACING_DIRECTION_WEIGHTING
+		if nearest_interactable == null or dist_squared < nearest_distance_squared:
+			nearest_interactable = interactable
+			nearest_distance_squared = dist_squared
+	return nearest_interactable
 
 
 func _try_throw() -> void:
@@ -120,6 +137,12 @@ func _process(delta: float) -> void:
 	# TODO: Highlight which interactble would be used, if any can be.
 	if device_id < 0:
 		return
+	_process_movement(delta)
+	_update_interactable()
+	_update_grabbable()
+
+
+func _process_movement(delta: float) -> void:
 	var left := "move_left_%d" % device_id
 	var right := "move_right_%d" % device_id
 	var up := "move_up_%d" % device_id
@@ -134,11 +157,13 @@ func _process(delta: float) -> void:
 		velocity = Vector2.ZERO
 	if velocity.length_squared() > velocity_max * velocity_max:
 		velocity = velocity.normalized() * velocity_max
-	var motion_direction = velocity.normalized()
+	var motion_direction := velocity.normalized()
 	if movement.x < 0:
 		_sprite.flip_h = true
+		_held_tool_pivot.scale.x = -1
 	if movement.x > 0:
 		_sprite.flip_h = false
+		_held_tool_pivot.scale.x = 1
 	if movement != Vector2.ZERO:
 		accellerated.emit(position, -movement * PROPULSION_PARTICLE_SPEED, 30, colour)
 		_direction = movement
@@ -159,6 +184,28 @@ func _physics_process(delta: float):
 		_bump_audio.play()
 
 
-func show_interact_prompt(obj: Interactable) -> void:
-	pass
+func _update_interactable() -> void:
+	var interactable := _get_nearest_interactable()
+	if interactable:
+		if not interactable.can_interact(self):
+			_interact_prompt.visible = false
+		elif false:
+			pass # If you're already interacting then maybe don't need the prompt?
+		else:
+			_interact_prompt.visible = true
+	else:
+		_interact_prompt.visible = false
 
+
+func _update_grabbable() -> void:
+	if current_tool():
+		if _potential_grab:
+			_potential_grab.reset_highlight_colour(device_id)
+			_potential_grab = null
+		return
+	var nearest_tool := _get_nearest_tool()
+	if _potential_grab and nearest_tool != _potential_grab:
+		_potential_grab.reset_highlight_colour(device_id)
+	_potential_grab = nearest_tool
+	if _potential_grab:
+		_potential_grab.set_highlight_colour(colour, device_id)

@@ -8,7 +8,7 @@ const FRAME_ON = 1
 
 @export var fuel_cost: float = 10
 @export var fuel_per_second: float = 10
-@export var ship_fuel_intake: FuelIntake # TODO: How will this be set? In the Game script?
+@export var ship_fuel_intake: FuelIntake
 @export var nozzle_slot: Interactable
 @export var nozzle: Nozzle
 

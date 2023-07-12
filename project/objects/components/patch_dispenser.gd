@@ -12,7 +12,7 @@ const PATCH_OBJECT = preload("res://objects/shipyard/patch.tscn")
 var patches_created: int = 0
 
 @onready var _spawn_area := $Output as Area2D
-@onready var _input := $Input as Node2D
+@onready var _source := $Input as Node2D
 @onready var _generation_audio := $Generation as AudioStreamPlayer2D#
 @onready var _failure_audio := $Failure as AudioStreamPlayer2D
 
@@ -29,7 +29,7 @@ func interact(_player: Player) -> void:
 		var patch := PATCH_OBJECT.instantiate() as Patch
 		add_child(patch)
 		patch_released.emit(patch)
-		patch.global_position = _input.global_position
+		patch.global_position = _source.global_position
 		var tween := create_tween()
 		tween.tween_property(patch, "global_position", _spawn_area.global_position, 1.0)
 		await tween.finished

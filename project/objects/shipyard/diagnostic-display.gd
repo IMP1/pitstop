@@ -57,7 +57,6 @@ func interact(_player: Player) -> void:
 	Debug.debug("[Diagnostic] Toggling %s" % ("on" if _showing_jobs else "off"))
 	for component in _ship.get_faults():
 		(component as ShipFault)._icon.visible = _showing_jobs
-	# TODO: Draw lines to link faults to tools?
 	_sprite.frame = ON_FRAME if _showing_jobs else OFF_FRAME
 	_todo_list.visible = _showing_jobs
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://d0fnyfjglery6"]
+[gd_scene load_steps=116 format=3 uid="uid://d0fnyfjglery6"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_77n8k"]
 [ext_resource type="Texture2D" uid="uid://hg70qgk1xe71" path="res://assets/backgrounds/Blue Nebula 6 - 1024x1024.png" id="1_cs1ea"]
@@ -54,6 +54,7 @@
 [ext_resource type="Script" path="res://objects/shipyard/diagnostic-display.gd" id="43_de1ih"]
 [ext_resource type="Texture2D" uid="uid://coox2vjyq25ni" path="res://assets/ships/diagnostic-display.png" id="43_vlcp1"]
 [ext_resource type="PackedScene" uid="uid://t5qvf61l1lt8" path="res://gui/to_do_list.tscn" id="45_bjx01"]
+[ext_resource type="Texture2D" uid="uid://2bkmeu4oe6br" path="res://assets/ships/ship3-exhaust1.png" id="49_3bfq0"]
 [ext_resource type="Texture2D" uid="uid://jece3whe1fxo" path="res://assets/ships/Ship3_thrusters.png" id="49_k1d1g"]
 [ext_resource type="Texture2D" uid="uid://uwp03iqwerrd" path="res://assets/icons/gdb-xbox-2 (1).png" id="52_twyig"]
 [ext_resource type="PackedScene" uid="uid://u13iu6yho54k" path="res://gui/group_confirmable.tscn" id="54_jwr14"]
@@ -271,9 +272,25 @@ Button/styles/focus = SubResource("StyleBoxFlat_ew2fe")
 Button/styles/normal = SubResource("StyleBoxFlat_00y10")
 Button/styles/pressed = SubResource("StyleBoxFlat_wc667")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bgavr"]
-atlas = ExtResource("49_k1d1g")
-region = Rect2(0, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_isbpl"]
+atlas = ExtResource("2_st84s")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwyf6"]
+atlas = ExtResource("49_3bfq0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uj348"]
+atlas = ExtResource("49_3bfq0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksw3c"]
+atlas = ExtResource("49_3bfq0")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xktli"]
+atlas = ExtResource("49_3bfq0")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g30tk"]
 atlas = ExtResource("49_k1d1g")
@@ -287,10 +304,27 @@ region = Rect2(0, 32, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bgavr")
+"texture": SubResource("AtlasTexture_isbpl")
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwyf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uj348")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksw3c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xktli")
+}],
+"loop": true,
+"name": &"firing",
 "speed": 5.0
 }, {
 "frames": [{
@@ -301,7 +335,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_4swv3")
 }],
 "loop": true,
-"name": &"firing",
+"name": &"firing_old",
 "speed": 10.0
 }]
 
@@ -759,9 +793,9 @@ script = ExtResource("22_petaf")
 pipe = NodePath("../NozzleSlot/Pipe")
 nozzle = NodePath("../NozzleSlot/Nozzle")
 nozzle_slot = NodePath("../NozzleSlot")
-hold_to_interact = true
 retraction_speed = 48.0
 loose_tool_container = NodePath("../../../LooseTools")
+hold_to_interact = true
 
 [node name="RayCast2D" type="RayCast2D" parent="Shipyard/FuelStation/Retractor"]
 position = Vector2(14, 33)
@@ -1028,7 +1062,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_st84s")
 
 [node name="Thrusters" parent="Ship/TestShip" index="2"]
-position = Vector2(-90, -2)
+position = Vector2(-106, -2)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_5y86b")
 autoplay = "default"
@@ -1039,6 +1073,7 @@ script = ExtResource("34_rgc4q")
 time_to_patch = 2.0
 todo_header = "Hull Crack"
 todo_list = Array[String](["Apply Patch", "Weld Patch"])
+hold_to_interact = true
 
 [node name="CollisionShape2D" parent="Ship/TestShip/Components/Crack2/Area2D" index="0"]
 shape = SubResource("CircleShape2D_t6m4l")

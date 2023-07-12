@@ -8,7 +8,6 @@ const PATCHED_FRAME = 1
 
 var _has_patch: bool = false
 var _is_welding: bool = false
-var _device_interacting: int
 var _is_finished: bool = false
 
 @onready var _welding_audio := $WeldingAudio as AudioStreamPlayer2D
@@ -21,8 +20,18 @@ func _ready():
 	_progress_bar.max_value = time_to_patch
 
 
-func interact(player: Player) -> void:
+func can_interact(player: Player) -> bool:
 	if _is_finished:
+		return false
+	if not _has_patch and not player.current_tool() is Patch:
+		return false
+	if _has_patch and not player.current_tool() is Blowtorch:
+		return false
+	return true
+
+
+func interact(player: Player) -> void:
+	if not can_interact(player):
 		return
 	if not _has_patch and player.current_tool() is Patch:
 		_apply_patch(player.get_tool("Patch"))
@@ -30,14 +39,8 @@ func interact(player: Player) -> void:
 		_start_welding(player.device_id)
 
 
-func _input(event: InputEvent) -> void:
-	if _is_finished:
-		return
-	if not _is_welding:
-		return
-	var action := "use_%d" % _device_interacting
-	if event.is_action_released(action):
-		_stop_welding()
+func stop_interacting() -> void:
+	_stop_welding()
 
 
 func _apply_patch(patch: Tool) -> void:
@@ -54,6 +57,8 @@ func _start_welding(device_id: int) -> void:
 
 
 func _stop_welding() -> void:
+	if not _is_welding:
+		return
 	_is_welding = false
 	_welding_audio.stop()
 
@@ -71,4 +76,5 @@ func _process(delta: float) -> void:
 		_is_finished = true
 		_welding_audio.stop()
 		_progress_bar.visible = false
-	progress_changed.emit(_progress_bar.value / _progress_bar.max_value)
+	progress = _progress_bar.value / _progress_bar.max_value
+	progress_changed.emit(progress)
