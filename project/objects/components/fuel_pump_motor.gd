@@ -19,6 +19,7 @@ var _turned_on: bool = false
 @onready var _switch_off_audio := $SwitchOff as AudioStreamPlayer2D
 @onready var _fluid_audio := $Fluid as AudioStreamPlayer2D
 @onready var _switch_sprite := $SwitchSprite as Sprite2D
+@onready var _highlight_line := $Highlight as Line2D
 
 
 func interact(_player: Player) -> void:
@@ -66,3 +67,7 @@ func _process(delta: float) -> void:
 			_fluid_audio.play()
 	elif nozzle.get_parent() == nozzle_slot and _fluid_audio.playing:
 		_fluid_audio.stop()
+
+
+func highlight(colour: Color) -> void:
+	_highlight_line.default_color = colour

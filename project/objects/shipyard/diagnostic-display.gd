@@ -10,6 +10,7 @@ var _showing_jobs: bool = false
 
 @onready var _sprite := $Sprite2D as Sprite2D
 @onready var _todo_list := $ToDoList as ToDoList
+@onready var _highlight_line := $Highlight as Line2D
 
 
 func _ready() -> void:
@@ -60,3 +61,6 @@ func interact(_player: Player) -> void:
 	_sprite.frame = ON_FRAME if _showing_jobs else OFF_FRAME
 	_todo_list.visible = _showing_jobs
 
+
+func highlight(colour: Color) -> void:
+	_highlight_line.default_color = colour

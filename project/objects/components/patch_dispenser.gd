@@ -15,6 +15,7 @@ var patches_created: int = 0
 @onready var _source := $Input as Node2D
 @onready var _generation_audio := $Generation as AudioStreamPlayer2D#
 @onready var _failure_audio := $Failure as AudioStreamPlayer2D
+@onready var _highlight_line := $Highlight as Line2D
 
 
 func _spawn_area_clear() -> bool:
@@ -37,3 +38,7 @@ func interact(_player: Player) -> void:
 	else:
 		Debug.info("[Dispenser] Spawn area occupied")
 		_failure_audio.play()
+
+
+func highlight(colour: Color) -> void:
+	_highlight_line.default_color = colour

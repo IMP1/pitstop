@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqcjgp7k2susp"]
+[gd_scene load_steps=12 format=3 uid="uid://bqcjgp7k2susp"]
 
 [ext_resource type="Script" path="res://objects/player.gd" id="1_77f0j"]
 [ext_resource type="Texture2D" uid="uid://dusjkb5qu2e4f" path="res://assets/characters/players.png" id="2_qw6so"]
@@ -22,6 +22,10 @@ radius = 9.0
 [sub_resource type="AtlasTexture" id="AtlasTexture_l5hxy"]
 atlas = ExtResource("4_xyju4")
 region = Rect2(448, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1xio"]
+atlas = ExtResource("4_xyju4")
+region = Rect2(448, 48, 16, 16)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
@@ -72,6 +76,11 @@ volume_db = -5.0
 visible = false
 position = Vector2(0, -17)
 texture = SubResource("AtlasTexture_l5hxy")
+
+[node name="GrabPromptInteract" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -17)
+texture = SubResource("AtlasTexture_f1xio")
 
 [node name="BumpAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_cys0s")

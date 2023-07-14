@@ -1,3 +1,4 @@
+class_name NozzleSlot
 extends Interactable
 
 var _last_nozzle_position: Vector2
@@ -7,6 +8,7 @@ var _nozzle_initial_position: Vector2
 @onready var _pipe := $Pipe as Line2D
 @onready var _grab_sound := $GrabNozzleAudio as AudioStreamPlayer2D
 @onready var _drop_sound := $DropNozzleAudio as AudioStreamPlayer2D
+@onready var _highlight_line := $Highlight as Line2D
 
 
 func _ready() -> void:
@@ -20,6 +22,10 @@ func interact(player: Player) -> void:
 		_nozzle_taken(player)
 	elif player.current_tool() is Nozzle:
 		_nozzle_returned()
+
+
+func can_interact(player: Player) -> bool:
+	return has_node("Nozzle") or player.current_tool() is Nozzle
 
 
 func _nozzle_taken(player: Player) -> void:
@@ -50,3 +56,7 @@ func _extend_pipe(_delta: float) -> void:
 		_last_nozzle_position = pos
 	_pipe.set_point_position(_pipe.get_point_count() - 1, pos)
 	_nozzle.rotation = movement.angle() + deg_to_rad(225)
+
+
+func highlight(colour: Color) -> void:
+	_highlight_line.default_color = colour

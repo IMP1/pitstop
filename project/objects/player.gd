@@ -29,6 +29,7 @@ var _potential_interact: Interactable
 @onready var _jetpack_audio := $Jetpack/Audio as AudioStreamPlayer2D
 @onready var _bump_audio := $BumpAudio as AudioStreamPlayer2D
 @onready var _interact_prompt := $InputPromptInteract as Sprite2D
+@onready var _grab_prompt := $GrabPromptInteract as Sprite2D
 
 
 func set_sprite(tex: Texture2D) -> void:
@@ -39,7 +40,7 @@ func _ready() -> void:
 	if device_id >= 0:
 		InputManager.register_gamepad(device_id)
 	_interact_prompt.visible = false
-	# TODO: Show input prompt when around interactables
+	_grab_prompt.visible = false
 
 
 func _input(event: InputEvent) -> void:
@@ -185,16 +186,14 @@ func _physics_process(delta: float):
 
 
 func _update_interactable() -> void:
-	var interactable := _get_nearest_interactable()
-	if interactable:
-		if not interactable.can_interact(self):
-			_interact_prompt.visible = false
-		elif false:
-			pass # If you're already interacting then maybe don't need the prompt?
-		else:
-			_interact_prompt.visible = true
-	else:
-		_interact_prompt.visible = false
+	var nearest_interactable := _get_nearest_interactable()
+	if _potential_interact and _potential_interact != nearest_interactable:
+		_potential_interact.reset_highlight_colour(device_id)
+	_interact_prompt.visible = false
+	if nearest_interactable and nearest_interactable.can_interact(self):
+		_interact_prompt.visible = true
+		_potential_interact = nearest_interactable
+		_potential_interact.set_highlight_colour(colour, device_id)
 
 
 func _update_grabbable() -> void:
@@ -202,10 +201,12 @@ func _update_grabbable() -> void:
 		if _potential_grab:
 			_potential_grab.reset_highlight_colour(device_id)
 			_potential_grab = null
+			_grab_prompt.visible = false
 		return
 	var nearest_tool := _get_nearest_tool()
 	if _potential_grab and nearest_tool != _potential_grab:
 		_potential_grab.reset_highlight_colour(device_id)
 	_potential_grab = nearest_tool
-	if _potential_grab:
+	_grab_prompt.visible = (_potential_grab != null)
+	if _grab_prompt.visible:
 		_potential_grab.set_highlight_colour(colour, device_id)

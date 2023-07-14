@@ -2,8 +2,12 @@ class_name Interactable
 extends Node2D
 
 @export var hold_to_interact: bool = false
+@export var highlight_colour: Color = Color.WHITE
+@export var multiple_highlight_colour: Color = Color.WHITE
 
 var _device_interacting: int
+var _highlight: bool = true
+var _players_highlighting: Dictionary = {}
 
 
 func interact(player: Player) -> void:
@@ -23,4 +27,35 @@ func _input(event: InputEvent) -> void:
 
 func can_interact(_player: Player) -> bool:
 	return true
+
+
+func set_highlight(val: bool) -> void:
+	_highlight = val
+	if _highlight:
+		highlight(highlight_colour)
+	else:
+		highlight(Color(1, 1, 1, 0))
+
+
+func set_highlight_colour(colour: Color, id: int) -> void:
+	_players_highlighting[id] = true
+	if _players_highlighting.size() > 1:
+		highlight_colour = multiple_highlight_colour
+	else:
+		highlight_colour = colour
+	if _highlight:
+		highlight(highlight_colour)
+
+
+func reset_highlight_colour(id: int) -> void:
+	_players_highlighting.erase(id)
+	if _players_highlighting.size() == 0:
+		highlight_colour = Color.WHITE
+	if _highlight:
+		highlight(highlight_colour)
+
+
+func highlight(color: Color) -> void:
+	# To be overwritten
+	pass # TODO: Highlight somehow
 
