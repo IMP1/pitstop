@@ -1,119 +1,151 @@
-[gd_scene load_steps=15 format=3 uid="uid://ct2togmn5216q"]
+[gd_scene load_steps=12 format=3 uid="uid://ct2togmn5216q"]
 
-[ext_resource type="Texture2D" uid="uid://dboyjqm323i0b" path="res://assets/splash/murmurations-slower.png" id="1_4g5sb"]
+[ext_resource type="Script" path="res://scenes/splash.gd" id="1_8hryt"]
+[ext_resource type="Texture2D" uid="uid://cjkh08fq3cyu1" path="res://assets/splash/gas-station.png" id="2_8h6yw"]
+[ext_resource type="FontFile" uid="uid://0vh6csaq2gfa" path="res://assets/fonts/Bruno_Ace_SC/BrunoAceSC-Regular.ttf" id="2_w1etb"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ndlj5"]
-atlas = ExtResource("1_4g5sb")
-region = Rect2(0, 0, 500, 302)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ew2fe"]
+bg_color = Color(0, 0, 0, 1)
+draw_center = false
+skew = Vector2(1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 2
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 2
+expand_margin_left = 12.0
+expand_margin_right = 12.0
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 2
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_flm6h"]
-atlas = ExtResource("1_4g5sb")
-region = Rect2(0, 302, 500, 302)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00y10"]
+bg_color = Color(0, 0, 0, 1)
+skew = Vector2(1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 3
+corner_radius_top_left = 4
+corner_radius_top_right = 2
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 2
+expand_margin_left = 12.0
+expand_margin_right = 12.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6vr2a"]
-atlas = ExtResource("1_4g5sb")
-region = Rect2(0, 604, 500, 302)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wc667"]
+bg_color = Color(0, 0, 0, 1)
+skew = Vector2(1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 4
+corner_radius_top_right = 2
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 2
+expand_margin_left = 12.0
+expand_margin_top = 2.0
+expand_margin_right = 12.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lasbb"]
-atlas = ExtResource("1_4g5sb")
-region = Rect2(0, 906, 500, 302)
+[sub_resource type="Theme" id="Theme_onp2b"]
+default_font = ExtResource("2_w1etb")
+default_font_size = 12
+Button/styles/focus = SubResource("StyleBoxFlat_ew2fe")
+Button/styles/normal = SubResource("StyleBoxFlat_00y10")
+Button/styles/pressed = SubResource("StyleBoxFlat_wc667")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_j3281"]
-atlas = ExtResource("1_4g5sb")
-region = Rect2(0, 1208, 500, 302)
+[sub_resource type="Gradient" id="Gradient_20r7j"]
+offsets = PackedFloat32Array(0.251613, 0.967742)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_eqn7u"]
-atlas = ExtResource("1_4g5sb")
-region = Rect2(0, 1510, 500, 302)
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_t076u"]
+gradient = SubResource("Gradient_20r7j")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_stcje"]
-atlas = ExtResource("1_4g5sb")
-region = Rect2(0, 1812, 500, 302)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dsw6b"]
+bg_color = Color(0, 0, 0, 0.752941)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_85yfh"]
-atlas = ExtResource("1_4g5sb")
-region = Rect2(0, 2114, 500, 302)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j71mb"]
-atlas = ExtResource("1_4g5sb")
-region = Rect2(0, 2416, 500, 302)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w4fdm"]
-atlas = ExtResource("1_4g5sb")
-region = Rect2(0, 2718, 500, 302)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g1ifm"]
-atlas = ExtResource("1_4g5sb")
-region = Rect2(0, 3020, 500, 302)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w2n5q"]
-atlas = ExtResource("1_4g5sb")
-region = Rect2(0, 3322, 500, 302)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_hqcs1"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ndlj5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_flm6h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6vr2a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lasbb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j3281")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eqn7u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_stcje")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_85yfh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j71mb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w4fdm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g1ifm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w2n5q")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02832"]
+bg_color = Color(1, 1, 1, 0.752941)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Splash" type="Node2D"]
-
-[node name="Timer" type="Timer" parent="."]
+script = ExtResource("1_8hryt")
+scene_path = "res://scenes/game.tscn"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 640.0
-offset_bottom = 360.0
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(85, 53)
-sprite_frames = SubResource("SpriteFrames_hqcs1")
-autoplay = "default"
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_8h6yw")
 centered = false
 
-[node name="Label" type="Label" parent="."]
-offset_left = 235.0
-offset_top = 25.0
-offset_right = 429.0
-offset_bottom = 51.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Colour Weavers presents"
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 640.0
+offset_bottom = 360.0
+theme = SubResource("Theme_onp2b")
+texture = SubResource("GradientTexture2D_t076u")
+
+[node name="ColorRect" type="ColorRect" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="Label" type="Label" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -127.5
+offset_right = 127.5
+offset_bottom = 91.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 64
+text = "PITSTOP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -169.0
+offset_top = -44.0
+offset_right = 169.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_dsw6b")
+theme_override_styles/fill = SubResource("StyleBoxFlat_02832")
+max_value = 1.0
+step = 0.001

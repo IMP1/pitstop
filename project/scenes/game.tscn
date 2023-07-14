@@ -1035,16 +1035,16 @@ position = Vector2(515, 32)
 script = ExtResource("37_te6ei")
 game = NodePath("../..")
 
+[node name="CollisionShape2D" parent="Shipyard/UniformStation/Area2D" index="0"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_41hrp")
+
 [node name="Highlight" type="Line2D" parent="Shipyard/UniformStation"]
 points = PackedVector2Array(17, 3, 16, 3, 16, 4, 10, 4, 10, 3, 9, 3, 9, -9, 8, -9, 8, 3, 7, 3, 7, 4, 1, 4, 1, 3, 0, 3, 0, -9, -1, -9, -1, 3, -2, 3, -2, 4, -8, 4, -8, 3, -9, 3, -9, -9, -10, -9, -10, 3, -11, 3, -11, 4, -17, 4, -17, 3, -18, 3, -18, -12, 17, -12, 17, 3)
 width = 2.0
 joint_mode = 1
 begin_cap_mode = 1
 end_cap_mode = 1
-
-[node name="CollisionShape2D" parent="Shipyard/UniformStation/Area2D" index="0"]
-position = Vector2(0, -1.5)
-shape = SubResource("RectangleShape2D_41hrp")
 
 [node name="Sprite2D" type="Sprite2D" parent="Shipyard/UniformStation"]
 position = Vector2(0, -15)
