@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0k52ti5s2i82"]
+
+[ext_resource type="Script" path="res://gui/h_select.gd" id="1_g4180"]
+[ext_resource type="Texture2D" uid="uid://cjnpoje4kf8cs" path="res://assets/icons/play-button.png" id="2_xibhl"]
+
+[node name="HSelect" type="Button"]
+offset_right = 95.0
+offset_bottom = 50.0
+script = ExtResource("1_g4180")
+
+[node name="Options" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -159.0
+offset_right = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="1" type="Label" parent="Options"]
+modulate = Color(0.752941, 0.752941, 0.752941, 0.752941)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Controls"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="2" type="Label" parent="Options"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Audio"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="3" type="Label" parent="Options"]
+modulate = Color(0.752941, 0.752941, 0.752941, 0.752941)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "Accessibility"
+vertical_alignment = 1
+
+[node name="Prev" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_right = 16.0
+grow_vertical = 2
+texture = ExtResource("2_xibhl")
+expand_mode = 2
+stretch_mode = 5
+flip_h = true
+
+[node name="Next" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_right = 49.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("2_xibhl")
+expand_mode = 1
+stretch_mode = 5
