@@ -1,14 +1,19 @@
 extends Node2D
 
 @export var scene_path: String
+@export var post_load_delay: float = 0.3
+@export var require_input: bool = true
 
 var _finished: bool = false
 
 @onready var _progress := $TextureRect/ProgressBar as ProgressBar
+@onready var _button := $TextureRect/Button as Button
 
 
 func _ready() -> void:
 	ResourceLoader.load_threaded_request(scene_path)
+	_finished = false
+	_button.visible = false
 
 
 func _process(delta: float) -> void:
@@ -21,6 +26,7 @@ func _process(delta: float) -> void:
 			_complete()
 		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_IN_PROGRESS:
 			_progress.value = progress[0]
+			Debug.info(progress)
 		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_INVALID_RESOURCE:
 			_fail()
 		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_FAILED:
@@ -28,7 +34,15 @@ func _process(delta: float) -> void:
 
 
 func _complete():
+	Debug.error("[Splash] Loaded scene %s" % scene_path)
+	_finished = true
+	_progress.value = 1.0
+	await create_tween().tween_interval(post_load_delay).finished
 	var packed_scene := ResourceLoader.load_threaded_get(scene_path) as PackedScene
+	if require_input:
+		_button.visible = true
+		_button.grab_focus()
+		await _button.pressed
 	get_tree().change_scene_to_packed(packed_scene)
 
 

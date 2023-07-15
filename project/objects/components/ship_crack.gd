@@ -11,6 +11,7 @@ var _is_welding: bool = false
 var _is_finished: bool = false
 
 @onready var _welding_audio := $WeldingAudio as AudioStreamPlayer2D
+@onready var _welding_particles := $GPUParticles2D as GPUParticles2D
 
 
 func _ready():
@@ -36,7 +37,7 @@ func interact(player: Player) -> void:
 	if not _has_patch and player.current_tool() is Patch:
 		_apply_patch(player.get_tool("Patch"))
 	elif _has_patch and player.current_tool() is Blowtorch:
-		_start_welding(player.device_id)
+		_start_welding(player)
 
 
 func stop_interacting() -> void:
@@ -50,10 +51,14 @@ func _apply_patch(patch: Tool) -> void:
 	_progress_bar.visible = true
 
 
-func _start_welding(device_id: int) -> void:
-	_device_interacting = device_id
+func _start_welding(player: Player) -> void:
+	_device_interacting = player.device_id
 	_is_welding = true
 	_welding_audio.play()
+	_welding_particles.emitting = true
+	var direction := player.global_position - global_position
+	var direction_3d := Vector3(direction.x, direction.y, 0).normalized()
+	(_welding_particles.process_material as ParticleProcessMaterial).direction = direction_3d
 
 
 func _stop_welding() -> void:
@@ -61,6 +66,7 @@ func _stop_welding() -> void:
 		return
 	_is_welding = false
 	_welding_audio.stop()
+	_welding_particles.emitting = false
 
 
 func _process(delta: float) -> void:
@@ -68,7 +74,6 @@ func _process(delta: float) -> void:
 		return
 	if _is_finished:
 		return
-	# TODO: Emit some particles?
 	_progress_bar.value += delta
 	_sprite.modulate.a = lerpf(1, 0, _progress_bar.value / _progress_bar.max_value)
 	if _progress_bar.value >= _progress_bar.max_value:

@@ -37,9 +37,12 @@ func _nozzle_taken(player: Player) -> void:
 func _nozzle_returned() -> void:
 	Debug.info("[Fuel Pump] Recieve Nozzle")
 	_drop_sound.play()
-	_nozzle.reparent(self)
-	_nozzle.position = _nozzle_initial_position
 	_nozzle.velocity = Vector2.ZERO
+	_nozzle.reparent(self)
+	_nozzle._grab_shape.disabled = true
+	_nozzle.set_highlight(false)
+	_nozzle.set_deferred("position", _nozzle_initial_position)
+	# TODO: Set transform (rotation) too
 
 
 func _process(delta: float) -> void:

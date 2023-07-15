@@ -1,8 +1,6 @@
 class_name Debrief
 extends CanvasLayer
 
-signal confirmed
-
 @export var negative_colour: Color = Color.DARK_RED
 @export var result: String: 
 	set = _set_result

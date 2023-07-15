@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bqcjgp7k2susp"]
+[gd_scene load_steps=13 format=3 uid="uid://bqcjgp7k2susp"]
 
 [ext_resource type="Script" path="res://objects/player.gd" id="1_77f0j"]
 [ext_resource type="Texture2D" uid="uid://dusjkb5qu2e4f" path="res://assets/characters/players.png" id="2_qw6so"]
 [ext_resource type="AudioStream" uid="uid://dnamrdb0k2jjb" path="res://assets/sounds/good-jetpack-sound-loop-96693.mp3" id="3_nulyg"]
 [ext_resource type="Texture2D" uid="uid://uwp03iqwerrd" path="res://assets/icons/gdb-xbox-2 (1).png" id="4_xyju4"]
 [ext_resource type="AudioStream" uid="uid://ckrql2w0wsd2e" path="res://assets/sounds/thump-on-carpet-107101.mp3" id="5_cys0s"]
+[ext_resource type="Texture2D" uid="uid://bf1embj6cobdb" path="res://assets/icons/barbed-arrow.png" id="6_svdcj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jcba"]
 size = Vector2(10, 13)
@@ -33,6 +34,14 @@ collision_mask = 7
 script = ExtResource("1_77f0j")
 colour = Color(0, 0.8, 0.545098, 1)
 bounce_coefficient = 0.6
+
+[node name="ThrowArrowPivot" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="ThrowArrowPivot"]
+position = Vector2(4, 0)
+rotation = -0.785398
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("6_svdcj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -2.5)

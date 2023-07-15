@@ -20,7 +20,6 @@ var _players_highlighting: Dictionary = {}
 func grab(player: Player) -> void:
 	Debug.info("[Tool] Grabbing")
 	self.reparent(player._held_tools)
-#	transform = player._held_tools.transform
 	velocity = Vector2.ZERO
 	_grab_shape.disabled = true
 	set_highlight(false)

@@ -30,10 +30,17 @@ var _potential_interact: Interactable
 @onready var _bump_audio := $BumpAudio as AudioStreamPlayer2D
 @onready var _interact_prompt := $InputPromptInteract as Sprite2D
 @onready var _grab_prompt := $GrabPromptInteract as Sprite2D
+@onready var _throw_pivot := $ThrowArrowPivot as Node2D
+@onready var _throw_sprite := $ThrowArrowPivot/Sprite2D as Sprite2D
 
 
 func set_sprite(tex: Texture2D) -> void:
 	_sprite.texture = tex
+
+
+func set_colour(new_colour: Color) -> void:
+	colour = new_colour
+	_throw_sprite.modulate = colour
 
 
 func _ready() -> void:
@@ -41,6 +48,8 @@ func _ready() -> void:
 		InputManager.register_gamepad(device_id)
 	_interact_prompt.visible = false
 	_grab_prompt.visible = false
+	_throw_pivot.visible = false
+	_throw_sprite.modulate = colour
 
 
 func _input(event: InputEvent) -> void:
@@ -118,6 +127,7 @@ func _try_throw() -> void:
 	else:
 		aim_direction *= throw_strength
 	tool.throw(aim_direction)
+	_throw_pivot.visible = false
 
 
 func current_tool() -> Tool:
@@ -139,6 +149,7 @@ func _process(delta: float) -> void:
 	if device_id < 0:
 		return
 	_process_movement(delta)
+	_process_aim()
 	_update_interactable()
 	_update_grabbable()
 
@@ -176,6 +187,18 @@ func _process_movement(delta: float) -> void:
 		_jetpack_audio.play()
 	if movement == Vector2.ZERO and (braking_input == 0 or velocity == Vector2.ZERO) and _jetpack_audio.playing:
 		_jetpack_audio.stop()
+
+
+func _process_aim() -> void:
+	if current_tool() == null:
+		return
+	var left := "aim_left_%d" % device_id
+	var right := "aim_right_%d" % device_id
+	var up := "aim_up_%d" % device_id
+	var down := "aim_down_%d" % device_id
+	var aim_direction := Input.get_vector(left, right, up, down)
+	_throw_pivot.rotation = aim_direction.angle()
+	_throw_pivot.visible = (aim_direction.length_squared() > 0.02)
 
 
 func _physics_process(delta: float):

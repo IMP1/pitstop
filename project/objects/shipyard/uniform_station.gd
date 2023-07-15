@@ -11,7 +11,7 @@ func interact(player: Player) -> void:
 	var index := game.player_colours.find(player.colour)
 	index += 1
 	index %= game.player_colours.size()
-	player.colour = game.player_colours[index]
+	player.set_colour(game.player_colours[index])
 	player.set_sprite(game.player_sprites[index])
 
 

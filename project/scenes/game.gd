@@ -20,6 +20,7 @@ var _is_ship_moving: bool = false
 @onready var _prelude := $Prelude as CanvasLayer
 @onready var _prelude_confirmation := $Prelude/GroupConfirmable as GroupConfirmable
 @onready var _debrief := $Debrief as Debrief
+@onready var _game_over := $GameOver as CanvasLayer
 @onready var _menu_colour := $Menu/Options/ColorRect as ColorRect
 @onready var _menu_selection := $Menu/Options/Resume as Button
 @onready var _player_spawns := $PlayerSpawns as Node2D
@@ -39,6 +40,7 @@ var _is_ship_moving: bool = false
 func _ready() -> void:
 	_menu.visible = false
 	_debrief.visible = false
+	_game_over.visible = false
 	for player in $Players.get_children():
 		Debug.info("[Game] Adding player %d" % player.device_id)
 		(player as Player).accellerated.connect(_add_particle)
@@ -51,9 +53,10 @@ func _ready() -> void:
 func _add_player(device_id: int) -> void:
 	var p := PLAYER.instantiate() as Player
 	var i := _players.get_child_count() % player_colours.size()
-	_players.add_child(p)
 	p.device_id = device_id
-	p.colour = player_colours[i]
+	_players.add_child(p)
+	await get_tree().process_frame
+	p.set_colour(player_colours[i])
 	p.set_sprite(player_sprites[i])
 	p.position = (_player_spawns.get_child(i) as Node2D).position
 	p.accellerated.connect(_add_particle)
@@ -139,18 +142,22 @@ func _repair_success() -> void:
 	await _show_debrief()
 	_ship_maneuvering_zone.visible = false
 	_ship_maneuvering_zone.lower_barriers()
-	# TODO: End the level
+	# TODO: Prepare the next ship
 
 
 func _repair_failure() -> void:
 	_is_level_over = true
 	Debug.info("[Game] Mission Failure")
+	var ship := _ship_container.get_child(0) as Ship
+	ship.z_index = 10
+	ship._collision.disabled = true
 	_ship_exit()
 	await _show_debrief()
 	_clock.stop_flashing()
 	_ship_maneuvering_zone.visible = false
 	_ship_maneuvering_zone.lower_barriers()
-	# TODO: End the level
+	await _show_gameover()
+	# TODO: Game over
 
 
 func _ship_enter() -> void:
@@ -248,6 +255,12 @@ func _show_debrief() -> void:
 	
 	await _debrief.confirmation.confirmed
 	_debrief.visible = false
+
+
+func _show_gameover() -> void:
+	_game_over.visible = true
+	# TODO: Populate details of player progress (Ships completed, money accrued, etc.)
+	# TODO: Await confirmation
 
 
 func _process(_delta: float) -> void:

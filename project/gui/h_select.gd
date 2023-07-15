@@ -13,7 +13,7 @@ extends Button
 
 
 func _ready() -> void:
-	grab_click_focus()
+	grab_focus()
 
 
 func _input(event: InputEvent) -> void:

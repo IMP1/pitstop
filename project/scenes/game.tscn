@@ -1,4 +1,4 @@
-[gd_scene load_steps=119 format=3 uid="uid://d0fnyfjglery6"]
+[gd_scene load_steps=124 format=3 uid="uid://d0fnyfjglery6"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_77n8k"]
 [ext_resource type="Texture2D" uid="uid://hg70qgk1xe71" path="res://assets/backgrounds/Blue Nebula 6 - 1024x1024.png" id="1_cs1ea"]
@@ -361,9 +361,40 @@ radius = 16.0
 atlas = ExtResource("33_2e7pl")
 region = Rect2(32, 0, 16, 32)
 
+[sub_resource type="Gradient" id="Gradient_8fhfy"]
+offsets = PackedFloat32Array(0.733333, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g8uls"]
+gradient = SubResource("Gradient_8fhfy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bn7yg"]
+lifetime_randomness = 0.8
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 81.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_min = -10.0
+linear_accel_max = 10.0
+scale_min = 1.5
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_g8uls")
+attractor_interaction_enabled = false
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_h7p3u"]
 resource_local_to_scene = true
 radius = 16.0
+
+[sub_resource type="Gradient" id="Gradient_5c7fw"]
+offsets = PackedFloat32Array(0, 0.4, 0.7, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.752941, 0, 0, 0, 0.752941, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_np3kx"]
+gradient = SubResource("Gradient_5c7fw")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xyvcw"]
 
@@ -396,6 +427,8 @@ script = ExtResource("1_77n8k")
 particle_texture = ExtResource("2_whmxn")
 player_colours = Array[Color]([Color(0, 0.8, 0.545098, 1), Color(0.937255, 0.376471, 0.290196, 1), Color(1, 0.847059, 0.466667, 1), Color(0.72549, 0.486275, 1, 1), Color(1, 0.498039, 0.741176, 1), Color(0.388235, 0.435294, 0.698039, 1)])
 player_sprites = Array[Texture2D]([SubResource("AtlasTexture_lwaia"), SubResource("AtlasTexture_axl3j"), SubResource("AtlasTexture_5ug2b"), SubResource("AtlasTexture_py4g5"), SubResource("AtlasTexture_n0s7c"), SubResource("AtlasTexture_ngc5n")])
+
+[node name="ProgressManager" type="Node" parent="."]
 
 [node name="Music" type="Node" parent="."]
 script = ExtResource("3_n11h0")
@@ -831,7 +864,6 @@ position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_7s5un")
 
 [node name="Pipe" type="Line2D" parent="Shipyard/FuelStation/NozzleSlot"]
-visible = false
 z_index = -1
 texture_repeat = 2
 points = PackedVector2Array(0, -34, 0, -7, 0, 3, 0, 3)
@@ -848,7 +880,6 @@ stream = ExtResource("17_vemoy")
 bus = &"Sounds"
 
 [node name="Nozzle" parent="Shipyard/FuelStation/NozzleSlot" instance=ExtResource("18_aubvo")]
-visible = false
 position = Vector2(0, 7)
 bounce_coefficient = 0.9
 
@@ -1098,6 +1129,7 @@ position = Vector2(338, 188)
 [node name="TestShip" parent="Ship" instance=ExtResource("12_u0tyq")]
 position = Vector2(537, -129)
 repair_reward = 400.0
+time_limit = 5.0
 early_bonus = 10.0
 
 [node name="CollisionPolygon2D" parent="Ship/TestShip" index="0"]
@@ -1134,6 +1166,11 @@ vframes = 2
 [node name="WeldingAudio" type="AudioStreamPlayer2D" parent="Ship/TestShip/Components/Crack2"]
 rotation = -1.57079
 stream = ExtResource("36_whpp4")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Ship/TestShip/Components/Crack2"]
+emitting = false
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_bn7yg")
 
 [node name="FuelIntake" parent="Ship/TestShip/Components" index="1" instance=ExtResource("36_lcqmr")]
 position = Vector2(-30, -34)
@@ -1202,6 +1239,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.501961)
 
+[node name="TextureRect" type="TextureRect" parent="Debrief"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_np3kx")
+
 [node name="Contents" type="Control" parent="Debrief"]
 layout_mode = 3
 anchors_preset = 15
@@ -1250,6 +1295,71 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Label" type="Label" parent="Debrief/Contents/GroupConfirmable"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -32.0
+offset_top = -16.0
+offset_right = 33.0
+offset_bottom = 10.0
+grow_horizontal = 2
+text = "Continue"
+horizontal_alignment = 1
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="TextureRect" type="TextureRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_np3kx")
+
+[node name="Contents" type="Control" parent="GameOver"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_ki26h")
+
+[node name="Label" type="Label" parent="GameOver/Contents"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -62.0
+offset_top = 28.0
+offset_right = 63.0
+offset_bottom = 47.0
+grow_horizontal = 2
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="GroupConfirmable" parent="GameOver/Contents" instance=ExtResource("54_jwr14")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -73.0
+offset_bottom = -73.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="GameOver/Contents/GroupConfirmable"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -1323,7 +1433,7 @@ text = "Settings"
 [node name="Quit" type="Button" parent="Menu/Options"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../Resume")
-text = "Exit"
+text = "Save and Quit"
 
 [node name="Controls" type="VBoxContainer" parent="Menu"]
 anchors_preset = -1

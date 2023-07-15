@@ -8,6 +8,7 @@ const THRUSTERS_STOPPED = &"default"
 @export var time_limit: float = 60
 @export var early_bonus: float = 25
 
+@onready var _collision := $CollisionPolygon2D as CollisionPolygon2D
 @onready var _thrusters := $Thrusters as AnimatedSprite2D
 @onready var _components := $Components as Node2D
 
