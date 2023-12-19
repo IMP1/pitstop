@@ -4,7 +4,7 @@ extends CanvasLayer
 
 enum Severity { NONE, ERROR, WARNING, INFO, DEBUG, TRACE }
 
-var severity_level := Severity.INFO
+var severity_level := Severity.DEBUG
 
 
 func _ready() -> void:
