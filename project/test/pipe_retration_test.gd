@@ -11,7 +11,7 @@ func _ready() -> void:
 	var min_path := target.position - anchor.position
 	var min_dist := min_path.length()
 	
-	print(min_dist)
+	#print(min_dist)
 	var index: int = line.get_point_count()
 	var dist: float = 0
 	for j in line.get_point_count() - 1:
@@ -20,5 +20,5 @@ func _ready() -> void:
 		index = i
 		if dist >= min_dist:
 			break
-	print(index)
-	print(dist)
+	#print(index)
+	#print(dist)
