@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=3 uid="uid://d0fnyfjglery6"]
+[gd_scene load_steps=128 format=3 uid="uid://d0fnyfjglery6"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_77n8k"]
 [ext_resource type="Texture2D" uid="uid://hg70qgk1xe71" path="res://assets/backgrounds/Blue Nebula 6 - 1024x1024.png" id="1_cs1ea"]
@@ -59,6 +59,9 @@
 [ext_resource type="Texture2D" uid="uid://jece3whe1fxo" path="res://assets/ships/Ship3_thrusters.png" id="49_k1d1g"]
 [ext_resource type="Texture2D" uid="uid://uwp03iqwerrd" path="res://assets/icons/gdb-xbox-2 (1).png" id="52_twyig"]
 [ext_resource type="PackedScene" uid="uid://u13iu6yho54k" path="res://gui/group_confirmable.tscn" id="54_jwr14"]
+[ext_resource type="Script" path="res://objects/components/ship_misalignment.gd" id="56_ad5jj"]
+[ext_resource type="AudioStream" uid="uid://df055gq2nhxtb" path="res://assets/sounds/metal-creaking.ogg" id="57_b03xq"]
+[ext_resource type="AudioStream" uid="uid://dv63cc0uucyvs" path="res://assets/sounds/clunk.ogg" id="58_ibo1p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwaia"]
 atlas = ExtResource("3_gfman")
@@ -101,17 +104,31 @@ region = Rect2(32, 224, 64, 32)
 atlas = ExtResource("2_rive1")
 region = Rect2(96, 224, 32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xpfag"]
-size = Vector2(122, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5ld3"]
-size = Vector2(12, 2)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eetwm"]
 size = Vector2(689, 41)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xdvd1"]
 size = Vector2(41, 385.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nc1h5"]
+size = Vector2(454, 127)
+
+[sub_resource type="Gradient" id="Gradient_ti7q1"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ccif3"]
+gradient = SubResource("Gradient_ti7q1")
+fill_to = Vector2(0.063, 0.063)
+repeat = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rm2c3"]
+size = Vector2(639, 129)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xpfag"]
+size = Vector2(122, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5ld3"]
+size = Vector2(12, 2)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aione"]
 atlas = ExtResource("24_ebxil")
@@ -204,20 +221,6 @@ animations = [{
 "name": &"flash",
 "speed": 10.0
 }]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nc1h5"]
-size = Vector2(454, 127)
-
-[sub_resource type="Gradient" id="Gradient_ti7q1"]
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ccif3"]
-gradient = SubResource("Gradient_ti7q1")
-fill_to = Vector2(0.063, 0.063)
-repeat = 2
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rm2c3"]
-size = Vector2(639, 129)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_02f20"]
 size = Vector2(3, 15)
@@ -373,19 +376,21 @@ lifetime_randomness = 0.8
 particle_flag_disable_z = true
 direction = Vector3(-1, 0, 0)
 spread = 81.0
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 10.0
 initial_velocity_max = 30.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 linear_accel_min = -10.0
 linear_accel_max = 10.0
+attractor_interaction_enabled = false
 scale_min = 1.5
 scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_g8uls")
-attractor_interaction_enabled = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h7p3u"]
+resource_local_to_scene = true
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gglhe"]
 resource_local_to_scene = true
 radius = 16.0
 
@@ -402,6 +407,10 @@ gradient = SubResource("Gradient_5c7fw")
 atlas = ExtResource("52_twyig")
 region = Rect2(216, 72, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqk4v"]
+atlas = ExtResource("52_twyig")
+region = Rect2(280, 72, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_tdmyb"]
 atlas = ExtResource("52_twyig")
 region = Rect2(336, 48, 16, 16)
@@ -409,10 +418,6 @@ region = Rect2(336, 48, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_qobav"]
 atlas = ExtResource("52_twyig")
 region = Rect2(16, 48, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bqk4v"]
-atlas = ExtResource("52_twyig")
-region = Rect2(280, 72, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uc7b1"]
 atlas = ExtResource("52_twyig")
@@ -476,6 +481,7 @@ position = Vector2(184, 132)
 gizmo_extents = 4.0
 
 [node name="Background" type="Node2D" parent="."]
+modulate = Color(0.521569, 0.52549, 0.545098, 1)
 z_index = -10
 
 [node name="Space" type="Sprite2D" parent="Background"]
@@ -685,6 +691,108 @@ scroll_bounds = Rect2(-64, -64, 768, 768)
 
 [node name="Shipyard" type="Node2D" parent="."]
 
+[node name="Boundaries" type="Node2D" parent="Shipyard"]
+z_index = 10
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/Boundaries"]
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shipyard/Boundaries/StaticBody2D"]
+position = Vector2(311, -1)
+shape = SubResource("RectangleShape2D_eetwm")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Shipyard/Boundaries/StaticBody2D"]
+position = Vector2(306, 366)
+shape = SubResource("RectangleShape2D_eetwm")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Shipyard/Boundaries/StaticBody2D"]
+position = Vector2(-11, 183)
+shape = SubResource("RectangleShape2D_xdvd1")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Shipyard/Boundaries/StaticBody2D"]
+position = Vector2(646, 184)
+shape = SubResource("RectangleShape2D_xdvd1")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Shipyard/Boundaries"]
+offset_left = -24.0
+offset_top = -14.0
+offset_right = 661.0
+offset_bottom = 382.0
+texture = ExtResource("12_opyon")
+patch_margin_left = 36
+patch_margin_top = 36
+patch_margin_right = 36
+patch_margin_bottom = 36
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="ShipManeuveringZone" type="Area2D" parent="Shipyard"]
+visible = false
+position = Vector2(461, 187)
+collision_layer = 64
+collision_mask = 12
+script = ExtResource("28_fd3n4")
+hazard_icon = ExtResource("29_vnwkf")
+hazard_colour = Color(0.945098, 0.180392, 0.14902, 1)
+hazard_z_index = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shipyard/ShipManeuveringZone"]
+position = Vector2(-8, -1)
+shape = SubResource("RectangleShape2D_nc1h5")
+debug_color = Color(0.992157, 0.839216, 0, 0.243137)
+
+[node name="Sprite2D" type="Sprite2D" parent="Shipyard/ShipManeuveringZone"]
+modulate = Color(1, 1, 1, 0.25098)
+texture_repeat = 2
+position = Vector2(85, -1)
+texture = SubResource("GradientTexture2D_ccif3")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 128)
+
+[node name="Border" type="Line2D" parent="Shipyard/ShipManeuveringZone"]
+points = PackedVector2Array(376, -66, -236, -66, -236, 64, 376, 64)
+width = 3.0
+default_color = Color(1, 1, 0, 1)
+
+[node name="HazardIndicators" type="Node2D" parent="Shipyard/ShipManeuveringZone"]
+
+[node name="Warning" type="Label" parent="Shipyard/ShipManeuveringZone"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -215.0
+offset_top = -107.0
+offset_right = -78.0
+offset_bottom = -81.0
+grow_horizontal = 2
+text = "! CLEAR THE SMZ !"
+
+[node name="Barriers" type="StaticBody2D" parent="Shipyard/ShipManeuveringZone"]
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shipyard/ShipManeuveringZone/Barriers"]
+position = Vector2(83.5, -1.5)
+shape = SubResource("RectangleShape2D_rm2c3")
+
+[node name="Exit" type="Marker2D" parent="Shipyard/ShipManeuveringZone"]
+position = Vector2(538, -1)
+
+[node name="Label" type="Label" parent="Shipyard/ShipManeuveringZone"]
+offset_left = -199.0
+offset_top = -66.0
+offset_right = 189.0
+offset_bottom = 63.0
+theme_override_colors/font_color = Color(0, 0, 0, 0.12549)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.12549)
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/font = ExtResource("28_aicjc")
+theme_override_font_sizes/font_size = 31
+text = "    Ship
+  Maneuvering
+Zone"
+vertical_alignment = 1
+uppercase = true
+
 [node name="PatchDispenser" parent="Shipyard" instance=ExtResource("12_26md6")]
 position = Vector2(54, 285)
 script = ExtResource("30_mm62e")
@@ -748,43 +856,8 @@ shape = SubResource("RectangleShape2D_c5ld3")
 position = Vector2(-11, 9)
 shape = SubResource("RectangleShape2D_c5ld3")
 
-[node name="Boundaries" type="Node2D" parent="Shipyard"]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/Boundaries"]
-collision_mask = 15
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shipyard/Boundaries/StaticBody2D"]
-position = Vector2(311, -1)
-shape = SubResource("RectangleShape2D_eetwm")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Shipyard/Boundaries/StaticBody2D"]
-position = Vector2(306, 366)
-shape = SubResource("RectangleShape2D_eetwm")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Shipyard/Boundaries/StaticBody2D"]
-position = Vector2(-11, 183)
-shape = SubResource("RectangleShape2D_xdvd1")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Shipyard/Boundaries/StaticBody2D"]
-position = Vector2(646, 184)
-shape = SubResource("RectangleShape2D_xdvd1")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Shipyard/Boundaries"]
-z_index = 10
-offset_left = -24.0
-offset_top = -14.0
-offset_right = 661.0
-offset_bottom = 382.0
-texture = ExtResource("12_opyon")
-patch_margin_left = 36
-patch_margin_top = 36
-patch_margin_right = 36
-patch_margin_bottom = 36
-axis_stretch_horizontal = 2
-axis_stretch_vertical = 2
-
 [node name="FuelStation" type="Node2D" parent="Shipyard"]
-position = Vector2(112, 40)
+position = Vector2(85, 42)
 
 [node name="Sprite2D" type="Sprite2D" parent="Shipyard/FuelStation"]
 position = Vector2(0, -5)
@@ -961,83 +1034,9 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
-[node name="ShipManeuveringZone" type="Area2D" parent="Shipyard"]
-visible = false
-position = Vector2(461, 187)
-collision_layer = 64
-collision_mask = 12
-script = ExtResource("28_fd3n4")
-hazard_icon = ExtResource("29_vnwkf")
-hazard_colour = Color(0.945098, 0.180392, 0.14902, 1)
-hazard_z_index = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shipyard/ShipManeuveringZone"]
-position = Vector2(-8, -1)
-shape = SubResource("RectangleShape2D_nc1h5")
-debug_color = Color(0.992157, 0.839216, 0, 0.243137)
-
-[node name="Sprite2D" type="Sprite2D" parent="Shipyard/ShipManeuveringZone"]
-modulate = Color(1, 1, 1, 0.25098)
-texture_repeat = 2
-position = Vector2(85, -1)
-texture = SubResource("GradientTexture2D_ccif3")
-region_enabled = true
-region_rect = Rect2(0, 0, 640, 128)
-
-[node name="Border" type="Line2D" parent="Shipyard/ShipManeuveringZone"]
-points = PackedVector2Array(376, -66, -236, -66, -236, 64, 376, 64)
-width = 3.0
-default_color = Color(1, 1, 0, 1)
-
-[node name="HazardIndicators" type="Node2D" parent="Shipyard/ShipManeuveringZone"]
-
-[node name="Warning" type="Label" parent="Shipyard/ShipManeuveringZone"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -215.0
-offset_top = -107.0
-offset_right = -78.0
-offset_bottom = -81.0
-grow_horizontal = 2
-text = "! CLEAR THE SMZ !"
-
-[node name="Barriers" type="StaticBody2D" parent="Shipyard/ShipManeuveringZone"]
-collision_mask = 15
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Shipyard/ShipManeuveringZone/Barriers"]
-position = Vector2(83.5, -1.5)
-shape = SubResource("RectangleShape2D_rm2c3")
-
-[node name="Exit" type="Marker2D" parent="Shipyard/ShipManeuveringZone"]
-position = Vector2(538, -1)
-
-[node name="Label" type="Label" parent="Shipyard/ShipManeuveringZone"]
-offset_left = -199.0
-offset_top = -66.0
-offset_right = 189.0
-offset_bottom = 63.0
-theme_override_colors/font_color = Color(0, 0, 0, 0.12549)
-theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.12549)
-theme_override_constants/shadow_outline_size = 2
-theme_override_fonts/font = ExtResource("28_aicjc")
-theme_override_font_sizes/font_size = 31
-text = "    Ship
-  Maneuvering
-Zone"
-vertical_alignment = 1
-uppercase = true
-
 [node name="ToolStation" type="Node2D" parent="Shipyard"]
 position = Vector2(151, 331)
 script = ExtResource("30_1rlo3")
-
-[node name="Sprite2D" type="Sprite2D" parent="Shipyard/ToolStation"]
-texture = ExtResource("31_2ctx3")
-
-[node name="Blowtorch" parent="Shipyard/ToolStation" instance=ExtResource("37_7dyaj")]
-position = Vector2(-18, -13)
-bounce_coefficient = 0.9
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/ToolStation"]
 collision_mask = 15
@@ -1061,7 +1060,15 @@ shape = SubResource("RectangleShape2D_02f20")
 position = Vector2(28.5, -11.5)
 shape = SubResource("RectangleShape2D_02f20")
 
+[node name="Sprite2D" type="Sprite2D" parent="Shipyard/ToolStation"]
+texture = ExtResource("31_2ctx3")
+
+[node name="Blowtorch" parent="Shipyard/ToolStation" instance=ExtResource("37_7dyaj")]
+position = Vector2(-18, -13)
+bounce_coefficient = 0.9
+
 [node name="UniformStation" parent="Shipyard" node_paths=PackedStringArray("game") instance=ExtResource("12_26md6")]
+z_index = 15
 position = Vector2(515, 32)
 script = ExtResource("37_te6ei")
 game = NodePath("../..")
@@ -1123,13 +1130,22 @@ joint_mode = 1
 begin_cap_mode = 1
 end_cap_mode = 1
 
+[node name="TwoPersonControl" type="Node2D" parent="Shipyard"]
+position = Vector2(541, 345)
+
+[node name="1" parent="Shipyard/TwoPersonControl" instance=ExtResource("12_26md6")]
+position = Vector2(-55, -1)
+
+[node name="2" parent="Shipyard/TwoPersonControl" instance=ExtResource("12_26md6")]
+position = Vector2(56, -1)
+
 [node name="Ship" type="Node2D" parent="."]
 position = Vector2(338, 188)
 
 [node name="TestShip" parent="Ship" instance=ExtResource("12_u0tyq")]
-position = Vector2(537, -129)
+position = Vector2(446, -149)
 repair_reward = 400.0
-time_limit = 5.0
+time_limit = 50.0
 early_bonus = 10.0
 
 [node name="CollisionPolygon2D" parent="Ship/TestShip" index="0"]
@@ -1146,7 +1162,7 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_5y86b")
 autoplay = "default"
 
-[node name="Crack2" parent="Ship/TestShip/Components" index="0" instance=ExtResource("36_lcqmr")]
+[node name="Crack" parent="Ship/TestShip/Components" index="0" instance=ExtResource("36_lcqmr")]
 position = Vector2(60, 30)
 script = ExtResource("34_rgc4q")
 time_to_patch = 2.0
@@ -1154,20 +1170,20 @@ todo_header = "Hull Crack"
 todo_list = Array[String](["Apply Patch", "Weld Patch"])
 hold_to_interact = true
 
-[node name="CollisionShape2D" parent="Ship/TestShip/Components/Crack2/Area2D" index="0"]
+[node name="CollisionShape2D" parent="Ship/TestShip/Components/Crack/Area2D" index="0"]
 shape = SubResource("CircleShape2D_t6m4l")
 
-[node name="Sprite2D" parent="Ship/TestShip/Components/Crack2" index="2"]
+[node name="Sprite2D" parent="Ship/TestShip/Components/Crack" index="2"]
 rotation = 1.5708
 scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_uak3a")
 vframes = 2
 
-[node name="WeldingAudio" type="AudioStreamPlayer2D" parent="Ship/TestShip/Components/Crack2"]
+[node name="WeldingAudio" type="AudioStreamPlayer2D" parent="Ship/TestShip/Components/Crack"]
 rotation = -1.57079
 stream = ExtResource("36_whpp4")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Ship/TestShip/Components/Crack2"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Ship/TestShip/Components/Crack"]
 emitting = false
 amount = 32
 process_material = SubResource("ParticleProcessMaterial_bn7yg")
@@ -1190,12 +1206,33 @@ rotation = 0.785398
 stream = ExtResource("17_vemoy")
 bus = &"Sounds"
 
+[node name="MisalignedWing" parent="Ship/TestShip/Components" index="2" instance=ExtResource("36_lcqmr")]
+position = Vector2(-86, 18)
+script = ExtResource("56_ad5jj")
+todo_header = "Reallign Wing"
+todo_list = Array[String](["Recenter wing"])
+hold_to_interact = true
+
+[node name="CollisionShape2D" parent="Ship/TestShip/Components/MisalignedWing/Area2D" index="0"]
+shape = SubResource("CircleShape2D_gglhe")
+
+[node name="Sprite2D" parent="Ship/TestShip/Components/MisalignedWing" index="2"]
+position = Vector2(-1.00003, -0.999998)
+scale = Vector2(1.99998, 2)
+texture = ExtResource("2_whmxn")
+
+[node name="AligningAudio" type="AudioStreamPlayer2D" parent="Ship/TestShip/Components/MisalignedWing"]
+stream = ExtResource("57_b03xq")
+
+[node name="SuccessAudio" type="AudioStreamPlayer2D" parent="Ship/TestShip/Components/MisalignedWing"]
+stream = ExtResource("58_ibo1p")
+
 [node name="Particles" type="Node2D" parent="."]
 
 [node name="Players" type="Node2D" parent="."]
 
 [node name="1" parent="Players" instance=ExtResource("3_8ujh1")]
-position = Vector2(190, 102)
+position = Vector2(330, 217)
 device_id = 0
 
 [node name="LooseTools" type="Node2D" parent="."]
@@ -1458,6 +1495,19 @@ layout_mode = 2
 text = "Move"
 vertical_alignment = 1
 
+[node name="Aim" type="HBoxContainer" parent="Menu/Controls"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Menu/Controls/Aim"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_bqk4v")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Menu/Controls/Aim"]
+layout_mode = 2
+text = "Aim/Align"
+vertical_alignment = 1
+
 [node name="Brake" type="HBoxContainer" parent="Menu/Controls"]
 layout_mode = 2
 
@@ -1482,19 +1532,6 @@ stretch_mode = 5
 [node name="Label" type="Label" parent="Menu/Controls/Grab"]
 layout_mode = 2
 text = "Grab"
-vertical_alignment = 1
-
-[node name="Aim" type="HBoxContainer" parent="Menu/Controls"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="Menu/Controls/Aim"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_bqk4v")
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="Menu/Controls/Aim"]
-layout_mode = 2
-text = "Aim Throw"
 vertical_alignment = 1
 
 [node name="Throw" type="HBoxContainer" parent="Menu/Controls"]
@@ -1523,6 +1560,8 @@ layout_mode = 2
 text = "Interact"
 vertical_alignment = 1
 
+[connection signal="body_entered" from="Shipyard/ShipManeuveringZone" to="Shipyard/ShipManeuveringZone" method="_body_entered"]
+[connection signal="body_exited" from="Shipyard/ShipManeuveringZone" to="Shipyard/ShipManeuveringZone" method="_body_exited"]
 [connection signal="patch_released" from="Shipyard/PatchDispenser" to="." method="_add_tool"]
 [connection signal="fuel_spilled" from="Shipyard/FuelStation/FuelPump" to="." method="_add_particle" binds= [75, Color(0.376471, 0.188235, 0.419608, 1), 3.0]]
 [connection signal="thrown" from="Shipyard/FuelStation/NozzleSlot/Nozzle" to="." method="_throw_tool"]
@@ -1530,8 +1569,6 @@ vertical_alignment = 1
 [connection signal="timeout" from="Shipyard/Clock" to="." method="_repair_failure"]
 [connection signal="timeout" from="Shipyard/Clock/Timer" to="Shipyard/Clock" method="_timeout"]
 [connection signal="timeout" from="Shipyard/Clock/WarningTimer" to="Shipyard/Clock" method="_timelow"]
-[connection signal="body_entered" from="Shipyard/ShipManeuveringZone" to="Shipyard/ShipManeuveringZone" method="_body_entered"]
-[connection signal="body_exited" from="Shipyard/ShipManeuveringZone" to="Shipyard/ShipManeuveringZone" method="_body_exited"]
 [connection signal="thrown" from="Shipyard/ToolStation/Blowtorch" to="." method="_throw_tool"]
 [connection signal="pressed" from="Menu/Options/Resume" to="." method="_resume"]
 [connection signal="pressed" from="Menu/Options/RemoveInput" to="." method="_remove_player"]
@@ -1543,5 +1580,6 @@ vertical_alignment = 1
 [editable path="Shipyard/UniformStation"]
 [editable path="Shipyard/DiagnosticDisplay"]
 [editable path="Ship/TestShip"]
-[editable path="Ship/TestShip/Components/Crack2"]
+[editable path="Ship/TestShip/Components/Crack"]
 [editable path="Ship/TestShip/Components/FuelIntake"]
+[editable path="Ship/TestShip/Components/MisalignedWing"]
