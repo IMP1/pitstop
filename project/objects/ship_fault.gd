@@ -18,5 +18,15 @@ func _ready() -> void:
 	_icon.texture = icon
 	_icon.visible = false
 
+
+func _player_left(body: Node2D) -> void:
+	if not body is Player:
+		return
+	var player := body as Player
+	if player.device_id == _device_interacting:
+		Debug.debug("[ShipFault] Player has left the area.")
+		stop_interacting()
+
+
 # TODO: Have a completion effect? Sound / particles? Something satisfying!
 

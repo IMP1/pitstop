@@ -9,6 +9,8 @@ var _device_interacting: int
 var _highlight: bool = true
 var _players_highlighting: Dictionary = {}
 
+@onready var _area := $Area2D as Area2D
+
 
 func interact(player: Player) -> void:
 	Debug.info("[Interactable] Being used by %d" % player.device_id)
@@ -27,6 +29,15 @@ func _input(event: InputEvent) -> void:
 
 func can_interact(_player: Player) -> bool:
 	return true
+
+
+func _player_left(body: Node2D) -> void:
+	if not body is Player:
+		return
+	var player := body as Player
+	if player.device_id == _device_interacting:
+		Debug.debug("[Interactable] Player has left the interactable area.")
+		stop_interacting()
 
 
 func set_highlight(val: bool) -> void:

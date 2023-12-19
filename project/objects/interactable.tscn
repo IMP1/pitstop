@@ -11,8 +11,11 @@ script = ExtResource("1_t526g")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 16
-collision_mask = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_phjm1")
 debug_color = Color(0.713726, 0.262745, 1, 0)
+
+[connection signal="body_entered" from="Area2D" to="." method="_player_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_player_left"]
