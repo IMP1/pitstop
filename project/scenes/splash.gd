@@ -26,7 +26,6 @@ func _process(delta: float) -> void:
 			_complete()
 		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_IN_PROGRESS:
 			_progress.value = progress[0]
-			Debug.info(progress)
 		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_INVALID_RESOURCE:
 			_fail()
 		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_FAILED:
