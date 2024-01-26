@@ -14,16 +14,19 @@ var _last_position: Vector2
 
 @onready var _collision := $CollisionPolygon2D as CollisionPolygon2D
 @onready var _thrusters := $Thrusters as Node2D
+@onready var _thruster_sound := $ThrusterSound as AudioStreamPlayer2D
 @onready var _components := $Components as Node2D
 
 
 func fire_thrusters() -> void:
 	_is_accellerating = true
+	_thruster_sound.play()
 	_last_position = global_position
 
 
 func cut_thrusters() -> void:
 	_is_accellerating = false
+	_thruster_sound.stop()
 
 
 func _process(_delta: float) -> void:

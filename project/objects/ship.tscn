@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b086rvhoeesnh"]
+[gd_scene load_steps=3 format=3 uid="uid://b086rvhoeesnh"]
 
 [ext_resource type="Script" path="res://objects/ship.gd" id="1_tuegr"]
+[ext_resource type="AudioStream" uid="uid://dnamrdb0k2jjb" path="res://assets/sounds/good-jetpack-sound-loop-96693.mp3" id="2_fwpjc"]
 
 [node name="Ship" type="CharacterBody2D"]
 collision_layer = 2
@@ -11,12 +12,16 @@ script = ExtResource("1_tuegr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="ShadowSurface" type="PointLight2D" parent="."]
+rotation = 1.5708
+blend_mode = 2
 
 [node name="Components" type="Node2D" parent="."]
 
 [node name="Thrusters" type="Node2D" parent="."]
 
-[node name="ShadowSurface" type="PointLight2D" parent="."]
-rotation = 1.5708
-blend_mode = 2
+[node name="ThrusterSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_fwpjc")
+volume_db = -2.0
+pitch_scale = 0.8
+bus = &"ShipThruster"

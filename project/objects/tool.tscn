@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://t7wbwy1pdgdp"]
+[gd_scene load_steps=7 format=3 uid="uid://t7wbwy1pdgdp"]
 
 [ext_resource type="Script" path="res://objects/tool.gd" id="1_f4k4f"]
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="2_qq5kw"]
@@ -16,13 +16,16 @@ shader_parameter/pattern = 0
 shader_parameter/inside = false
 shader_parameter/add_margins = true
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kylhh"]
+light_mode = 2
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_eh2ep"]
 resource_local_to_scene = true
 radius = 12.0
 
 [node name="Tool" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 11
+collision_mask = 9
 script = ExtResource("1_f4k4f")
 bounce_coefficient = 0.6
 
@@ -31,6 +34,16 @@ shape = SubResource("RectangleShape2D_6j0it")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_23ndh")
+
+[node name="Shadow" type="Sprite2D" parent="Sprite2D"]
+self_modulate = Color(0, 0, 0, 0.752941)
+show_behind_parent = true
+light_mask = 2
+visibility_layer = 2
+material = SubResource("CanvasItemMaterial_kylhh")
+position = Vector2(4, 4)
+scale = Vector2(0.9, 0.9)
+skew = 0.0872665
 
 [node name="GrabArea" type="Area2D" parent="."]
 collision_layer = 32

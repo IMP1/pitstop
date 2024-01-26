@@ -60,7 +60,9 @@ show_behind_parent = true
 light_mask = 2
 visibility_layer = 2
 material = SubResource("CanvasItemMaterial_f8o3n")
-position = Vector2(5, 4)
+position = Vector2(4, 4)
+scale = Vector2(0.9, 0.9)
+skew = 0.0872665
 texture = SubResource("AtlasTexture_0x146")
 
 [node name="GrabRange" type="Area2D" parent="."]

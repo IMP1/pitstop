@@ -11,7 +11,8 @@ var _is_welding: bool = false
 var _is_finished: bool = false
 
 @onready var _welding_audio := $WeldingAudio as AudioStreamPlayer2D
-@onready var _welding_particles := $GPUParticles2D as GPUParticles2D
+@onready var _welding_particles := $WeldingSparks as GPUParticles2D
+@onready var _leaking_particles := $LeakingAir as GPUParticles2D
 
 
 func _ready():
@@ -19,6 +20,7 @@ func _ready():
 	_sprite.frame = UNPATCHED_FRAME
 	_progress_bar.visible = false
 	_progress_bar.max_value = time_to_patch
+	_leaking_particles.emitting = true
 
 
 func can_interact(player: Player) -> bool:
@@ -49,9 +51,11 @@ func _apply_patch(patch: Tool) -> void:
 	_has_patch = true
 	_sprite.frame = PATCHED_FRAME
 	_progress_bar.visible = true
+	_leaking_particles.amount_ratio = 0.4
 
 
 func _start_welding(player: Player) -> void:
+	_leaking_particles.emitting = false
 	_device_interacting = player.device_id
 	_is_welding = true
 	_welding_audio.play()
