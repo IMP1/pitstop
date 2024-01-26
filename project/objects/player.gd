@@ -24,6 +24,7 @@ var _potential_interact: Interactable
 @onready var _interaction_range := $InteractionRange as Area2D
 @onready var _grab_range := $GrabRange as Area2D
 @onready var _sprite := $Sprite2D as Sprite2D
+@onready var _shadow := $Sprite2D/Shadow as Sprite2D
 @onready var _held_tool_pivot := $HeldToolPivot as Node2D
 @onready var _held_tools := $HeldToolPivot/HeldTool as Node2D
 @onready var _jetpack_audio := $Jetpack/Audio as AudioStreamPlayer2D
@@ -36,6 +37,7 @@ var _potential_interact: Interactable
 
 func set_sprite(tex: Texture2D) -> void:
 	_sprite.texture = tex
+	_shadow.texture = tex
 
 
 func set_colour(new_colour: Color) -> void:
@@ -172,9 +174,11 @@ func _process_movement(delta: float) -> void:
 	var motion_direction := velocity.normalized()
 	if movement.x < 0:
 		_sprite.flip_h = true
+		_shadow.flip_h = true
 		_held_tool_pivot.scale.x = -1
 	if movement.x > 0:
 		_sprite.flip_h = false
+		_shadow.flip_h = false
 		_held_tool_pivot.scale.x = 1
 	if movement != Vector2.ZERO:
 		accellerated.emit(position, -movement * PROPULSION_PARTICLE_SPEED, 30, colour)

@@ -658,8 +658,7 @@ axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
 [node name="ShipManeuveringZone" type="Area2D" parent="Shipyard"]
-visible = false
-position = Vector2(461, 187)
+position = Vector2(413, 187)
 collision_layer = 64
 collision_mask = 12
 script = ExtResource("28_fd3n4")
@@ -691,9 +690,9 @@ default_color = Color(1, 1, 0, 1)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -215.0
+offset_left = -167.0
 offset_top = -107.0
-offset_right = -78.0
+offset_right = -30.0
 offset_bottom = -81.0
 grow_horizontal = 2
 text = "! CLEAR THE SMZ !"
@@ -1071,10 +1070,10 @@ position = Vector2(-55, -1)
 position = Vector2(56, -1)
 
 [node name="Ship" type="Node2D" parent="."]
-position = Vector2(364, 186)
+position = Vector2(316, 186)
 
 [node name="TestShip" parent="Ship" instance=ExtResource("12_u0tyq")]
-position = Vector2(446, -149)
+position = Vector2(494, -149)
 repair_reward = 400.0
 time_limit = 50.0
 early_bonus = 10.0
@@ -1157,12 +1156,18 @@ position = Vector2(-72, -39)
 [node name="RCS2" type="Node2D" parent="Ship/TestShip/Thrusters" index="1"]
 position = Vector2(-72, 26)
 
+[node name="ShadowSurface" parent="Ship/TestShip" index="5"]
+light_mask = 2
+visibility_layer = 2
+range_item_cull_mask = 2
+texture = ExtResource("48_x2dq4")
+
 [node name="Particles" type="Node2D" parent="."]
 
 [node name="Players" type="Node2D" parent="."]
 
 [node name="1" parent="Players" instance=ExtResource("3_8ujh1")]
-position = Vector2(330, 217)
+position = Vector2(229, 287)
 device_id = 0
 
 [node name="LooseTools" type="Node2D" parent="."]

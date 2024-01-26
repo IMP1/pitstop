@@ -16,3 +16,7 @@ script = ExtResource("1_tuegr")
 [node name="Components" type="Node2D" parent="."]
 
 [node name="Thrusters" type="Node2D" parent="."]
+
+[node name="ShadowSurface" type="PointLight2D" parent="."]
+rotation = 1.5708
+blend_mode = 2

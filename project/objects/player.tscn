@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bqcjgp7k2susp"]
+[gd_scene load_steps=14 format=3 uid="uid://bqcjgp7k2susp"]
 
 [ext_resource type="Script" path="res://objects/player.gd" id="1_77f0j"]
 [ext_resource type="Texture2D" uid="uid://dusjkb5qu2e4f" path="res://assets/characters/players.png" id="2_qw6so"]
@@ -13,6 +13,9 @@ size = Vector2(10, 13)
 [sub_resource type="AtlasTexture" id="AtlasTexture_0x146"]
 atlas = ExtResource("2_qw6so")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f8o3n"]
+light_mode = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_liy3i"]
 radius = 11.0
@@ -49,6 +52,15 @@ shape = SubResource("RectangleShape2D_5jcba")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1, -3)
+texture = SubResource("AtlasTexture_0x146")
+
+[node name="Shadow" type="Sprite2D" parent="Sprite2D"]
+self_modulate = Color(0, 0, 0, 0.752941)
+show_behind_parent = true
+light_mask = 2
+visibility_layer = 2
+material = SubResource("CanvasItemMaterial_f8o3n")
+position = Vector2(5, 4)
 texture = SubResource("AtlasTexture_0x146")
 
 [node name="GrabRange" type="Area2D" parent="."]
