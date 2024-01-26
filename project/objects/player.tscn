@@ -30,7 +30,7 @@ region = Rect2(448, 48, 16, 16)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 5
 script = ExtResource("1_77f0j")
 colour = Color(0, 0.8, 0.545098, 1)
 bounce_coefficient = 0.6

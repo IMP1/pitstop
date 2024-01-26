@@ -1,10 +1,9 @@
-[gd_scene load_steps=128 format=3 uid="uid://d0fnyfjglery6"]
+[gd_scene load_steps=118 format=3 uid="uid://d0fnyfjglery6"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_77n8k"]
 [ext_resource type="Texture2D" uid="uid://hg70qgk1xe71" path="res://assets/backgrounds/Blue Nebula 6 - 1024x1024.png" id="1_cs1ea"]
 [ext_resource type="PackedScene" uid="uid://dkawkwtobauxn" path="res://objects/moving_sprite_2d.tscn" id="2_8buhw"]
 [ext_resource type="Texture2D" uid="uid://df6slwrgo75w0" path="res://assets/decor/CelestialObjects.png" id="2_rive1"]
-[ext_resource type="Texture2D" uid="uid://uqtpkrhr774u" path="res://assets/ships/Ship3.png" id="2_st84s"]
 [ext_resource type="Texture2D" uid="uid://q04ysyxvgysl" path="res://assets/characters/particle.png" id="2_whmxn"]
 [ext_resource type="PackedScene" uid="uid://bqcjgp7k2susp" path="res://objects/player.tscn" id="3_8ujh1"]
 [ext_resource type="Texture2D" uid="uid://dusjkb5qu2e4f" path="res://assets/characters/players.png" id="3_gfman"]
@@ -55,8 +54,7 @@
 [ext_resource type="Script" path="res://objects/shipyard/diagnostic-display.gd" id="43_de1ih"]
 [ext_resource type="Texture2D" uid="uid://coox2vjyq25ni" path="res://assets/ships/diagnostic-display.png" id="43_vlcp1"]
 [ext_resource type="PackedScene" uid="uid://t5qvf61l1lt8" path="res://gui/to_do_list.tscn" id="45_bjx01"]
-[ext_resource type="Texture2D" uid="uid://2bkmeu4oe6br" path="res://assets/ships/ship3-exhaust1.png" id="49_3bfq0"]
-[ext_resource type="Texture2D" uid="uid://jece3whe1fxo" path="res://assets/ships/Ship3_thrusters.png" id="49_k1d1g"]
+[ext_resource type="Texture2D" uid="uid://blf57earfcsmy" path="res://assets/ships/ship_1.png" id="48_x2dq4"]
 [ext_resource type="Texture2D" uid="uid://uwp03iqwerrd" path="res://assets/icons/gdb-xbox-2 (1).png" id="52_twyig"]
 [ext_resource type="PackedScene" uid="uid://u13iu6yho54k" path="res://gui/group_confirmable.tscn" id="54_jwr14"]
 [ext_resource type="Script" path="res://objects/components/ship_misalignment.gd" id="56_ad5jj"]
@@ -289,76 +287,9 @@ Button/styles/focus = SubResource("StyleBoxFlat_ew2fe")
 Button/styles/normal = SubResource("StyleBoxFlat_00y10")
 Button/styles/pressed = SubResource("StyleBoxFlat_wc667")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_isbpl"]
-atlas = ExtResource("2_st84s")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mwyf6"]
-atlas = ExtResource("49_3bfq0")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uj348"]
-atlas = ExtResource("49_3bfq0")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ksw3c"]
-atlas = ExtResource("49_3bfq0")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xktli"]
-atlas = ExtResource("49_3bfq0")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g30tk"]
-atlas = ExtResource("49_k1d1g")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4swv3"]
-atlas = ExtResource("49_k1d1g")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_5y86b"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_isbpl")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mwyf6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uj348")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ksw3c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xktli")
-}],
-"loop": true,
-"name": &"firing",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g30tk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4swv3")
-}],
-"loop": true,
-"name": &"firing_old",
-"speed": 10.0
-}]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_t6m4l"]
 resource_local_to_scene = true
-radius = 16.0
+radius = 8.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uak3a"]
 atlas = ExtResource("33_2e7pl")
@@ -1140,7 +1071,7 @@ position = Vector2(-55, -1)
 position = Vector2(56, -1)
 
 [node name="Ship" type="Node2D" parent="."]
-position = Vector2(338, 188)
+position = Vector2(364, 186)
 
 [node name="TestShip" parent="Ship" instance=ExtResource("12_u0tyq")]
 position = Vector2(446, -149)
@@ -1150,20 +1081,14 @@ early_bonus = 10.0
 
 [node name="CollisionPolygon2D" parent="Ship/TestShip" index="0"]
 scale = Vector2(0.5, 0.5)
-polygon = PackedVector2Array(-90, -65, -72, -49, -49, -73, -20, -62, 15, -63, 20, -75, 63, -72, 115, -48, 149, -13, 160, -13, 175, 1, 154, 6, 153, 39, 174, 38, 161, 57, 145, 57, 132, 73, 107, 76, 103, 63, 110, 47, 80, 50, 77, 54, 66, 68, 29, 68, 22, 77, 14, 68, -27, 68, -34, 78, -41, 69, -80, 68, -64, 49, -72, 40, -91, 56, -110, 57, -173, 36, -134, 30, -145, 22, -163, 20, -164, -23, -145, -24, -133, -39, -173, -40, -110, -65)
+polygon = PackedVector2Array(-52, -86, -30, -84, 2, -68, 2, -56, 10, -54, 10, -70, 98, -70, 98, -52, 120, -52, 120, -70, 132, -70, 132, -68, 126, -68, 126, -58, 156, -58, 156, -52, 252, -52, 252, -50, 152, -50, 152, -40, 154, -36, 178, -36, 178, -34, 154, -34, 154, -28, 166, -28, 166, -4, 154, -4, 154, 6, 158, 18, 194, 18, 194, 22, 156, 22, 156, 32, 180, 32, 180, 44, 170, 54, 188, 54, 188, 56, 8, 56, 8, 58, -34, 58, -40, 56, -44, 60, -66, 60, -70, 56, -70, 52, -68, 44, -76, 36, -88, 36, -94, 28, -96, 40, -114, 58, -142, 58, -142, 46, -152, 46, -152, 24, -160, 28, -160, 46, -194, 46, -200, 40, -200, 24, -210, 24, -210, 28, -214, 28, -216, 24, -250, 32, -250, -4, -216, 4, -214, 0, -210, 0, -210, 4, -200, 4, -200, -26, -210, -26, -210, -22, -214, -22, -216, -26, -250, -18, -250, -54, -216, -46, -214, -50, -210, -50, -210, -46, -200, -46, -200, -58, -194, -62, -160, -62, -158, -50, -152, -74, -144, -74, -144, -84, -114, -84, -96, -66, -82, -98, -74, -100, -24, -100, 38, -98, 38, -96, -24, -92, -52, -92)
 
 [node name="Sprite2D" parent="Ship/TestShip" index="1"]
-scale = Vector2(2, 2)
-texture = ExtResource("2_st84s")
-
-[node name="Thrusters" parent="Ship/TestShip" index="2"]
-position = Vector2(-106, -2)
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_5y86b")
-autoplay = "default"
+rotation = 1.5708
+texture = ExtResource("48_x2dq4")
 
 [node name="Crack" parent="Ship/TestShip/Components" index="0" instance=ExtResource("36_lcqmr")]
-position = Vector2(60, 30)
+position = Vector2(38, 7)
 script = ExtResource("34_rgc4q")
 time_to_patch = 2.0
 todo_header = "Hull Crack"
@@ -1175,7 +1100,6 @@ shape = SubResource("CircleShape2D_t6m4l")
 
 [node name="Sprite2D" parent="Ship/TestShip/Components/Crack" index="2"]
 rotation = 1.5708
-scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_uak3a")
 vframes = 2
 
@@ -1189,7 +1113,7 @@ amount = 32
 process_material = SubResource("ParticleProcessMaterial_bn7yg")
 
 [node name="FuelIntake" parent="Ship/TestShip/Components" index="1" instance=ExtResource("36_lcqmr")]
-position = Vector2(-30, -34)
+position = Vector2(-94, -27)
 script = ExtResource("20_s118x")
 capacity = 100.0
 todo_header = "Refuel Engines"
@@ -1199,33 +1123,39 @@ todo_list = Array[String](["Insert Nozzle", "Pump Fuel"])
 shape = SubResource("CircleShape2D_h7p3u")
 
 [node name="InsertionPoint" type="Marker2D" parent="Ship/TestShip/Components/FuelIntake"]
-position = Vector2(-3, -3)
+position = Vector2(-2, -1)
 rotation = 0.785398
 
 [node name="AttachAudio" type="AudioStreamPlayer2D" parent="Ship/TestShip/Components/FuelIntake"]
 stream = ExtResource("17_vemoy")
 bus = &"Sounds"
 
-[node name="MisalignedWing" parent="Ship/TestShip/Components" index="2" instance=ExtResource("36_lcqmr")]
-position = Vector2(-86, 18)
+[node name="MisalignedAntenna" parent="Ship/TestShip/Components" index="2" instance=ExtResource("36_lcqmr")]
+position = Vector2(126, -25)
 script = ExtResource("56_ad5jj")
-todo_header = "Reallign Wing"
-todo_list = Array[String](["Recenter wing"])
+todo_header = "Reallign Antenna"
+todo_list = Array[String](["Recenter antenna"])
 hold_to_interact = true
 
-[node name="CollisionShape2D" parent="Ship/TestShip/Components/MisalignedWing/Area2D" index="0"]
+[node name="CollisionShape2D" parent="Ship/TestShip/Components/MisalignedAntenna/Area2D" index="0"]
 shape = SubResource("CircleShape2D_gglhe")
 
-[node name="Sprite2D" parent="Ship/TestShip/Components/MisalignedWing" index="2"]
+[node name="Sprite2D" parent="Ship/TestShip/Components/MisalignedAntenna" index="2"]
 position = Vector2(-1.00003, -0.999998)
 scale = Vector2(1.99998, 2)
 texture = ExtResource("2_whmxn")
 
-[node name="AligningAudio" type="AudioStreamPlayer2D" parent="Ship/TestShip/Components/MisalignedWing"]
+[node name="AligningAudio" type="AudioStreamPlayer2D" parent="Ship/TestShip/Components/MisalignedAntenna"]
 stream = ExtResource("57_b03xq")
 
-[node name="SuccessAudio" type="AudioStreamPlayer2D" parent="Ship/TestShip/Components/MisalignedWing"]
+[node name="SuccessAudio" type="AudioStreamPlayer2D" parent="Ship/TestShip/Components/MisalignedAntenna"]
 stream = ExtResource("58_ibo1p")
+
+[node name="RCS1" type="Node2D" parent="Ship/TestShip/Thrusters" index="0"]
+position = Vector2(-72, -39)
+
+[node name="RCS2" type="Node2D" parent="Ship/TestShip/Thrusters" index="1"]
+position = Vector2(-72, 26)
 
 [node name="Particles" type="Node2D" parent="."]
 
@@ -1582,4 +1512,4 @@ vertical_alignment = 1
 [editable path="Ship/TestShip"]
 [editable path="Ship/TestShip/Components/Crack"]
 [editable path="Ship/TestShip/Components/FuelIntake"]
-[editable path="Ship/TestShip/Components/MisalignedWing"]
+[editable path="Ship/TestShip/Components/MisalignedAntenna"]

@@ -71,8 +71,8 @@ func _process(delta: float) -> void:
 		_audio.stop()
 	_offset += motion * ALIGN_SPEED * delta
 	var dist := _offset.length_squared()
-	Debug.debug("[Ship Misallignment] " + str(_offset))
-	Debug.debug("[Ship Misallignment] " + str(dist))
+	Debug.trace("[Ship Misallignment] " + str(_offset))
+	Debug.trace("[Ship Misallignment] " + str(dist))
 	_progress_bar.value = _progress_bar.max_value - dist
 	if dist <= EPSILON * EPSILON:
 		dist = 0
@@ -80,6 +80,7 @@ func _process(delta: float) -> void:
 		_audio.stop()
 		_success_audio.play()
 		_progress_bar.value = _progress_bar.max_value
+		_sprite.visible = false
 		_is_finished = true
 	queue_redraw()
 	progress = _progress_bar.value / _progress_bar.max_value

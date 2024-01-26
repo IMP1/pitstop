@@ -91,12 +91,17 @@ func _throw_tool(tool: Tool, _position: Vector2, velocity: Vector2) -> void:
 
 func _setup_ship() -> void:
 	var ship := _ship_container.get_child(0) as Ship
+	ship.accellerated.connect(_add_particle)
 	for i in ship.get_node("Components").get_child_count():
 		var job := ship.get_node("Components").get_child(i) as ShipFault
 		_job_progresses.append(0)
 		job.progress_changed.connect(_update_repair_progress.bind(i))
 	_clock.time_limit = ship.time_limit
 	_fuel_pump.ship_fuel_intake = ship.get_fault(FuelIntake) as FuelIntake
+
+
+func _finalise_ship() -> void:
+	var ship := _ship_container.get_child(0) as Ship
 	_diagnostic_display.set_ship(ship)
 
 
@@ -117,12 +122,13 @@ func _begin() -> void:
 	Debug.info("[Game] Raising barriers")
 	_ship_maneuvering_zone.raise_barriers()
 	
+	_setup_ship()
 	_countdown_timer.start()
 	_clock.start_flashing()
 	await _countdown_timer.timeout
 	await _ship_enter()
 	_clock.stop_flashing()
-	_setup_ship()
+	_finalise_ship()
 	_ship_maneuvering_zone.visible = false
 	_ship_maneuvering_zone.lower_barriers()
 	_clock.begin()
@@ -164,16 +170,16 @@ func _ship_enter() -> void:
 	Debug.debug("[Game] Ship entering")
 	_is_ship_moving = true
 	var ship := _ship_container.get_child(0) as Ship
-	ship.fire_thrusters()
 	ship.global_position = _ship_maneuvering_zone.get_outside_position()
+	Debug.info("[Game] Ship pos: " + str(ship.position))
+	ship.fire_thrusters()
 	var tween := create_tween()
-	tween.set_trans(Tween.TRANS_EXPO)
+	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(ship, "position", Vector2.ZERO, 2.0)
+	tween.tween_property(ship, "position", Vector2.ZERO, 6.0)
 	_diagnostic_display.add_ship()
 	await tween.finished
 	ship.cut_thrusters()
-	# TODO: Have some animation? A clamping thing?
 	_countdown_timer.start()
 	await _countdown_timer.timeout
 	_is_ship_moving = false
@@ -186,13 +192,12 @@ func _ship_exit() -> void:
 	_is_ship_moving = true
 	var ship := _ship_container.get_child(0) as Ship
 	ship.fire_thrusters()
-	# TODO: Have some animation? An unclamping thing?
 	_countdown_timer.start()
 	await _countdown_timer.timeout
 	var tween := create_tween()
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_ease(Tween.EASE_IN)
-	tween.tween_property(ship, "global_position", _ship_maneuvering_zone.get_outside_position(), 2.0)
+	tween.tween_property(ship, "global_position", _ship_maneuvering_zone.get_outside_position(), 6.0)
 	_diagnostic_display.remove_ship()
 	await tween.finished
 	ship.cut_thrusters()

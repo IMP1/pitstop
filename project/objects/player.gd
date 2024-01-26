@@ -1,7 +1,7 @@
 class_name Player
 extends BounceBody2D
 
-signal accellerated(position, velocity, spread, colour)
+signal accellerated(position: Vector2, velocity: Vector2, spread: float, colour: Color)
 
 const NO_DEVICE = -1
 const VELOCITY_EPSILON = 1.4
@@ -15,7 +15,7 @@ const FACING_DIRECTION_WEIGHTING = 16 # Affects tool grabbing
 @export var velocity_max: float = 64
 @export var braking_strength_min: float = 0.8
 @export var braking_strength_max: float = 0.1
-@export var throw_strength: float = 64.0
+@export var throw_strength: float = 60.0
 
 var _direction: Vector2
 var _potential_grab: Tool
