@@ -19,7 +19,12 @@ func _input(event: InputEvent) -> void:
 func _write(message, importance: Severity) -> void:
 	if severity_level < importance:
 		return
-	print(message)
+	if importance == Severity.ERROR:
+		push_error(message)
+	elif importance == Severity.WARNING:
+		push_warning(message)
+	else:
+		print(message)
 	_label.text += str(message) + "\n"
 	_label.lines_skipped = maxi(0, _label.text.count("\n") - _label.max_lines_visible)
 	_label.queue_redraw()
