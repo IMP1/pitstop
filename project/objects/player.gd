@@ -217,6 +217,7 @@ func _update_interactable() -> void:
 	if _potential_interact and _potential_interact != nearest_interactable:
 		_potential_interact.reset_highlight_colour(device_id)
 	_interact_prompt.visible = false
+	# TODO: Get icon dynamically?
 	if nearest_interactable and nearest_interactable.can_interact(self):
 		_interact_prompt.visible = true
 		_potential_interact = nearest_interactable
@@ -234,6 +235,7 @@ func _update_grabbable() -> void:
 	if _potential_grab and nearest_tool != _potential_grab:
 		_potential_grab.reset_highlight_colour(device_id)
 	_potential_grab = nearest_tool
+	# TODO: Get icon dynamically?
 	_grab_prompt.visible = (_potential_grab != null)
 	if _grab_prompt.visible:
 		_potential_grab.set_highlight_colour(colour, device_id)

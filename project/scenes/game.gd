@@ -338,8 +338,11 @@ func _remove_player() -> void:
 
 
 func _settings() -> void:
-	# TODO: Settings menu (deadzone, sensitivity, ...)
-	pass
+	$Menu/Settings.visible = true
+	$Menu/Settings/HSelect.grab_focus()
+	await $Menu/Settings.closed
+	$Menu/Settings.visible = false
+	$Menu/Options/Settings.grab_focus()
 
 
 func _quit() -> void:

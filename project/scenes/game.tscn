@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://d0fnyfjglery6"]
+[gd_scene load_steps=125 format=3 uid="uid://d0fnyfjglery6"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_77n8k"]
 [ext_resource type="Texture2D" uid="uid://hg70qgk1xe71" path="res://assets/backgrounds/Blue Nebula 6 - 1024x1024.png" id="1_cs1ea"]
@@ -57,9 +57,11 @@
 [ext_resource type="Texture2D" uid="uid://blf57earfcsmy" path="res://assets/ships/ship_1.png" id="48_x2dq4"]
 [ext_resource type="Texture2D" uid="uid://uwp03iqwerrd" path="res://assets/icons/gdb-xbox-2 (1).png" id="52_twyig"]
 [ext_resource type="PackedScene" uid="uid://u13iu6yho54k" path="res://gui/group_confirmable.tscn" id="54_jwr14"]
+[ext_resource type="Texture2D" uid="uid://cj7jgycu3umgm" path="res://assets/ships/red-light.png" id="54_qn6yy"]
 [ext_resource type="Script" path="res://objects/components/ship_misalignment.gd" id="56_ad5jj"]
 [ext_resource type="AudioStream" uid="uid://df055gq2nhxtb" path="res://assets/sounds/metal-creaking.ogg" id="57_b03xq"]
 [ext_resource type="AudioStream" uid="uid://dv63cc0uucyvs" path="res://assets/sounds/clunk.ogg" id="58_ibo1p"]
+[ext_resource type="PackedScene" uid="uid://8y3141pm7o1r" path="res://scenes/settings.tscn" id="62_g7uv0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwaia"]
 atlas = ExtResource("3_gfman")
@@ -1155,7 +1157,7 @@ texture = ExtResource("2_whmxn")
 explosiveness = 0.2
 
 [node name="FuelIntake" parent="Ship/TestShip/Components" index="1" instance=ExtResource("36_lcqmr")]
-position = Vector2(-94, -27)
+position = Vector2(-62, -37)
 script = ExtResource("20_s118x")
 capacity = 100.0
 todo_header = "Refuel Engines"
@@ -1164,9 +1166,13 @@ todo_list = Array[String](["Insert Nozzle", "Pump Fuel"])
 [node name="CollisionShape2D" parent="Ship/TestShip/Components/FuelIntake/Area2D" index="0"]
 shape = SubResource("CircleShape2D_h7p3u")
 
+[node name="Sprite2D" parent="Ship/TestShip/Components/FuelIntake" index="2"]
+position = Vector2(-6, 0.5)
+rotation = 1.5708
+texture = ExtResource("54_qn6yy")
+
 [node name="InsertionPoint" type="Marker2D" parent="Ship/TestShip/Components/FuelIntake"]
-position = Vector2(-2, -1)
-rotation = 0.785398
+rotation = 2.35619
 
 [node name="AttachAudio" type="AudioStreamPlayer2D" parent="Ship/TestShip/Components/FuelIntake"]
 stream = ExtResource("17_vemoy")
@@ -1436,7 +1442,6 @@ text = "Remove Input"
 
 [node name="Settings" type="Button" parent="Menu/Options"]
 layout_mode = 2
-disabled = true
 text = "Settings"
 
 [node name="Quit" type="Button" parent="Menu/Options"]
@@ -1531,6 +1536,9 @@ stretch_mode = 5
 layout_mode = 2
 text = "Interact"
 vertical_alignment = 1
+
+[node name="Settings" parent="Menu" instance=ExtResource("62_g7uv0")]
+visible = false
 
 [connection signal="body_entered" from="Shipyard/ShipManeuveringZone" to="Shipyard/ShipManeuveringZone" method="_body_entered"]
 [connection signal="body_exited" from="Shipyard/ShipManeuveringZone" to="Shipyard/ShipManeuveringZone" method="_body_exited"]

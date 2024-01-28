@@ -1,6 +1,48 @@
-[gd_scene load_steps=2 format=3 uid="uid://8y3141pm7o1r"]
+[gd_scene load_steps=13 format=3 uid="uid://8y3141pm7o1r"]
 
+[ext_resource type="Script" path="res://scenes/settings.gd" id="1_a83dc"]
 [ext_resource type="PackedScene" uid="uid://d0k52ti5s2i82" path="res://gui/h_select.tscn" id="1_ay5lb"]
+[ext_resource type="PackedScene" uid="uid://cff4v5fin551o" path="res://gui/input_button.tscn" id="3_kktuh"]
+[ext_resource type="Texture2D" uid="uid://uwp03iqwerrd" path="res://assets/icons/gdb-xbox-2 (1).png" id="3_tuil7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dh4ln"]
+draw_center = false
+border_width_bottom = 4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eaamu"]
+resource_local_to_scene = true
+atlas = ExtResource("3_tuil7")
+region = Rect2(17, 193, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfuf4"]
+resource_local_to_scene = true
+atlas = ExtResource("3_tuil7")
+region = Rect2(17, 193, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqstl"]
+resource_local_to_scene = true
+atlas = ExtResource("3_tuil7")
+region = Rect2(17, 193, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wa6nh"]
+resource_local_to_scene = true
+atlas = ExtResource("3_tuil7")
+region = Rect2(17, 193, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jiwq"]
+resource_local_to_scene = true
+atlas = ExtResource("3_tuil7")
+region = Rect2(17, 193, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2vnj"]
+resource_local_to_scene = true
+atlas = ExtResource("3_tuil7")
+region = Rect2(17, 193, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_if383"]
+resource_local_to_scene = true
+atlas = ExtResource("3_tuil7")
+region = Rect2(17, 193, 14, 14)
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -9,17 +51,55 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_a83dc")
+
+[node name="Actions" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -195.0
+offset_top = 16.0
+offset_right = 201.0
+offset_bottom = 55.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Confirm" type="Button" parent="Actions"]
+layout_mode = 2
+text = "Confirm Changes"
 
 [node name="HSelect" parent="." instance=ExtResource("1_ay5lb")]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -233.0
-offset_top = 35.0
-offset_right = 240.0
-offset_bottom = 113.0
+offset_left = -232.0
+offset_top = 64.0
+offset_right = 241.0
+offset_bottom = 114.0
 grow_horizontal = 2
+selected_item_style = SubResource("StyleBoxFlat_dh4ln")
+selected_item_text_colour = Color(1, 1, 0.607843, 1)
+unselected_item_text_colour = Color(0.627451, 0.627451, 0.627451, 1)
+
+[node name="Controls" type="Button" parent="HSelect"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Controls"
+flat = true
+
+[node name="Audio" type="Button" parent="HSelect"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Audio"
+flat = true
+
+[node name="Accessibility" type="Button" parent="HSelect"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Accessibility"
+flat = true
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
@@ -27,11 +107,224 @@ anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 68.0
-offset_top = 150.0
+offset_top = 128.0
 offset_right = -64.0
 offset_bottom = -47.0
 grow_horizontal = 2
 grow_vertical = 2
+tabs_visible = false
+
+[node name="Controls" type="Control" parent="TabContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Controls"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InputList" type="VBoxContainer" parent="TabContainer/Controls/ScrollContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(238, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+
+[node name="PickUp" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
+custom_minimum_size = Vector2(96, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="TabContainer/Controls/ScrollContainer/InputList/PickUp"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Pick Up"
+horizontal_alignment = 2
+
+[node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/PickUp" instance=ExtResource("3_kktuh")]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+icon = SubResource("AtlasTexture_eaamu")
+action = &"grab_DEVICE"
+
+[node name="Interact" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
+custom_minimum_size = Vector2(96, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="TabContainer/Controls/ScrollContainer/InputList/Interact"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Interact"
+horizontal_alignment = 2
+
+[node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/Interact" instance=ExtResource("3_kktuh")]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+icon = SubResource("AtlasTexture_pfuf4")
+action = &"use_DEVICE"
+
+[node name="Throw" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
+custom_minimum_size = Vector2(96, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="TabContainer/Controls/ScrollContainer/InputList/Throw"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Throw"
+horizontal_alignment = 2
+
+[node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/Throw" instance=ExtResource("3_kktuh")]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+icon = SubResource("AtlasTexture_rqstl")
+action = &"throw_DEVICE"
+
+[node name="Vote" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
+custom_minimum_size = Vector2(96, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="TabContainer/Controls/ScrollContainer/InputList/Vote"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Vote"
+horizontal_alignment = 2
+
+[node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/Vote" instance=ExtResource("3_kktuh")]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+icon = SubResource("AtlasTexture_wa6nh")
+action = &"vote_DEVICE"
+
+[node name="Move" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
+custom_minimum_size = Vector2(96, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="TabContainer/Controls/ScrollContainer/InputList/Move"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Move"
+horizontal_alignment = 2
+
+[node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/Move" instance=ExtResource("3_kktuh")]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+icon = SubResource("AtlasTexture_5jiwq")
+action = &"move_DIR_DEVICE"
+action_type = 1
+
+[node name="Brake" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
+custom_minimum_size = Vector2(96, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="TabContainer/Controls/ScrollContainer/InputList/Brake"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Brake"
+horizontal_alignment = 2
+
+[node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/Brake" instance=ExtResource("3_kktuh")]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+icon = SubResource("AtlasTexture_i2vnj")
+action = &"move_brake_DEVICE"
+
+[node name="Aim" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
+custom_minimum_size = Vector2(96, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="TabContainer/Controls/ScrollContainer/InputList/Aim"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Aim / Align"
+horizontal_alignment = 2
+
+[node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/Aim" instance=ExtResource("3_kktuh")]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+icon = SubResource("AtlasTexture_if383")
+action = &"aim_DIR_DEVICE"
+action_type = 1
 
 [node name="Audio" type="Control" parent="TabContainer"]
+visible = false
 layout_mode = 2
+
+[node name="VolumeList" type="VBoxContainer" parent="TabContainer/Audio"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Master" type="HBoxContainer" parent="TabContainer/Audio/VolumeList"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Audio/VolumeList/Master"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Master"
+
+[node name="HSlider" type="HSlider" parent="TabContainer/Audio/VolumeList/Master"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Music" type="HBoxContainer" parent="TabContainer/Audio/VolumeList"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Audio/VolumeList/Music"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Music"
+
+[node name="HSlider" type="HSlider" parent="TabContainer/Audio/VolumeList/Music"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Sounds" type="HBoxContainer" parent="TabContainer/Audio/VolumeList"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Audio/VolumeList/Sounds"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sounds"
+
+[node name="HSlider" type="HSlider" parent="TabContainer/Audio/VolumeList/Sounds"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Accessibility" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[connection signal="pressed" from="Actions/Confirm" to="." method="_close"]
+[connection signal="selection_changed" from="HSelect" to="." method="_set_settings_tab"]
