@@ -16,7 +16,7 @@ func _ready() -> void:
 	_button.visible = false
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if _finished:
 		return
 	var progress := [] as Array[float]
@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 
 
 func _complete():
-	Debug.error("[Splash] Loaded scene %s" % scene_path)
+	Debug.debug("[Splash] Loaded scene %s" % scene_path)
 	_finished = true
 	_progress.value = 1.0
 	await create_tween().tween_interval(post_load_delay).finished

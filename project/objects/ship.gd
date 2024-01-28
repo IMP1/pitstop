@@ -12,7 +12,6 @@ const PROPULSION_PARTICLE_SPEED = 16
 var _is_accellerating := false
 var _last_position: Vector2
 
-@onready var _collision := $CollisionPolygon2D as CollisionPolygon2D
 @onready var _thrusters := $Thrusters as Node2D
 @onready var _thruster_sound := $ThrusterSound as AudioStreamPlayer2D
 @onready var _components := $Components as Node2D

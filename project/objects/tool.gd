@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 		return
 	var collision := move_and_collide(velocity * delta)
 	if collision:
-		Debug.debug("[Colliding]" + str(collision.get_collider().name))
+		Debug.debug("[Tool] Colliding" + str(collision.get_collider().name))
 		_collide(collision)
 
 

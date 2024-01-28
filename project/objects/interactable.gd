@@ -9,6 +9,7 @@ var _device_interacting: int
 var _highlight: bool = true
 var _players_highlighting: Dictionary = {}
 
+@warning_ignore("unused_private_class_variable")
 @onready var _area := $Area2D as Area2D
 
 
@@ -66,7 +67,7 @@ func reset_highlight_colour(id: int) -> void:
 		highlight(highlight_colour)
 
 
-func highlight(color: Color) -> void:
+func highlight(_color: Color) -> void:
 	# To be overwritten
 	pass # TODO: Highlight somehow
 

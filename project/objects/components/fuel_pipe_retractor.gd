@@ -9,7 +9,7 @@ extends Interactable
 var _retracting: bool = false
 var _last_retraction_direction: Vector2
 
-@onready var _raycast := $RayCast2D as RayCast2D
+#@onready var _raycast := $RayCast2D as RayCast2D
 @onready var _audio := $AudioStreamPlayer2D as AudioStreamPlayer2D
 @onready var _wheel_sprite := $WheelSprite as AnimatedSprite2D
 @onready var _highlight_line := $Highlight as Line2D
@@ -75,8 +75,8 @@ func _retract_end(delta: float) -> void:
 			pipe.remove_point(pipe.get_point_count() - 2)
 
 
-func _retract_fixed(delta: float) -> void:
-	var distance := retraction_speed * delta
+func _retract_fixed(_delta: float) -> void:
+	#var distance := retraction_speed * delta
 	# TODO: Do something complicated - Look up string pulling algorithms? Is that a thing?
 	pass
 

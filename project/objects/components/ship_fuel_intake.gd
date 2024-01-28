@@ -14,6 +14,7 @@ var fill_level: float = 0
 
 @onready var _insertion_point := $InsertionPoint as Node2D
 @onready var _attach_nozzle_audio := $AttachAudio as AudioStreamPlayer2D
+@onready var _indicator_light := $Sprite2D as Sprite2D
 
 
 func _ready() -> void:
@@ -48,5 +49,6 @@ func pump(amount: float) -> void:
 	progress = _progress_bar.value / _progress_bar.max_value
 	progress_changed.emit(progress)
 	if _progress_bar.value / _progress_bar.max_value >= 1.0:
+		_indicator_light.visible = false
 		Debug.info("[Fuel Intake] Fuel full")
 

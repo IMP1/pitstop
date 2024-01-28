@@ -11,8 +11,8 @@ signal timelow
 @onready var _timer := $Timer as Timer
 @onready var _warning_timer := $WarningTimer as Timer
 @onready var _label := $Label as Label
-@onready var _buzzer := $Buzzer as AnimatedSprite2D
-@onready var _light := $Buzzer/PointLight2D as PointLight2D
+#@onready var _buzzer := $Buzzer as AnimatedSprite2D
+#@onready var _light := $Buzzer/PointLight2D as PointLight2D
 
 
 func begin() -> void:
