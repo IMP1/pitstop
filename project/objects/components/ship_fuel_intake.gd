@@ -33,11 +33,15 @@ func _attach_nozzle(nozzle: Tool) -> void:
 	_attach_nozzle_audio.play()
 	nozzle.reparent(self)
 	nozzle.transform = _insertion_point.transform 
+	nozzle._shadow.visible = false
+	# TODO: Change the sprite for one that looks like it's been inserted
 
 
 func _detach_nozzle(player: Player) -> void:
 	_attach_nozzle_audio.play()
-	(get_node("Nozzle") as Tool).grab(player)
+	var nozzle := get_node("Nozzle") as Tool
+	nozzle.grab(player)
+	nozzle._shadow.visible = true
 
 
 func pump(amount: float) -> void:
@@ -51,4 +55,3 @@ func pump(amount: float) -> void:
 	if _progress_bar.value / _progress_bar.max_value >= 1.0:
 		_indicator_light.visible = false
 		Debug.info("[Fuel Intake] Fuel full")
-

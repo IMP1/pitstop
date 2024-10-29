@@ -70,4 +70,3 @@ func reset_highlight_colour(id: int) -> void:
 func highlight(_color: Color) -> void:
 	# To be overwritten
 	pass # TODO: Highlight somehow
-

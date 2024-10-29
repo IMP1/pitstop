@@ -54,4 +54,3 @@ func stop_flashing() -> void:
 	pass
 #	_buzzer.play(&"default")
 #	_light.visible = false
-

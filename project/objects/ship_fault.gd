@@ -13,7 +13,6 @@ var progress: float = 0.0
 @onready var _progress_bar := $ProgressBar as ProgressBar
 @warning_ignore("unused_private_class_variable")
 @onready var _sprite := $Sprite2D as Sprite2D
-@warning_ignore("unused_private_class_variable")
 @onready var _icon := $Icon as Sprite2D
 
 
@@ -32,4 +31,3 @@ func _player_left(body: Node2D) -> void:
 
 
 # TODO: Have a completion effect? Sound / particles? Something satisfying!
-

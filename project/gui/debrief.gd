@@ -6,7 +6,6 @@ extends CanvasLayer
 	set = _set_result
 
 var _running_total: float = 0.0
-var _confirmation_devices: Dictionary = {}
 
 @onready var _result := $Contents/Result as Label
 @onready var _tally := $Contents/Tally as VBoxContainer 

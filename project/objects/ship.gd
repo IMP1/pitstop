@@ -56,4 +56,3 @@ func get_faults() -> Array[ShipFault]:
 		if comp is ShipFault:
 			list.append(comp)
 	return list
-

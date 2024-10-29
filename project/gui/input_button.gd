@@ -154,4 +154,3 @@ func _refresh_icon(event: InputEvent):
 		else:
 			Debug.warning("[InputButton] No region for %d" % code)
 	(icon as AtlasTexture).region = region
-

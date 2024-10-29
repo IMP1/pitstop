@@ -112,10 +112,12 @@ offset_right = -64.0
 offset_bottom = -47.0
 grow_horizontal = 2
 grow_vertical = 2
+current_tab = 0
 tabs_visible = false
 
 [node name="Controls" type="Control" parent="TabContainer"]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Controls"]
 layout_mode = 1
@@ -277,6 +279,7 @@ action_type = 1
 [node name="Audio" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="VolumeList" type="VBoxContainer" parent="TabContainer/Audio"]
 layout_mode = 0
@@ -325,6 +328,7 @@ size_flags_horizontal = 3
 [node name="Accessibility" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [connection signal="pressed" from="Actions/Confirm" to="." method="_close"]
 [connection signal="selection_changed" from="HSelect" to="." method="_set_settings_tab"]

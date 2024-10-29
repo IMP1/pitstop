@@ -44,5 +44,3 @@ func debug(message) -> void:
 
 func trace(message) -> void:
 	_write(message, Severity.TRACE)
-
-

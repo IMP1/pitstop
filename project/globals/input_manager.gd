@@ -36,6 +36,3 @@ func _gamepad_connection_changed(id: int, connected: bool) -> void:
 	else:
 		Debug.info("[InputManager] Gamepad disconnected: " + str(id))
 		emit_signal("gamepad_disconnected", id)
-
-
-

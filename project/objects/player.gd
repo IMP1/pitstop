@@ -218,7 +218,7 @@ func _update_interactable() -> void:
 		_potential_interact.reset_highlight_colour(device_id)
 	_interact_prompt.visible = false
 	# TODO: Get icon dynamically?
-	if nearest_interactable and nearest_interactable.can_interact(self):
+	if nearest_interactable and nearest_interactable.is_visible_in_tree() and nearest_interactable.can_interact(self):
 		_interact_prompt.visible = true
 		_potential_interact = nearest_interactable
 		_potential_interact.set_highlight_colour(colour, device_id)

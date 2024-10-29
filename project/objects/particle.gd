@@ -11,4 +11,3 @@ func _ready() -> void:
 	tween.play()
 	await tween.finished
 	queue_free()
-

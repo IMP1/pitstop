@@ -71,4 +71,3 @@ func reset_highlight_colour(id: int) -> void:
 		highlight_colour = Color.WHITE
 	if _highlight:
 		_highlight_shader.set_shader_parameter(SHADER_COLOUR_PARAM, highlight_colour)
-

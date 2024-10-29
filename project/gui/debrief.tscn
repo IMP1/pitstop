@@ -1,0 +1,146 @@
+[gd_scene load_steps=10 format=3 uid="uid://btfobc8djnixu"]
+
+[ext_resource type="Script" path="res://gui/debrief.gd" id="1_qj3i5"]
+[ext_resource type="FontFile" uid="uid://0vh6csaq2gfa" path="res://assets/fonts/Bruno_Ace_SC/BrunoAceSC-Regular.ttf" id="2_0bpjh"]
+[ext_resource type="PackedScene" uid="uid://u13iu6yho54k" path="res://gui/group_confirmable.tscn" id="3_a7734"]
+
+[sub_resource type="Gradient" id="Gradient_5c7fw"]
+offsets = PackedFloat32Array(0, 0.4, 0.7, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.752941, 0, 0, 0, 0.752941, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_np3kx"]
+gradient = SubResource("Gradient_5c7fw")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ew2fe"]
+bg_color = Color(0, 0, 0, 1)
+draw_center = false
+skew = Vector2(1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 2
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 2
+expand_margin_left = 12.0
+expand_margin_right = 12.0
+shadow_color = Color(1, 1, 1, 0.6)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00y10"]
+bg_color = Color(0, 0, 0, 1)
+skew = Vector2(1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 3
+corner_radius_top_left = 4
+corner_radius_top_right = 2
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 2
+expand_margin_left = 12.0
+expand_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wc667"]
+bg_color = Color(0, 0, 0, 1)
+skew = Vector2(1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 4
+corner_radius_top_right = 2
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 2
+expand_margin_left = 12.0
+expand_margin_top = 2.0
+expand_margin_right = 12.0
+
+[sub_resource type="Theme" id="Theme_ki26h"]
+default_font = ExtResource("2_0bpjh")
+default_font_size = 12
+Button/styles/focus = SubResource("StyleBoxFlat_ew2fe")
+Button/styles/normal = SubResource("StyleBoxFlat_00y10")
+Button/styles/pressed = SubResource("StyleBoxFlat_wc667")
+
+[node name="Debrief" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_qj3i5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_np3kx")
+
+[node name="Contents" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_ki26h")
+
+[node name="Result" type="Label" parent="Contents"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -73.0
+offset_top = 28.0
+offset_right = 73.0
+offset_bottom = 47.0
+grow_horizontal = 2
+text = "SUCCESS"
+horizontal_alignment = 1
+
+[node name="Tally" type="VBoxContainer" parent="Contents"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -165.0
+offset_top = 57.0
+offset_right = 166.0
+offset_bottom = -125.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GroupConfirmable" parent="Contents" instance=ExtResource("3_a7734")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -73.0
+offset_bottom = -73.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="Contents/GroupConfirmable"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -32.0
+offset_top = -16.0
+offset_right = 33.0
+offset_bottom = 10.0
+grow_horizontal = 2
+text = "Continue"
+horizontal_alignment = 1

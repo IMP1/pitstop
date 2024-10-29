@@ -7,6 +7,14 @@ const PARTICLE = preload("res://objects/particle.tscn")
 @export var particle_texture: Texture2D
 @export var player_colours: Array[Color]
 @export var player_sprites: Array[Texture2D]
+@export_category("Shipyard Components")
+@export var _patch_dispenser: PatchDispenser
+@export var _ship_maneuvering_zone: ShipManeuveringZone
+@export var _fuel_pump: FuelPump
+@export var _clock: ShipyardClock
+@export var _tool_station: ToolStation
+@export var _diagnostic_display: DiagnosticDisplay
+@export var _reactor_shutdown: ReactorShutdown
 
 var _device_players: Dictionary = {}
 var _job_progresses: Array[float] = []
@@ -20,21 +28,13 @@ var _is_ship_moving: bool = false
 @onready var _prelude := $Prelude as CanvasLayer
 @onready var _prelude_confirmation := $Prelude/GroupConfirmable as GroupConfirmable
 @onready var _debrief := $Debrief as Debrief
-@onready var _game_over := $GameOver as CanvasLayer
+@onready var _game_over := $GameOver as GameOver
 @onready var _menu_colour := $Menu/Options/ColorRect as ColorRect
 @onready var _menu_selection := $Menu/Options/Resume as Button
 @onready var _player_spawns := $PlayerSpawns as Node2D
 @onready var _ship_container := $Ship as Node2D
 @onready var _klaxon := $Shipyard/Clock/Klaxon as AudioStreamPlayer2D
 @onready var _countdown_timer := $Shipyard/Clock/CountdownTimer as Timer
-
-# Shipyard Components
-@onready var _patch_dispenser := $Shipyard/PatchDispenser as PatchDispenser
-@onready var _ship_maneuvering_zone := $Shipyard/ShipManeuveringZone as ShipManeuveringZone
-@onready var _fuel_pump := $Shipyard/FuelStation/FuelPump as FuelPump
-@onready var _clock := $Shipyard/Clock as ShipyardClock
-@onready var _tool_station := $Shipyard/ToolStation as ToolStation
-@onready var _diagnostic_display := $Shipyard/DiagnosticDisplay as DiagnosticDisplay
 
 
 func _ready() -> void:
@@ -154,16 +154,10 @@ func _repair_success() -> void:
 func _repair_failure() -> void:
 	_is_level_over = true
 	Debug.info("[Game] Mission Failure")
-	var ship := _ship_container.get_child(0) as Ship
-	ship.z_index = 10
-	ship._collision.disabled = true
-	_ship_exit()
-	await _show_debrief()
 	_clock.stop_flashing()
-	_ship_maneuvering_zone.visible = false
-	_ship_maneuvering_zone.lower_barriers()
+	await _show_debrief()
 	await _show_gameover()
-	# TODO: Game over
+	# TODO: Start again from first ship?
 
 
 func _ship_enter() -> void:
@@ -257,15 +251,19 @@ func _show_debrief() -> void:
 		players.append(p as Player)
 	_debrief.confirmation.set_players_to_confirm(players)
 	_debrief.visible = true
-	
 	await _debrief.confirmation.confirmed
 	_debrief.visible = false
 
 
 func _show_gameover() -> void:
-	_game_over.visible = true
 	# TODO: Populate details of player progress (Ships completed, money accrued, etc.)
-	# TODO: Await confirmation
+	var players := [] as Array[Player]
+	for p in _players.get_children():
+		players.append(p as Player)
+	_game_over.confirmation.set_players_to_confirm(players)
+	_game_over.visible = true
+	await _game_over.confirmation.confirmed
+	_game_over.visible = false
 
 
 func _process(_delta: float) -> void:
@@ -287,15 +285,19 @@ func _input(event: InputEvent) -> void:
 		InputManager.register_gamepad(event.device)
 		_add_player(event.device)
 		return
-	if event.is_action_pressed("toggle_menu"):
+	if event.is_action_pressed(&"toggle_menu"):
 		if _menu.visible:
 			_resume()
 		else:
 			_open_menu(_device_players[event.device])
-	if event.is_action_pressed("DEBUG_win_level"):
+	if event.is_action_pressed(&"DEBUG_win_level"):
 		Debug.info("[Game] There is no cow level")
 		for i in _job_progresses.size():
 			_job_progresses[i] = 1.0
+	if event.is_action_pressed(&"DEBUG_lose_level"):
+		Debug.info("[Game] There is, actually, a cow level")
+		_clock._timelow()
+		_clock._timer.start(4.0)
 
 
 func _open_menu(player: Player) -> void:
@@ -348,4 +350,3 @@ func _settings() -> void:
 func _quit() -> void:
 	get_tree().get_root().propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 	get_tree().quit()
-

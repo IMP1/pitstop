@@ -35,4 +35,3 @@ func play(stream: AudioStream) -> void:
 
 func _track_finished() -> void:
 	track_finished.emit()
-
