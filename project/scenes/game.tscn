@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=3 uid="uid://d0fnyfjglery6"]
+[gd_scene load_steps=111 format=3 uid="uid://d0fnyfjglery6"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_77n8k"]
 [ext_resource type="Texture2D" uid="uid://hg70qgk1xe71" path="res://assets/backgrounds/Blue Nebula 6 - 1024x1024.png" id="1_cs1ea"]
@@ -12,42 +12,42 @@
 [ext_resource type="AudioStream" uid="uid://cb3ahfv25o52b" path="res://assets/music/Smooth Sailing.mp3" id="5_wpa3n"]
 [ext_resource type="AudioStream" uid="uid://ct5ncjl3khwbv" path="res://assets/music/Parabola.mp3" id="6_4g7m6"]
 [ext_resource type="AudioStream" uid="uid://d0sgggibxfbay" path="res://assets/sounds/dungeon-air-6983.mp3" id="7_2ymvv"]
-[ext_resource type="Texture2D" uid="uid://bd8ufixrm75n8" path="res://assets/ships/pipe.png" id="11_4okey"]
-[ext_resource type="Script" path="res://objects/components/fuel_pump.gd" id="11_miphq"]
+[ext_resource type="Texture2D" uid="uid://bd8ufixrm75n8" path="res://assets/shipyard/pipe.png" id="11_4okey"]
+[ext_resource type="Script" path="res://objects/shipyard/fuel_pump.gd" id="11_miphq"]
 [ext_resource type="PackedScene" uid="uid://bewn521oc6sby" path="res://objects/interactable.tscn" id="12_26md6"]
-[ext_resource type="Texture2D" uid="uid://c2tsw2srrbtmm" path="res://assets/ships/struts.png" id="12_opyon"]
-[ext_resource type="Texture2D" uid="uid://da3u2liybfgxg" path="res://assets/ships/conveyor-cover.png" id="15_51tlw"]
+[ext_resource type="Texture2D" uid="uid://c2tsw2srrbtmm" path="res://assets/shipyard/struts.png" id="12_opyon"]
+[ext_resource type="Texture2D" uid="uid://da3u2liybfgxg" path="res://assets/shipyard/conveyor-cover.png" id="15_51tlw"]
 [ext_resource type="AudioStream" uid="uid://dsjj3md5jygbr" path="res://assets/sounds/pick_up.ogg" id="16_iqlbm"]
-[ext_resource type="Script" path="res://objects/components/fuel_pump_motor.gd" id="17_6ykmh"]
+[ext_resource type="Script" path="res://objects/shipyard/fuel_pump_motor.gd" id="17_6ykmh"]
 [ext_resource type="AudioStream" uid="uid://be7jw6wt1d4nr" path="res://assets/sounds/switch_on.ogg" id="17_v3ua8"]
 [ext_resource type="AudioStream" uid="uid://c0ja5ea67ycd3" path="res://assets/sounds/slam_down.ogg" id="17_vemoy"]
 [ext_resource type="PackedScene" uid="uid://bwo5pvg2semkx" path="res://objects/shipyard/nozzle.tscn" id="18_aubvo"]
 [ext_resource type="AudioStream" uid="uid://ceh7lqd4k5w7e" path="res://assets/sounds/switch_off.ogg" id="18_f6mf5"]
 [ext_resource type="AudioStream" uid="uid://c3agy2owt28hg" path="res://assets/sounds/viscous-liquid-fall-in-83980.mp3" id="20_a5wp4"]
-[ext_resource type="Script" path="res://objects/components/fuel_pipe_retractor.gd" id="22_petaf"]
+[ext_resource type="Script" path="res://objects/shipyard/fuel_pipe_retractor.gd" id="22_petaf"]
 [ext_resource type="AudioStream" uid="uid://4nkyrw4cvbnw" path="res://assets/sounds/spinning-reel-27903.ogg" id="23_6jed2"]
-[ext_resource type="Texture2D" uid="uid://u1egwq0i2t1f" path="res://assets/ships/fuel_pump.png" id="24_ebxil"]
+[ext_resource type="Texture2D" uid="uid://u1egwq0i2t1f" path="res://assets/shipyard/fuel_pump.png" id="24_ebxil"]
 [ext_resource type="Script" path="res://objects/shipyard/clock.gd" id="25_1g3l0"]
 [ext_resource type="AudioStream" uid="uid://0josb8gaiavo" path="res://assets/sounds/vintage-car-horn-153264.mp3" id="26_iyj7s"]
 [ext_resource type="FontFile" uid="uid://0vh6csaq2gfa" path="res://assets/fonts/Bruno_Ace_SC/BrunoAceSC-Regular.ttf" id="28_aicjc"]
 [ext_resource type="Script" path="res://objects/shipyard/ship_maneuvering_zone.gd" id="28_fd3n4"]
 [ext_resource type="Texture2D" uid="uid://bbtfx5eqwa75h" path="res://assets/icons/hazard-sign.png" id="29_vnwkf"]
 [ext_resource type="Script" path="res://objects/shipyard/tool_station.gd" id="30_1rlo3"]
-[ext_resource type="Script" path="res://objects/components/patch_dispenser.gd" id="30_mm62e"]
-[ext_resource type="Texture2D" uid="uid://j7e6vmxvkxcr" path="res://assets/ships/conveyor.png" id="30_ued72"]
-[ext_resource type="Texture2D" uid="uid://dov3w0buupvge" path="res://assets/ships/tool_station.png" id="31_2ctx3"]
+[ext_resource type="Script" path="res://objects/shipyard/patch_dispenser.gd" id="30_mm62e"]
+[ext_resource type="Texture2D" uid="uid://j7e6vmxvkxcr" path="res://assets/shipyard/conveyor.png" id="30_ued72"]
+[ext_resource type="Texture2D" uid="uid://dov3w0buupvge" path="res://assets/shipyard/tool_station.png" id="31_2ctx3"]
 [ext_resource type="AudioStream" uid="uid://fheewmp863nj" path="res://assets/sounds/error-warning-login-denied-trial-132113.mp3" id="31_fhe0a"]
-[ext_resource type="Texture2D" uid="uid://b5poin3uc11l" path="res://assets/ships/clock.png" id="31_nijq8"]
+[ext_resource type="Texture2D" uid="uid://b5poin3uc11l" path="res://assets/shipyard/clock.png" id="31_nijq8"]
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="31_qir0k"]
 [ext_resource type="AudioStream" uid="uid://b4usds0sp276k" path="res://assets/sounds/laser-printer-31914.ogg" id="32_5naug"]
 [ext_resource type="Texture2D" uid="uid://cjpdjgo1jnm2x" path="res://assets/ships/light.png" id="32_5wipy"]
 [ext_resource type="PackedScene" uid="uid://b4jt6hjnfu854" path="res://objects/shipyard/blowtorch.tscn" id="37_7dyaj"]
 [ext_resource type="Script" path="res://objects/shipyard/uniform_station.gd" id="37_te6ei"]
-[ext_resource type="Texture2D" uid="uid://c6fcmdi0hw2uq" path="res://assets/ships/lockers.png" id="38_8hh14"]
+[ext_resource type="Texture2D" uid="uid://c6fcmdi0hw2uq" path="res://assets/shipyard/lockers.png" id="38_8hh14"]
 [ext_resource type="Script" path="res://objects/shipyard/diagnostic-display.gd" id="43_de1ih"]
-[ext_resource type="Texture2D" uid="uid://coox2vjyq25ni" path="res://assets/ships/diagnostic-display.png" id="43_vlcp1"]
+[ext_resource type="Texture2D" uid="uid://coox2vjyq25ni" path="res://assets/shipyard/diagnostic-display.png" id="43_vlcp1"]
 [ext_resource type="PackedScene" uid="uid://t5qvf61l1lt8" path="res://gui/to_do_list.tscn" id="45_bjx01"]
-[ext_resource type="Texture2D" uid="uid://dkye1oq56wyju" path="res://assets/ships/shutdown_panel.png" id="47_difou"]
+[ext_resource type="Texture2D" uid="uid://dkye1oq56wyju" path="res://assets/shipyard/shutdown_panel.png" id="47_difou"]
 [ext_resource type="Script" path="res://objects/shipyard/reactor_shutdown_panel.gd" id="47_ro6le"]
 [ext_resource type="Script" path="res://objects/shipyard/shutdown_abort_panel.gd" id="48_ga35d"]
 [ext_resource type="PackedScene" uid="uid://cfsnydfvk6cp" path="res://gui/prelude.tscn" id="49_opm40"]
@@ -222,6 +222,14 @@ size = Vector2(3, 15)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_41hrp"]
 size = Vector2(41, 17)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_shoc6"]
+atlas = ExtResource("38_8hh14")
+region = Rect2(0, 0, 48, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_px6yo"]
+atlas = ExtResource("38_8hh14")
+region = Rect2(0, 31, 48, 17)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ptsxt"]
 size = Vector2(35, 29)
 
@@ -287,22 +295,22 @@ Button/styles/pressed = SubResource("StyleBoxFlat_wc667")
 atlas = ExtResource("47_difou")
 region = Rect2(0, 0, 32, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jyb73"]
-atlas = ExtResource("47_difou")
-region = Rect2(32, 0, 32, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mxg1a"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_adnce"]
 atlas = ExtResource("47_difou")
 region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_anxo3"]
+atlas = ExtResource("47_difou")
+region = Rect2(96, 0, 32, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f4afa"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jyb73")
+"texture": SubResource("AtlasTexture_adnce")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mxg1a")
+"texture": SubResource("AtlasTexture_anxo3")
 }],
 "loop": true,
 "name": &"default",
@@ -982,7 +990,6 @@ position = Vector2(-18, -13)
 bounce_coefficient = 0.9
 
 [node name="UniformStation" parent="Shipyard" node_paths=PackedStringArray("game") instance=ExtResource("12_26md6")]
-z_index = 15
 position = Vector2(515, 32)
 script = ExtResource("37_te6ei")
 game = NodePath("../..")
@@ -998,9 +1005,13 @@ joint_mode = 1
 begin_cap_mode = 1
 end_cap_mode = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="Shipyard/UniformStation"]
-position = Vector2(0, -15)
-texture = ExtResource("38_8hh14")
+[node name="Top" type="Sprite2D" parent="Shipyard/UniformStation"]
+z_index = 11
+position = Vector2(0, -24)
+texture = SubResource("AtlasTexture_shoc6")
+
+[node name="Bottom" type="Sprite2D" parent="Shipyard/UniformStation"]
+texture = SubResource("AtlasTexture_px6yo")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/UniformStation"]
 collision_mask = 15
@@ -1047,10 +1058,12 @@ end_cap_mode = 1
 [node name="ReactorControl" type="Node2D" parent="Shipyard" node_paths=PackedStringArray("panel_1", "panel_2")]
 position = Vector2(541, 345)
 script = ExtResource("47_ro6le")
-meltdown_time = 6.0
-button_discrepency_time = 0.1
+meltdown_time = 12.0
+button_discrepency_time = 0.2
 panel_1 = NodePath("1")
 panel_2 = NodePath("2")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Shipyard/ReactorControl"]
 
 [node name="ButtonTimer" type="Timer" parent="Shipyard/ReactorControl"]
 one_shot = true
@@ -1058,9 +1071,11 @@ one_shot = true
 [node name="MeltdownTimer" type="Timer" parent="Shipyard/ReactorControl"]
 one_shot = true
 
-[node name="1" parent="Shipyard/ReactorControl" instance=ExtResource("12_26md6")]
+[node name="1" parent="Shipyard/ReactorControl" node_paths=PackedStringArray("highlight_line") instance=ExtResource("12_26md6")]
 position = Vector2(-55, -21)
 script = ExtResource("48_ga35d")
+active = false
+highlight_line = NodePath("Highlight")
 
 [node name="Sprite2D" type="Sprite2D" parent="Shipyard/ReactorControl/1"]
 z_index = 9
@@ -1071,15 +1086,26 @@ texture = SubResource("AtlasTexture_2gq2x")
 visible = false
 sprite_frames = SubResource("SpriteFrames_f4afa")
 autoplay = "default"
+frame_progress = 0.250761
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/ReactorControl/1"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Shipyard/ReactorControl/1/StaticBody2D"]
 polygon = PackedVector2Array(-14, 34, -14, -5, -12, -5, -7, 0, 7, 0, 12, -5, 14, -5, 14, 34)
 
-[node name="2" parent="Shipyard/ReactorControl" instance=ExtResource("12_26md6")]
+[node name="Highlight" type="Line2D" parent="Shipyard/ReactorControl/1"]
+position = Vector2(1, -14)
+points = PackedVector2Array(11, 6, 10, 6, 10, 7, 9, 7, 9, 8, 8, 8, 8, 9, 7, 9, 7, 10, 6, 10, 6, 11, 2, 11, 2, 8, 1, 7, -3, 7, -4, 8, -4, 11, -8, 11, -8, 10, -9, 10, -9, 9, -10, 9, -10, 8, -11, 8, -11, 7, -12, 7, -12, 6, -13, 6, -13, 5, -16, 5, -16, 18, 14, 18, 14, 5, 11, 5, 11, 6)
+width = 2.0
+joint_mode = 1
+begin_cap_mode = 1
+end_cap_mode = 1
+
+[node name="2" parent="Shipyard/ReactorControl" node_paths=PackedStringArray("highlight_line") instance=ExtResource("12_26md6")]
 position = Vector2(56, -21)
 script = ExtResource("48_ga35d")
+active = false
+highlight_line = NodePath("Highlight")
 
 [node name="Sprite2D" type="Sprite2D" parent="Shipyard/ReactorControl/2"]
 z_index = 9
@@ -1090,11 +1116,20 @@ texture = SubResource("AtlasTexture_2gq2x")
 visible = false
 sprite_frames = SubResource("SpriteFrames_f4afa")
 autoplay = "default"
+frame_progress = 0.822217
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Shipyard/ReactorControl/2"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Shipyard/ReactorControl/2/StaticBody2D"]
 polygon = PackedVector2Array(-14, 34, -14, -5, -12, -5, -7, 0, 7, 0, 12, -5, 14, -5, 14, 34)
+
+[node name="Highlight" type="Line2D" parent="Shipyard/ReactorControl/2"]
+position = Vector2(1, -14)
+points = PackedVector2Array(11, 6, 10, 6, 10, 7, 9, 7, 9, 8, 8, 8, 8, 9, 7, 9, 7, 10, 6, 10, 6, 11, 2, 11, 2, 8, 1, 7, -3, 7, -4, 8, -4, 11, -8, 11, -8, 10, -9, 10, -9, 9, -10, 9, -10, 8, -11, 8, -11, 7, -12, 7, -12, 6, -13, 6, -13, 5, -16, 5, -16, 18, 14, 18, 14, 5, 11, 5, 11, 6)
+width = 2.0
+joint_mode = 1
+begin_cap_mode = 1
+end_cap_mode = 1
 
 [node name="Ship" type="Node2D" parent="."]
 position = Vector2(316, 186)
@@ -1107,7 +1142,7 @@ position = Vector2(510, -142)
 [node name="Players" type="Node2D" parent="."]
 
 [node name="1" parent="Players" instance=ExtResource("3_8ujh1")]
-position = Vector2(229, 287)
+position = Vector2(425, 52)
 device_id = 0
 
 [node name="LooseTools" type="Node2D" parent="."]

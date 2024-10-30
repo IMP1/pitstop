@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coox2vjyq25ni"
-path="res://.godot/imported/diagnostic-display.png-ce57bf00d89ab3986a0e69d795f569b9.ctex"
+uid="uid://b1qp35uohwskw"
+path="res://.godot/imported/window_2.png-ceeed4e0ef1dab28b8ca018bfba3fbd9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/diagnostic-display.png"
-dest_files=["res://.godot/imported/diagnostic-display.png-ce57bf00d89ab3986a0e69d795f569b9.ctex"]
+source_file="res://assets/ships/window_2.png"
+dest_files=["res://.godot/imported/window_2.png-ceeed4e0ef1dab28b8ca018bfba3fbd9.ctex"]
 
 [params]
 

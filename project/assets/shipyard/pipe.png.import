@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dov3w0buupvge"
-path="res://.godot/imported/tool_station.png-d7a20a1022b3a90d0edcbf805106b086.ctex"
+uid="uid://bd8ufixrm75n8"
+path="res://.godot/imported/pipe.png-3fef7e69566e050348aff9098e85a737.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/tool_station.png"
-dest_files=["res://.godot/imported/tool_station.png-d7a20a1022b3a90d0edcbf805106b086.ctex"]
+source_file="res://assets/shipyard/pipe.png"
+dest_files=["res://.godot/imported/pipe.png-3fef7e69566e050348aff9098e85a737.ctex"]
 
 [params]
 

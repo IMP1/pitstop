@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6fcmdi0hw2uq"
-path="res://.godot/imported/lockers.png-cfad4932272ec8ab76b9693fe4d1a547.ctex"
+uid="uid://b5poin3uc11l"
+path="res://.godot/imported/clock.png-27f2d4d0e457f14f7a0c38df843512c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/lockers.png"
-dest_files=["res://.godot/imported/lockers.png-cfad4932272ec8ab76b9693fe4d1a547.ctex"]
+source_file="res://assets/shipyard/clock.png"
+dest_files=["res://.godot/imported/clock.png-27f2d4d0e457f14f7a0c38df843512c3.ctex"]
 
 [params]
 

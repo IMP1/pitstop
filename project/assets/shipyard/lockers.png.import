@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf7bqo025qbjs"
-path="res://.godot/imported/nozzle.png-935d86734eacb71c781da66d4206434e.ctex"
+uid="uid://c6fcmdi0hw2uq"
+path="res://.godot/imported/lockers.png-b0ff268a9f3239cbc79511a8c005ff97.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/nozzle.png"
-dest_files=["res://.godot/imported/nozzle.png-935d86734eacb71c781da66d4206434e.ctex"]
+source_file="res://assets/shipyard/lockers.png"
+dest_files=["res://.godot/imported/lockers.png-b0ff268a9f3239cbc79511a8c005ff97.ctex"]
 
 [params]
 

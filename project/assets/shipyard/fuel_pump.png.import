@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://u1egwq0i2t1f"
-path="res://.godot/imported/fuel_pump.png-18de2fd778c99b7dd4132e33948d0cfa.ctex"
+path="res://.godot/imported/fuel_pump.png-2c9f8c2db628c0faba0ea6f29e965341.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/fuel_pump.png"
-dest_files=["res://.godot/imported/fuel_pump.png-18de2fd778c99b7dd4132e33948d0cfa.ctex"]
+source_file="res://assets/shipyard/fuel_pump.png"
+dest_files=["res://.godot/imported/fuel_pump.png-2c9f8c2db628c0faba0ea6f29e965341.ctex"]
 
 [params]
 

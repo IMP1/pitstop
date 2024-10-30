@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkye1oq56wyju"
-path="res://.godot/imported/shutdown_panel.png-dd6e297258ae4871ce5f285ba1c6a868.ctex"
+uid="uid://cj7jgycu3umgm"
+path="res://.godot/imported/red-light.png-497e6737f6e357b40c4f47fc08e2cec7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/shutdown_panel.png"
-dest_files=["res://.godot/imported/shutdown_panel.png-dd6e297258ae4871ce5f285ba1c6a868.ctex"]
+source_file="res://assets/shipyard/red-light.png"
+dest_files=["res://.godot/imported/red-light.png-497e6737f6e357b40c4f47fc08e2cec7.ctex"]
 
 [params]
 

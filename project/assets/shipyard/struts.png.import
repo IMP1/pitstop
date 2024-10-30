@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bd8ufixrm75n8"
-path="res://.godot/imported/pipe.png-c8e1d267c163747e8c93c8b49851a2ac.ctex"
+uid="uid://c2tsw2srrbtmm"
+path="res://.godot/imported/struts.png-df630118a8cd51d53fa13cdd1e2fe2e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/pipe.png"
-dest_files=["res://.godot/imported/pipe.png-c8e1d267c163747e8c93c8b49851a2ac.ctex"]
+source_file="res://assets/shipyard/struts.png"
+dest_files=["res://.godot/imported/struts.png-df630118a8cd51d53fa13cdd1e2fe2e6.ctex"]
 
 [params]
 

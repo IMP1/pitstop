@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://t7wbwy1pdgdp" path="res://objects/tool.tscn" id="1_kr80j"]
 [ext_resource type="Script" path="res://objects/shipyard/patch.gd" id="2_qrf55"]
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="3_kbpkb"]
-[ext_resource type="Texture2D" uid="uid://c702un3gpqbwr" path="res://assets/ships/patch.png" id="4_f55wi"]
+[ext_resource type="Texture2D" uid="uid://c702un3gpqbwr" path="res://assets/shipyard/patch.png" id="4_f55wi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lkdo8"]
 resource_local_to_scene = true

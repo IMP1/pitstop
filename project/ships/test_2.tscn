@@ -1,0 +1,106 @@
+[gd_scene load_steps=16 format=3 uid="uid://ddv1nk6vtef7a"]
+
+[ext_resource type="PackedScene" uid="uid://b086rvhoeesnh" path="res://objects/ship.tscn" id="1_lshj1"]
+[ext_resource type="Texture2D" uid="uid://4a8etn5s1n6s" path="res://assets/ships/ship_2.png" id="2_xva6j"]
+[ext_resource type="PackedScene" uid="uid://p03y3l1mpyss" path="res://objects/ship_fault.tscn" id="3_srhks"]
+[ext_resource type="Script" path="res://objects/ship_components/ship_fuel_intake.gd" id="4_kdled"]
+[ext_resource type="Texture2D" uid="uid://cj7jgycu3umgm" path="res://assets/shipyard/red-light.png" id="5_hg776"]
+[ext_resource type="AudioStream" uid="uid://c0ja5ea67ycd3" path="res://assets/sounds/slam_down.ogg" id="6_4i10f"]
+[ext_resource type="Texture2D" uid="uid://b1qp35uohwskw" path="res://assets/ships/window_2.png" id="7_6siwj"]
+[ext_resource type="Script" path="res://objects/ship_components/ship_dirty_window.gd" id="7_ktag0"]
+[ext_resource type="Shader" path="res://shaders/dirt_cleanup.gdshader" id="8_07s64"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s24i0"]
+resource_local_to_scene = true
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_snnqt"]
+resource_local_to_scene = true
+radius = 24.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_31phb"]
+shader = ExtResource("8_07s64")
+shader_parameter/progress = 1.0
+
+[sub_resource type="Gradient" id="Gradient_ip4ym"]
+colors = PackedColorArray(0, 0, 0, 1, 0.12549, 0.12549, 0.12549, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bu868"]
+noise_type = 0
+seed = 3
+frequency = 0.2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j2lrr"]
+width = 35
+height = 16
+color_ramp = SubResource("Gradient_ip4ym")
+noise = SubResource("FastNoiseLite_bu868")
+
+[node name="Ship" instance=ExtResource("1_lshj1")]
+
+[node name="CollisionPolygon2D" parent="." index="0"]
+polygon = PackedVector2Array(5, -41, -6, -35, -9, -26, -12, -29, -43, -29, -47, -22, -81, -23, -84, -27, -90, -26, -90, -30, -115, -25, -115, -18, -139, -22, -136, -15, -139, -15, -139, -6, -135, -4, -136, 6, -139, 6, -138, 15, -136, 16, -139, 22, -115, 18, -115, 24, -91, 29, -89, 26, -78, 24, -46, 22, -43, 27, -12, 29, -10, 27, -6, 36, 4, 40, 36, 41, 39, 46, 56, 47, 62, 37, 66, 37, 71, 25, 82, 25, 91, 34, 120, 34, 138, 7, 138, -8, 120, -34, 91, -34, 82, -25, 71, -25, 65, -37, 62, -37, 55, -47, 39, -47, 36, -41)
+
+[node name="Sprite2D" parent="." index="1"]
+rotation = 1.5708
+texture = ExtResource("2_xva6j")
+
+[node name="ShadowSurface" parent="." index="2"]
+rotation = 1.5708
+texture = ExtResource("2_xva6j")
+
+[node name="FuelIntake" parent="Components" index="0" instance=ExtResource("3_srhks")]
+position = Vector2(-36, 0)
+script = ExtResource("4_kdled")
+capacity = 100.0
+
+[node name="CollisionShape2D" parent="Components/FuelIntake/Area2D" index="0"]
+shape = SubResource("CircleShape2D_s24i0")
+
+[node name="Sprite2D" parent="Components/FuelIntake" index="2"]
+position = Vector2(-5.5, 0)
+rotation = 1.5708
+texture = ExtResource("5_hg776")
+
+[node name="InsertionPoint" type="Marker2D" parent="Components/FuelIntake" index="4"]
+
+[node name="AttachAudio" type="AudioStreamPlayer2D" parent="Components/FuelIntake" index="5"]
+stream = ExtResource("6_4i10f")
+bus = &"Sounds"
+
+[node name="DirtyWindow" parent="Components" index="1" instance=ExtResource("3_srhks")]
+position = Vector2(119, 0)
+script = ExtResource("7_ktag0")
+icon = null
+
+[node name="CollisionShape2D" parent="Components/DirtyWindow/Area2D" index="0"]
+shape = SubResource("CircleShape2D_snnqt")
+
+[node name="Window" type="Sprite2D" parent="Components/DirtyWindow" index="4"]
+rotation = 1.5708
+texture = ExtResource("7_6siwj")
+
+[node name="Dirt" type="Sprite2D" parent="Components/DirtyWindow/Window" index="0"]
+light_mask = 4
+visibility_layer = 4
+material = SubResource("ShaderMaterial_31phb")
+texture = SubResource("NoiseTexture2D_j2lrr")
+
+[node name="WindowSurface" type="PointLight2D" parent="Components/DirtyWindow" index="5"]
+rotation = 1.5708
+range_item_cull_mask = 4
+texture = ExtResource("7_6siwj")
+
+[node name="RCS1" type="Node2D" parent="Thrusters" index="0"]
+position = Vector2(0, -34)
+
+[node name="RCS2" type="Node2D" parent="Thrusters" index="1"]
+position = Vector2(0, 34)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="6"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" index="0"]
+polygon = PackedVector2Array(-38, -11, -32, -5, -32, 5, -38, 11, 19, 10, 39, 4, 39, -4, 19, -10)
+
+[editable path="Components/FuelIntake"]
+[editable path="Components/DirtyWindow"]

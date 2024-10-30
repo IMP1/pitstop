@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d06rcmhgptqc"
-path="res://.godot/imported/blowtorch.png-9dd4d5ab5fe3cd7932af7df0a7b9e91e.ctex"
+uid="uid://j7e6vmxvkxcr"
+path="res://.godot/imported/conveyor.png-7eb33021fa656138a0fbcf16c4c2c7c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/blowtorch.png"
-dest_files=["res://.godot/imported/blowtorch.png-9dd4d5ab5fe3cd7932af7df0a7b9e91e.ctex"]
+source_file="res://assets/shipyard/conveyor.png"
+dest_files=["res://.godot/imported/conveyor.png-7eb33021fa656138a0fbcf16c4c2c7c3.ctex"]
 
 [params]
 

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://t7wbwy1pdgdp" path="res://objects/tool.tscn" id="1_n33u5"]
 [ext_resource type="Script" path="res://objects/shipyard/blowtorch.gd" id="2_jrouq"]
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="3_3lh06"]
-[ext_resource type="Texture2D" uid="uid://d06rcmhgptqc" path="res://assets/ships/blowtorch.png" id="3_msmet"]
+[ext_resource type="Texture2D" uid="uid://d06rcmhgptqc" path="res://assets/shipyard/blowtorch.png" id="3_msmet"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d7krm"]
 resource_local_to_scene = true

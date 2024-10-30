@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c702un3gpqbwr"
-path="res://.godot/imported/patch.png-0874fb1d5bc41ca25d33a48cc2315c48.ctex"
+uid="uid://d06rcmhgptqc"
+path="res://.godot/imported/blowtorch.png-ad70ab465a5e1ed7900e522c4fc64646.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/patch.png"
-dest_files=["res://.godot/imported/patch.png-0874fb1d5bc41ca25d33a48cc2315c48.ctex"]
+source_file="res://assets/shipyard/blowtorch.png"
+dest_files=["res://.godot/imported/blowtorch.png-ad70ab465a5e1ed7900e522c4fc64646.ctex"]
 
 [params]
 

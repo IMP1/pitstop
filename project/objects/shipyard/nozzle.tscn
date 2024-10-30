@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://t7wbwy1pdgdp" path="res://objects/tool.tscn" id="1_36v82"]
 [ext_resource type="Script" path="res://objects/shipyard/nozzle.gd" id="2_rk53m"]
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="3_n7wxd"]
-[ext_resource type="Texture2D" uid="uid://bf7bqo025qbjs" path="res://assets/ships/nozzle.png" id="4_ck11i"]
+[ext_resource type="Texture2D" uid="uid://bf7bqo025qbjs" path="res://assets/shipyard/nozzle.png" id="4_ck11i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wgafs"]
 resource_local_to_scene = true

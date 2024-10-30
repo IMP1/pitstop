@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj7jgycu3umgm"
-path="res://.godot/imported/red-light.png-3f375635ca2da651de011f168f9df736.ctex"
+uid="uid://c6lpbl81unq14"
+path="res://.godot/imported/cracks.png-45c8a356bf81e8a8d264326a7351684e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/red-light.png"
-dest_files=["res://.godot/imported/red-light.png-3f375635ca2da651de011f168f9df736.ctex"]
+source_file="res://assets/shipyard/cracks.png"
+dest_files=["res://.godot/imported/cracks.png-45c8a356bf81e8a8d264326a7351684e.ctex"]
 
 [params]
 

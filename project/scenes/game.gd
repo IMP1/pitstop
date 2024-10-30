@@ -47,6 +47,9 @@ func _ready() -> void:
 		_device_players[player.device_id] = player
 	_ship_maneuvering_zone.visible = false
 	_ship_maneuvering_zone.lower_barriers()
+	_reactor_shutdown.reactor_meltdown.connect(func():
+		# TODO: Meltdown specific actions
+		_repair_failure())
 	_begin()
 
 
@@ -298,6 +301,9 @@ func _input(event: InputEvent) -> void:
 		Debug.info("[Game] There is, actually, a cow level")
 		_clock._timelow()
 		_clock._timer.start(4.0)
+	if event.is_action_pressed(&"DEBUG_start_meltdown"):
+		Debug.info("[Game] Reactor Meltdown!")
+		_reactor_shutdown.start_meltdown()
 
 
 func _open_menu(player: Player) -> void:

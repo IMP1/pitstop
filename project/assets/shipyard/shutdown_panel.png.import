@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2tsw2srrbtmm"
-path="res://.godot/imported/struts.png-3d26b4ec00076fa8238e86c790523008.ctex"
+uid="uid://dkye1oq56wyju"
+path="res://.godot/imported/shutdown_panel.png-c242b35e2cb7c8b5ecfcb3a3c351f0f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ships/struts.png"
-dest_files=["res://.godot/imported/struts.png-3d26b4ec00076fa8238e86c790523008.ctex"]
+source_file="res://assets/shipyard/shutdown_panel.png"
+dest_files=["res://.godot/imported/shutdown_panel.png-c242b35e2cb7c8b5ecfcb3a3c351f0f6.ctex"]
 
 [params]
 
