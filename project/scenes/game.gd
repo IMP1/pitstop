@@ -350,7 +350,8 @@ func _remove_player() -> void:
 
 
 func _settings() -> void:
-	_menu_settings.open()
+	var id := _menu.get_meta("player_id", -1) as int
+	_menu_settings.open(id)
 	await _menu_settings.closed
 	_menu_settings.visible = false
 	_menu_settings_btn.grab_focus()

@@ -1,4 +1,5 @@
 extends Button
+class_name InputMappingButton
 
 enum ActionType {
 	BUTTON,

@@ -76,10 +76,10 @@ offset_bottom = 55.0
 grow_horizontal = 2
 alignment = 1
 
-[node name="Confirm" type="Button" parent="Actions"]
+[node name="Return" type="Button" parent="Actions"]
 layout_mode = 2
 focus_neighbor_top = NodePath(".")
-text = "Confirm Changes"
+text = "Return"
 
 [node name="HSelect" parent="." instance=ExtResource("1_ay5lb")]
 layout_mode = 1
@@ -127,10 +127,11 @@ offset_right = -64.0
 offset_bottom = -47.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 1
 tabs_visible = false
 
 [node name="Controls" type="Control" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -317,14 +318,13 @@ size_flags_horizontal = 0
 focus_neighbor_left = NodePath(".")
 focus_neighbor_top = NodePath("../../Brake/InputButton")
 focus_neighbor_right = NodePath(".")
-focus_neighbor_bottom = NodePath("../../../../../../Actions/Confirm")
+focus_neighbor_bottom = NodePath("../../../../../../Actions/Return")
 icon = SubResource("AtlasTexture_if383")
 action = &"aim_DIR_DEVICE"
 action_type = 1
 ignored_actions = Array[StringName]([&"ui_up", &"ui_down"])
 
 [node name="Audio" type="Control" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -356,6 +356,12 @@ text = "Master"
 [node name="HSlider" type="HSlider" parent="TabContainer/Audio/VolumeList/Master"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../../../../HSelect/Audio")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../Music/HSlider")
+max_value = 1.0
+step = 0.01
 
 [node name="Music" type="HBoxContainer" parent="TabContainer/Audio/VolumeList"]
 custom_minimum_size = Vector2(128, 0)
@@ -369,6 +375,12 @@ text = "Music"
 [node name="HSlider" type="HSlider" parent="TabContainer/Audio/VolumeList/Music"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../Master/HSlider")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../Sounds/HSlider")
+max_value = 1.0
+step = 0.01
 
 [node name="Sounds" type="HBoxContainer" parent="TabContainer/Audio/VolumeList"]
 custom_minimum_size = Vector2(128, 0)
@@ -382,12 +394,17 @@ text = "Sounds"
 [node name="HSlider" type="HSlider" parent="TabContainer/Audio/VolumeList/Sounds"]
 layout_mode = 2
 size_flags_horizontal = 3
-focus_neighbor_bottom = NodePath("../../../../../Actions/Confirm")
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../Music/HSlider")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../../../../Actions/Return")
+max_value = 1.0
+step = 0.01
 
 [node name="Accessibility" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[connection signal="pressed" from="Actions/Confirm" to="." method="_close"]
+[connection signal="pressed" from="Actions/Return" to="." method="_close"]
 [connection signal="selection_changed" from="HSelect" to="." method="_set_settings_tab"]
