@@ -41,6 +41,13 @@ const INPUT_TEXTURE_RECTS_KEY = {
 @export var action: StringName
 @export var action_type: ActionType
 @export var device: int
+@export var ignored_actions: Array[StringName] = [
+	&"ui_up",
+	&"ui_down",
+	&"ui_left",
+	&"ui_right",
+	# TODO: Other UI actions
+]
 
 
 func _ready() -> void:
@@ -66,15 +73,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _is_valid_input_for_action(event: InputEvent) -> bool:
-	if event.is_action(&"ui_up"):
+	if ignored_actions.any(func(action_to_ignore: StringName) -> bool: return event.is_action(action_to_ignore)):
 		return false
-	if event.is_action(&"ui_down"):
-		return false
-	if event.is_action(&"ui_left"):
-		return false
-	if event.is_action(&"ui_right"):
-		return false
-	# TODO: Other UI actions
 	if event.device != device:
 		return false
 	match action_type:
@@ -104,33 +104,50 @@ func _is_valid_input_for_action(event: InputEvent) -> bool:
 	return true
 
 
+@warning_ignore("int_as_enum_without_cast")
 func _get_event_in_direction(event: InputEvent, direction: JoystickDirection) -> InputEvent:
 	if not event is InputEventJoypadMotion:
+		Debug.error("[InputButton]")
 		return null
 	var joypad_motion_event := event as InputEventJoypadMotion
-	var horizontal := (direction % 2 == 0)
-	if horizontal and joypad_motion_event.axis % 2 != 0:
-		var horizontal_axis := int(joypad_motion_event.axis) - 1 as JoyAxis
-		joypad_motion_event.axis = horizontal_axis
-	elif not horizontal and joypad_motion_event.axis % 2 == 0:
-		var vertical_axis := int(joypad_motion_event.axis) + 1 as JoyAxis
-		joypad_motion_event.axis = vertical_axis
-	return joypad_motion_event
+	var new_event := InputEventJoypadMotion.new()
+	# SEE: https://docs.godotengine.org/en/stable/classes/class_%40globalscope.html#enum-globalscope-joyaxis
+	new_event.axis = joypad_motion_event.axis
+	match direction:
+		JoystickDirection.UP:
+			if joypad_motion_event.axis % 2 == 0:
+				new_event.axis += 1
+			new_event.axis_value = -1
+		JoystickDirection.DOWN:
+			if joypad_motion_event.axis % 2 == 0:
+				new_event.axis += 1
+			new_event.axis_value = 1
+		JoystickDirection.LEFT:
+			if joypad_motion_event.axis % 2 == 1:
+				new_event.axis -= 1
+			new_event.axis_value = -1
+		JoystickDirection.RIGHT:
+			if joypad_motion_event.axis % 2 == 1:
+				new_event.axis -= 1
+			new_event.axis_value = 1
+	return new_event
 
 
 func _remap_action(event: InputEvent):
 	var action_name := action.replace("DEVICE", str(device))
 	if action_name.contains("DIR"):
 		for dir in JoystickDirection:
-			var dir_name := (dir as String).to_lower()
+			var dir_name := str(dir).to_lower()
 			var dir_id := JoystickDirection[dir] as JoystickDirection
-			var action_name_direction := action_name.replace("DIR", dir_name.to_lower())
-			var event_direction := _get_event_in_direction(event, dir_id)
-			InputMap.action_erase_events(action_name_direction)
-			InputMap.action_add_event(action_name_direction, event_direction)
+			var directional_action_name := action_name.replace("DIR", dir_name.to_lower())
+			var directional_event := _get_event_in_direction(event, dir_id)
+			InputMap.action_erase_events(directional_action_name)
+			InputMap.action_add_event(directional_action_name, directional_event)
+			Debug.info("[InputButton] Remapped action '%s' for device %d to %s" % [directional_action_name, device, str(directional_event)])
 	else:
 		InputMap.action_erase_events(action_name)
 		InputMap.action_add_event(action_name, event)
+		Debug.info("[InputButton] Remapped action '%s' for device %d to %s" % [action_name, device, str(event)])
 
 
 func _refresh_icon(event: InputEvent):

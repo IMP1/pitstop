@@ -20,7 +20,7 @@ radius = 24.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_31phb"]
 shader = ExtResource("8_07s64")
-shader_parameter/progress = 1.0
+shader_parameter/progress = 0.2
 
 [sub_resource type="Gradient" id="Gradient_ip4ym"]
 colors = PackedColorArray(0, 0, 0, 1, 0.12549, 0.12549, 0.12549, 1)

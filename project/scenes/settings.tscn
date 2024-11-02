@@ -127,11 +127,10 @@ offset_right = -64.0
 offset_bottom = -47.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 2
+current_tab = 0
 tabs_visible = false
 
 [node name="Controls" type="Control" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -176,6 +175,7 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("../../Interact/InputButton")
 icon = SubResource("AtlasTexture_eaamu")
 action = &"grab_DEVICE"
+ignored_actions = Array[StringName]([&"ui_up", &"ui_down"])
 
 [node name="Interact" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
 custom_minimum_size = Vector2(96, 32)
@@ -199,6 +199,7 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("../../Throw/InputButton")
 icon = SubResource("AtlasTexture_pfuf4")
 action = &"use_DEVICE"
+ignored_actions = Array[StringName]([&"ui_up", &"ui_down"])
 
 [node name="Throw" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
 custom_minimum_size = Vector2(96, 32)
@@ -222,6 +223,7 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("../../Vote/InputButton")
 icon = SubResource("AtlasTexture_rqstl")
 action = &"throw_DEVICE"
+ignored_actions = Array[StringName]([&"ui_up", &"ui_down"])
 
 [node name="Vote" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
 custom_minimum_size = Vector2(96, 32)
@@ -245,6 +247,7 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("../../Move/InputButton")
 icon = SubResource("AtlasTexture_wa6nh")
 action = &"vote_DEVICE"
+ignored_actions = Array[StringName]([&"ui_up", &"ui_down"])
 
 [node name="Move" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
 custom_minimum_size = Vector2(96, 32)
@@ -269,6 +272,7 @@ focus_neighbor_bottom = NodePath("../../Brake/InputButton")
 icon = SubResource("AtlasTexture_5jiwq")
 action = &"move_DIR_DEVICE"
 action_type = 1
+ignored_actions = Array[StringName]([&"ui_up", &"ui_down"])
 
 [node name="Brake" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
 custom_minimum_size = Vector2(96, 32)
@@ -292,6 +296,7 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("../../Aim/InputButton")
 icon = SubResource("AtlasTexture_i2vnj")
 action = &"move_brake_DEVICE"
+ignored_actions = Array[StringName]([&"ui_up", &"ui_down"])
 
 [node name="Aim" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
 custom_minimum_size = Vector2(96, 32)
@@ -316,6 +321,7 @@ focus_neighbor_bottom = NodePath("../../../../../../Actions/Confirm")
 icon = SubResource("AtlasTexture_if383")
 action = &"aim_DIR_DEVICE"
 action_type = 1
+ignored_actions = Array[StringName]([&"ui_up", &"ui_down"])
 
 [node name="Audio" type="Control" parent="TabContainer"]
 visible = false
@@ -379,6 +385,7 @@ size_flags_horizontal = 3
 focus_neighbor_bottom = NodePath("../../../../../Actions/Confirm")
 
 [node name="Accessibility" type="Control" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 

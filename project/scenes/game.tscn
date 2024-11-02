@@ -344,7 +344,6 @@ atlas = ExtResource("52_twyig")
 region = Rect2(16, 32, 16, 16)
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_patch_dispenser", "_ship_maneuvering_zone", "_fuel_pump", "_clock", "_tool_station", "_diagnostic_display", "_reactor_shutdown")]
-scale = Vector2(2, 2)
 script = ExtResource("1_77n8k")
 particle_texture = ExtResource("2_whmxn")
 player_colours = Array[Color]([Color(0, 0.8, 0.545098, 1), Color(0.937255, 0.376471, 0.290196, 1), Color(1, 0.847059, 0.466667, 1), Color(0.72549, 0.486275, 1, 1), Color(1, 0.498039, 0.741176, 1), Color(0.388235, 0.435294, 0.698039, 1)])
@@ -1149,6 +1148,7 @@ position = Vector2(510, -142)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
+zoom = Vector2(2, 2)
 
 [node name="Overlays" type="CanvasLayer" parent="."]
 

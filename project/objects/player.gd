@@ -164,7 +164,7 @@ func _process_movement(delta: float) -> void:
 	var brake := "move_brake_%d" % device_id
 	var movement := Input.get_vector(left, right, up, down)
 	velocity += movement * accelleration
-	var braking_input :=  Input.get_action_strength(brake)
+	var braking_input := Input.get_action_strength(brake)
 	var braking_force := lerpf(braking_strength_min, braking_strength_max, braking_input)
 	velocity *= pow(braking_force * friction, delta)
 	if velocity.length_squared() < VELOCITY_EPSILON * VELOCITY_EPSILON:
