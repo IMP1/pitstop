@@ -1,5 +1,5 @@
 class_name Debrief
-extends CanvasLayer
+extends Control
 
 @export var negative_colour: Color = Color.DARK_RED
 @export var result: String: 

@@ -1,13 +1,23 @@
-[gd_scene load_steps=13 format=3 uid="uid://8y3141pm7o1r"]
+[gd_scene load_steps=15 format=3 uid="uid://8y3141pm7o1r"]
 
 [ext_resource type="Script" path="res://scenes/settings.gd" id="1_a83dc"]
 [ext_resource type="PackedScene" uid="uid://d0k52ti5s2i82" path="res://gui/h_select.tscn" id="1_ay5lb"]
 [ext_resource type="PackedScene" uid="uid://cff4v5fin551o" path="res://gui/input_button.tscn" id="3_kktuh"]
 [ext_resource type="Texture2D" uid="uid://uwp03iqwerrd" path="res://assets/icons/gdb-xbox-2 (1).png" id="3_tuil7"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fy3ie"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.878431, 0.878431, 0.878431, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dh4ln"]
 draw_center = false
 border_width_bottom = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a15ru"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eaamu"]
 resource_local_to_scene = true
@@ -44,13 +54,14 @@ resource_local_to_scene = true
 atlas = ExtResource("3_tuil7")
 region = Rect2(17, 193, 14, 14)
 
-[node name="Settings" type="Control"]
-layout_mode = 3
+[node name="Settings" type="Panel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_fy3ie")
 script = ExtResource("1_a83dc")
 
 [node name="Actions" type="HBoxContainer" parent="."]
@@ -67,6 +78,7 @@ alignment = 1
 
 [node name="Confirm" type="Button" parent="Actions"]
 layout_mode = 2
+focus_neighbor_top = NodePath(".")
 text = "Confirm Changes"
 
 [node name="HSelect" parent="." instance=ExtResource("1_ay5lb")]
@@ -86,18 +98,21 @@ unselected_item_text_colour = Color(0.627451, 0.627451, 0.627451, 1)
 [node name="Controls" type="Button" parent="HSelect"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../TabContainer/Controls/ScrollContainer/InputList/PickUp/InputButton")
 text = "Controls"
 flat = true
 
 [node name="Audio" type="Button" parent="HSelect"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../../TabContainer/Audio/VolumeList/Master/HSlider")
 text = "Audio"
 flat = true
 
 [node name="Accessibility" type="Button" parent="HSelect"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
+focus_neighbor_bottom = NodePath(".")
 text = "Accessibility"
 flat = true
 
@@ -112,10 +127,11 @@ offset_right = -64.0
 offset_bottom = -47.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 2
 tabs_visible = false
 
 [node name="Controls" type="Control" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -129,10 +145,15 @@ grow_vertical = 2
 
 [node name="InputList" type="VBoxContainer" parent="TabContainer/Controls/ScrollContainer"]
 clip_contents = true
-custom_minimum_size = Vector2(238, 0)
+custom_minimum_size = Vector2(416, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
+
+[node name="TopPadding" type="HSeparator" parent="TabContainer/Controls/ScrollContainer/InputList"]
+layout_mode = 2
+theme_override_constants/separation = 8
+theme_override_styles/separator = SubResource("StyleBoxEmpty_a15ru")
 
 [node name="PickUp" type="HBoxContainer" parent="TabContainer/Controls/ScrollContainer/InputList"]
 custom_minimum_size = Vector2(96, 32)
@@ -149,8 +170,10 @@ horizontal_alignment = 2
 
 [node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/PickUp" instance=ExtResource("3_kktuh")]
 layout_mode = 2
+size_flags_horizontal = 0
 focus_neighbor_left = NodePath(".")
 focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../Interact/InputButton")
 icon = SubResource("AtlasTexture_eaamu")
 action = &"grab_DEVICE"
 
@@ -169,8 +192,11 @@ horizontal_alignment = 2
 
 [node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/Interact" instance=ExtResource("3_kktuh")]
 layout_mode = 2
+size_flags_horizontal = 0
 focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../PickUp/InputButton")
 focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../Throw/InputButton")
 icon = SubResource("AtlasTexture_pfuf4")
 action = &"use_DEVICE"
 
@@ -189,8 +215,11 @@ horizontal_alignment = 2
 
 [node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/Throw" instance=ExtResource("3_kktuh")]
 layout_mode = 2
+size_flags_horizontal = 0
 focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../Interact/InputButton")
 focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../Vote/InputButton")
 icon = SubResource("AtlasTexture_rqstl")
 action = &"throw_DEVICE"
 
@@ -209,8 +238,11 @@ horizontal_alignment = 2
 
 [node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/Vote" instance=ExtResource("3_kktuh")]
 layout_mode = 2
+size_flags_horizontal = 0
 focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../Throw/InputButton")
 focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../Move/InputButton")
 icon = SubResource("AtlasTexture_wa6nh")
 action = &"vote_DEVICE"
 
@@ -229,8 +261,11 @@ horizontal_alignment = 2
 
 [node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/Move" instance=ExtResource("3_kktuh")]
 layout_mode = 2
+size_flags_horizontal = 0
 focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../Vote/InputButton")
 focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../Brake/InputButton")
 icon = SubResource("AtlasTexture_5jiwq")
 action = &"move_DIR_DEVICE"
 action_type = 1
@@ -250,8 +285,11 @@ horizontal_alignment = 2
 
 [node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/Brake" instance=ExtResource("3_kktuh")]
 layout_mode = 2
+size_flags_horizontal = 0
 focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../Move/InputButton")
 focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../Aim/InputButton")
 icon = SubResource("AtlasTexture_i2vnj")
 action = &"move_brake_DEVICE"
 
@@ -270,8 +308,11 @@ horizontal_alignment = 2
 
 [node name="InputButton" parent="TabContainer/Controls/ScrollContainer/InputList/Aim" instance=ExtResource("3_kktuh")]
 layout_mode = 2
+size_flags_horizontal = 0
 focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../../Brake/InputButton")
 focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../../../../../../Actions/Confirm")
 icon = SubResource("AtlasTexture_if383")
 action = &"aim_DIR_DEVICE"
 action_type = 1
@@ -282,9 +323,20 @@ layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="VolumeList" type="VBoxContainer" parent="TabContainer/Audio"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_right = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopPadding" type="HSeparator" parent="TabContainer/Audio/VolumeList"]
+layout_mode = 2
+theme_override_constants/separation = 8
+theme_override_styles/separator = SubResource("StyleBoxEmpty_a15ru")
 
 [node name="Master" type="HBoxContainer" parent="TabContainer/Audio/VolumeList"]
 custom_minimum_size = Vector2(128, 0)
@@ -324,9 +376,9 @@ text = "Sounds"
 [node name="HSlider" type="HSlider" parent="TabContainer/Audio/VolumeList/Sounds"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_neighbor_bottom = NodePath("../../../../../Actions/Confirm")
 
 [node name="Accessibility" type="Control" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 

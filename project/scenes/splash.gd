@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @export var scene_path: String
 @export var post_load_delay: float = 0.3
@@ -6,8 +6,8 @@ extends Node2D
 
 var _finished: bool = false
 
-@onready var _progress := $TextureRect/ProgressBar as ProgressBar
-@onready var _button := $TextureRect/Button as Button
+@onready var _progress := $ProgressBar as ProgressBar
+@onready var _button := $Button as Button
 
 
 func _ready() -> void:

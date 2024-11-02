@@ -24,6 +24,8 @@ func stop_interacting() -> void:
 
 func _input(event: InputEvent) -> void:
 	var action := "use_%d" % _device_interacting
+	if not InputMap.has_action(action):
+		return
 	if event.is_action_released(action) and hold_to_interact:
 		stop_interacting()
 

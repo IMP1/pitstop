@@ -24,13 +24,15 @@ var _is_ship_moving: bool = false
 @onready var _particles = $Particles as Node2D
 @onready var _players = $Players as Node2D
 @onready var _loose_tools := $LooseTools as Node2D
-@onready var _menu := $Menu as CanvasLayer
-@onready var _prelude := $Prelude as CanvasLayer
-@onready var _prelude_confirmation := $Prelude/GroupConfirmable as GroupConfirmable
-@onready var _debrief := $Debrief as Debrief
-@onready var _game_over := $GameOver as GameOver
-@onready var _menu_colour := $Menu/Options/ColorRect as ColorRect
-@onready var _menu_selection := $Menu/Options/Resume as Button
+@onready var _menu := $Overlays/Menu as Control
+@onready var _prelude := $Overlays/Prelude as Control
+@onready var _prelude_confirmation := $Overlays/Prelude/GroupConfirmable as GroupConfirmable
+@onready var _debrief := $Overlays/Debrief as Debrief
+@onready var _game_over := $Overlays/GameOver as GameOver
+@onready var _menu_colour := $Overlays/Menu/Options/ColorRect as ColorRect
+@onready var _menu_selection := $Overlays/Menu/Options/Resume as Button
+@onready var _menu_settings_btn := $Overlays/Menu/Options/Settings as Button
+@onready var _menu_settings := $Overlays/Menu/Settings as MenuSettings
 @onready var _player_spawns := $PlayerSpawns as Node2D
 @onready var _ship_container := $Ship as Node2D
 @onready var _klaxon := $Shipyard/Clock/Klaxon as AudioStreamPlayer2D
@@ -346,11 +348,10 @@ func _remove_player() -> void:
 
 
 func _settings() -> void:
-	$Menu/Settings.visible = true
-	$Menu/Settings/HSelect.grab_focus()
-	await $Menu/Settings.closed
-	$Menu/Settings.visible = false
-	$Menu/Options/Settings.grab_focus()
+	_menu_settings.open()
+	await _menu_settings.closed
+	_menu_settings.visible = false
+	_menu_settings_btn.grab_focus()
 
 
 func _quit() -> void:

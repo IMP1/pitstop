@@ -36,6 +36,9 @@ collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_77f0j")
 colour = Color(0, 0.8, 0.545098, 1)
+accelleration = 3.0
+velocity_max = 128.0
+throw_strength = 90.0
 bounce_coefficient = 0.6
 
 [node name="ThrowArrowPivot" type="Node2D" parent="."]

@@ -9,8 +9,9 @@ atlas = ExtResource("1_4kt7x")
 region = Rect2(17, 193, 14, 14)
 
 [node name="InputButton" type="Button"]
-custom_minimum_size = Vector2(128, 0)
+custom_minimum_size = Vector2(64, 0)
 icon = SubResource("AtlasTexture_tmx58")
 flat = true
+icon_alignment = 1
 expand_icon = true
 script = ExtResource("2_nxwcm")

@@ -1,4 +1,4 @@
 class_name GameOver
-extends CanvasLayer
+extends Control
 
 @onready var confirmation := $Contents/GroupConfirmable as GroupConfirmable

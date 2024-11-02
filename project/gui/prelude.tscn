@@ -1,80 +1,33 @@
-[gd_scene load_steps=7 format=3 uid="uid://cfsnydfvk6cp"]
+[gd_scene load_steps=3 format=3 uid="uid://cfsnydfvk6cp"]
 
-[ext_resource type="FontFile" uid="uid://0vh6csaq2gfa" path="res://assets/fonts/Bruno_Ace_SC/BrunoAceSC-Regular.ttf" id="1_1s26l"]
+[ext_resource type="Theme" uid="uid://cq7h5i8xn8ywu" path="res://resources/theme.tres" id="1_um7k5"]
 [ext_resource type="PackedScene" uid="uid://u13iu6yho54k" path="res://gui/group_confirmable.tscn" id="2_6racy"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ew2fe"]
-bg_color = Color(0, 0, 0, 1)
-draw_center = false
-skew = Vector2(1, 0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-border_blend = true
-corner_radius_top_left = 4
-corner_radius_top_right = 2
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 2
-expand_margin_left = 12.0
-expand_margin_right = 12.0
-shadow_color = Color(1, 1, 1, 0.6)
-shadow_size = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00y10"]
-bg_color = Color(0, 0, 0, 1)
-skew = Vector2(1, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 3
-corner_radius_top_left = 4
-corner_radius_top_right = 2
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 2
-expand_margin_left = 12.0
-expand_margin_right = 12.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wc667"]
-bg_color = Color(0, 0, 0, 1)
-skew = Vector2(1, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-corner_radius_top_left = 4
-corner_radius_top_right = 2
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 2
-expand_margin_left = 12.0
-expand_margin_top = 2.0
-expand_margin_right = 12.0
-
-[sub_resource type="Theme" id="Theme_ki26h"]
-default_font = ExtResource("1_1s26l")
-default_font_size = 12
-Button/styles/focus = SubResource("StyleBoxFlat_ew2fe")
-Button/styles/normal = SubResource("StyleBoxFlat_00y10")
-Button/styles/pressed = SubResource("StyleBoxFlat_wc667")
-
-[node name="Prelude" type="CanvasLayer"]
-visible = false
+[node name="Prelude" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -30.0
-offset_top = 71.0
-offset_right = 31.0
-offset_bottom = 97.0
+offset_left = -60.0
+offset_top = 63.0
+offset_right = 61.0
+offset_bottom = 93.0
 grow_horizontal = 2
-theme = SubResource("Theme_ki26h")
+theme = ExtResource("1_um7k5")
+theme_override_font_sizes/font_size = 24
 text = "Clock In"
 horizontal_alignment = 1
 
 [node name="GroupConfirmable" parent="." instance=ExtResource("2_6racy")]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

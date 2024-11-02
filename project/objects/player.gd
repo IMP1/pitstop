@@ -10,12 +10,12 @@ const FACING_DIRECTION_WEIGHTING = 16 # Affects tool grabbing
 
 @export var device_id: int = NO_DEVICE
 @export var colour: Color = Color.WEB_GREEN
-@export var accelleration: float = 2.0
-@export var braking_strength: float = 0.9
-@export var velocity_max: float = 64
-@export var braking_strength_min: float = 0.8
-@export var braking_strength_max: float = 0.1
-@export var throw_strength: float = 60.0
+@export_range(0, 10, 0.01, "suffix:px/s^2") var accelleration: float = 2.0
+@export_range(0, 1, 0.01) var friction: float = 0.9
+@export_range(0, 400, 1, "suffix:px/s") var velocity_max: float = 64
+@export_range(0, 1, 0.01) var braking_strength_min: float = 0.8
+@export_range(0, 1, 0.01) var braking_strength_max: float = 0.1
+@export_range(0, 400, 1, "suffix:px/s") var throw_strength: float = 60.0
 
 var _direction: Vector2
 var _potential_grab: Tool
@@ -166,7 +166,7 @@ func _process_movement(delta: float) -> void:
 	velocity += movement * accelleration
 	var braking_input :=  Input.get_action_strength(brake)
 	var braking_force := lerpf(braking_strength_min, braking_strength_max, braking_input)
-	velocity *= pow(braking_force * braking_strength, delta)
+	velocity *= pow(braking_force * friction, delta)
 	if velocity.length_squared() < VELOCITY_EPSILON * VELOCITY_EPSILON:
 		velocity = Vector2.ZERO
 	if velocity.length_squared() > velocity_max * velocity_max:

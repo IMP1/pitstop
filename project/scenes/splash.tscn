@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://ct2togmn5216q"]
+[gd_scene load_steps=15 format=3 uid="uid://ct2togmn5216q"]
 
 [ext_resource type="Script" path="res://scenes/splash.gd" id="1_8hryt"]
+[ext_resource type="Theme" uid="uid://cq7h5i8xn8ywu" path="res://resources/theme.tres" id="1_u48c7"]
 [ext_resource type="Texture2D" uid="uid://cjkh08fq3cyu1" path="res://assets/splash/gas-station.png" id="2_8h6yw"]
 [ext_resource type="FontFile" uid="uid://0vh6csaq2gfa" path="res://assets/fonts/Bruno_Ace_SC/BrunoAceSC-Regular.ttf" id="2_w1etb"]
 [ext_resource type="Texture2D" uid="uid://uwp03iqwerrd" path="res://assets/icons/gdb-xbox-2 (1).png" id="4_ffjo6"]
@@ -94,24 +95,39 @@ corner_radius_bottom_left = 8
 atlas = ExtResource("4_ffjo6")
 region = Rect2(16, 48, 16, 16)
 
-[node name="Splash" type="Node2D"]
+[node name="Splash" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_u48c7")
 script = ExtResource("1_8hryt")
 scene_path = "res://scenes/game.tscn"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+[node name="Image" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_8h6yw")
-centered = false
 
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 640.0
-offset_bottom = 360.0
+[node name="Overlay" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = SubResource("Theme_onp2b")
 texture = SubResource("GradientTexture2D_t076u")
 
-[node name="ColorRect" type="ColorRect" parent="TextureRect"]
+[node name="ColorRect" type="ColorRect" parent="Overlay"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -120,42 +136,44 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.313726)
 
-[node name="Label" type="Label" parent="TextureRect"]
+[node name="Title" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -127.5
-offset_right = 127.5
-offset_bottom = 91.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 21.0
+offset_bottom = 109.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
+theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 64
 text = "PITSTOP"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="TextureRect"]
+[node name="ProgressBar" type="ProgressBar" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -169.0
-offset_top = -275.0
-offset_right = 169.0
-offset_bottom = -255.0
+offset_left = -233.0
+offset_top = -161.0
+offset_right = 233.0
+offset_bottom = -134.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
 theme_override_styles/background = SubResource("StyleBoxFlat_dsw6b")
 theme_override_styles/fill = SubResource("StyleBoxFlat_02832")
 max_value = 1.0
 step = 0.001
 
-[node name="Button" type="Button" parent="TextureRect"]
+[node name="Button" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -163,25 +181,25 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -52.0
-offset_top = -51.0
+offset_top = -82.0
 offset_right = 52.0
-offset_bottom = -31.0
+offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_font_sizes/font_size = 18
 text = "Begin"
 
-[node name="TextureRect" type="TextureRect" parent="TextureRect/Button"]
+[node name="TextureRect" type="TextureRect" parent="Button"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -30.0
-offset_top = 1.0
-offset_right = 30.0
-offset_bottom = 17.0
+offset_left = -16.0
+offset_top = 4.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_o83xo")
-stretch_mode = 3

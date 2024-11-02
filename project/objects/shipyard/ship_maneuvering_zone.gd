@@ -12,7 +12,7 @@ var _hazard_nodes: Dictionary = {}
 var _hazard_sprites: Dictionary = {}
 
 @onready var _hazard_indicators := $HazardIndicators as Node2D
-@onready var _instruction_label := $Warning as Label
+@onready var _warning := $Warning as Label
 @onready var _barriers := $Barriers/CollisionShape2D as CollisionShape2D
 @onready var _outside := $Exit as Node2D
 
@@ -79,4 +79,4 @@ func _process(_delta: float) -> void:
 		else:
 			Debug.error("[SMZ] There was a warning icon sprite not in the dictionary")
 			Debug.error("      Srite: '%s'" % sprite.name)
-	_instruction_label.visible = not is_clear()
+	_warning.visible = not is_clear()
