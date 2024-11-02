@@ -67,7 +67,8 @@ func _add_player(device_id: int) -> void:
 	p.accellerated.connect(_add_particle)
 	_device_players[p.device_id] = p
 	await get_tree().process_frame
-	if _prelude.visible:
+	#if _prelude.visible:
+	if true:
 		var players := [] as Array[Player]
 		for player in _players.get_children():
 			players.append(player as Player)
@@ -289,6 +290,7 @@ func _input(event: InputEvent) -> void:
 		Debug.info("[Game] New Player: %d" % event.device)
 		InputManager.register_gamepad(event.device)
 		_add_player(event.device)
+		get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed(&"toggle_menu"):
 		if _menu.visible:

@@ -32,6 +32,9 @@ func _input(event: InputEvent) -> void:
 	if not is_visible_in_tree():
 		return
 	if event.is_action_pressed(&"vote_DEVICE"):
+		if not InputManager.registered_gamepads.has(event.device):
+			Debug.debug("[Confirm] Skipping device (not added to InputManager): %d" % event.device)
+			return
 		if not _confirmation_devices.has(event.device):
 			Debug.error("[Confirm] Unrecognised device: %d" % event.device)
 			Debug.error("[Confirm] Recognised devices: %s" % str(_confirmation_devices.keys()))
