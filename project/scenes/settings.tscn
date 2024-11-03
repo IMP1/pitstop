@@ -127,11 +127,10 @@ offset_right = -64.0
 offset_bottom = -47.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 1
+current_tab = 0
 tabs_visible = false
 
 [node name="Controls" type="Control" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -325,6 +324,7 @@ action_type = 1
 ignored_actions = Array[StringName]([&"ui_up", &"ui_down"])
 
 [node name="Audio" type="Control" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 

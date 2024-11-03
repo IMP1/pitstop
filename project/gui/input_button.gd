@@ -1,6 +1,8 @@
 extends Button
 class_name InputMappingButton
 
+signal action_remapped(device: int, action_name: StringName, event: InputEvent)
+
 enum ActionType {
 	BUTTON,
 	AXIS
@@ -14,30 +16,6 @@ enum JoystickDirection {
 }
 
 const EPSILON := 0.4
-
-const INPUT_TEXTURE_RECTS_JOY_BUTTON = {
-	JOY_BUTTON_A: Rect2(17, 193, 14, 14),
-	JOY_BUTTON_B: Rect2(17, 225, 14, 14),
-	JOY_BUTTON_X: Rect2(17, 177, 14, 14),
-	JOY_BUTTON_Y: Rect2(17, 209, 14, 14),
-	JOY_BUTTON_LEFT_SHOULDER: Rect2(384, 87, 16, 9),
-	JOY_BUTTON_RIGHT_SHOULDER: Rect2(368, 103, 16, 9),
-	JOY_BUTTON_LEFT_STICK: Rect2(217, 33, 14, 14),
-	JOY_BUTTON_RIGHT_STICK: Rect2(281, 33, 14, 14),
-}
-
-const INPUT_TEXTURE_RECTS_JOY_AXIS = {
-	JOY_AXIS_TRIGGER_LEFT: Rect2(368, 48, 16, 16),
-	JOY_AXIS_TRIGGER_RIGHT: Rect2(368, 64, 16, 16),
-	JOY_AXIS_LEFT_X: Rect2(216, 72, 16, 16),
-	JOY_AXIS_LEFT_Y: Rect2(216, 72, 16, 16),
-	JOY_AXIS_RIGHT_X: Rect2(280, 72, 16, 16),
-	JOY_AXIS_RIGHT_Y: Rect2(280, 72, 16, 16),
-}
-
-const INPUT_TEXTURE_RECTS_KEY = {
-	# TODO
-}
 
 @export var action: StringName
 @export var action_type: ActionType
@@ -108,10 +86,11 @@ func _is_valid_input_for_action(event: InputEvent) -> bool:
 @warning_ignore("int_as_enum_without_cast")
 func _get_event_in_direction(event: InputEvent, direction: JoystickDirection) -> InputEvent:
 	if not event is InputEventJoypadMotion:
-		Debug.error("[InputButton]")
+		Debug.error("[InputButton] Input is not a Joypad Motion Event")
 		return null
 	var joypad_motion_event := event as InputEventJoypadMotion
 	var new_event := InputEventJoypadMotion.new()
+	new_event.device = device
 	# SEE: https://docs.godotengine.org/en/stable/classes/class_%40globalscope.html#enum-globalscope-joyaxis
 	new_event.axis = joypad_motion_event.axis
 	match direction:
@@ -144,31 +123,16 @@ func _remap_action(event: InputEvent):
 			var directional_event := _get_event_in_direction(event, dir_id)
 			InputMap.action_erase_events(directional_action_name)
 			InputMap.action_add_event(directional_action_name, directional_event)
-			Debug.info("[InputButton] Remapped action '%s' for device %d to %s" % [directional_action_name, device, str(directional_event)])
+			Debug.info("[InputButton] Remapped action '%s'" % directional_action_name)
+			Debug.info("              %s" % str(directional_event))
+			action_remapped.emit(device, directional_action_name, directional_event)
 	else:
 		InputMap.action_erase_events(action_name)
 		InputMap.action_add_event(action_name, event)
-		Debug.info("[InputButton] Remapped action '%s' for device %d to %s" % [action_name, device, str(event)])
+		Debug.info("[InputButton] Remapped action '%s'" % action_name)
+		Debug.info("              %s" % str(event))
+		action_remapped.emit(device, action_name, event)
 
 
 func _refresh_icon(event: InputEvent):
-	var region: Rect2 = (icon as AtlasTexture).region
-	if event is InputEventJoypadButton:
-		var code := (event as InputEventJoypadButton).button_index
-		if INPUT_TEXTURE_RECTS_JOY_BUTTON.has(code):
-			region = INPUT_TEXTURE_RECTS_JOY_BUTTON[code]
-		else:
-			Debug.warning("[InputButton] No region for %d" % code)
-	if event is InputEventJoypadMotion:
-		var code := (event as InputEventJoypadMotion).axis
-		if INPUT_TEXTURE_RECTS_JOY_AXIS.has(code):
-			region = INPUT_TEXTURE_RECTS_JOY_AXIS[code]
-		else:
-			Debug.warning("[InputButton] No region for %d" % code)
-	if event is InputEventKey:
-		var code := (event as InputEventKey).keycode
-		if INPUT_TEXTURE_RECTS_KEY.has(code):
-			region = INPUT_TEXTURE_RECTS_KEY[code]
-		else:
-			Debug.warning("[InputButton] No region for %d" % code)
-	(icon as AtlasTexture).region = region
+	icon = InputManager.get_icon(event)

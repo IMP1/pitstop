@@ -2,6 +2,7 @@ class_name Player
 extends BounceBody2D
 
 signal accellerated(position: Vector2, velocity: Vector2, spread: float, colour: Color)
+signal colour_changed
 
 const NO_DEVICE = -1
 const VELOCITY_EPSILON = 1.4
@@ -43,6 +44,7 @@ func set_sprite(tex: Texture2D) -> void:
 func set_colour(new_colour: Color) -> void:
 	colour = new_colour
 	_throw_sprite.modulate = colour
+	colour_changed.emit()
 
 
 func _ready() -> void:
@@ -75,7 +77,7 @@ func _try_grab() -> void:
 		return
 	var obj := _get_nearest_tool()
 	obj.grab(self)
-	obj.set_deferred("transform", _held_tools.transform)
+	obj.set_deferred(&"transform", _held_tools.transform)
 
 
 func _get_nearest_tool() -> Tool:
@@ -119,10 +121,10 @@ func _try_throw() -> void:
 	if _held_tools.get_child_count() == 0:
 		return
 	var tool := _held_tools.get_child(0) as Tool
-	var left := "aim_left_%d" % device_id
-	var right := "aim_right_%d" % device_id
-	var up := "aim_up_%d" % device_id
-	var down := "aim_down_%d" % device_id
+	var left := &"aim_left_%d" % device_id
+	var right := &"aim_right_%d" % device_id
+	var up := &"aim_up_%d" % device_id
+	var down := &"aim_down_%d" % device_id
 	var aim_direction := Input.get_vector(left, right, up, down)
 	if aim_direction == Vector2.ZERO:
 		aim_direction = velocity
@@ -157,11 +159,11 @@ func _process(delta: float) -> void:
 
 
 func _process_movement(delta: float) -> void:
-	var left := "move_left_%d" % device_id
-	var right := "move_right_%d" % device_id
-	var up := "move_up_%d" % device_id
-	var down := "move_down_%d" % device_id
-	var brake := "move_brake_%d" % device_id
+	var left := &"move_left_%d" % device_id
+	var right := &"move_right_%d" % device_id
+	var up := &"move_up_%d" % device_id
+	var down := &"move_down_%d" % device_id
+	var brake := &"move_brake_%d" % device_id
 	var movement := Input.get_vector(left, right, up, down)
 	velocity += movement * accelleration
 	var braking_input := Input.get_action_strength(brake)
@@ -196,10 +198,10 @@ func _process_movement(delta: float) -> void:
 func _process_aim() -> void:
 	if current_tool() == null:
 		return
-	var left := "aim_left_%d" % device_id
-	var right := "aim_right_%d" % device_id
-	var up := "aim_up_%d" % device_id
-	var down := "aim_down_%d" % device_id
+	var left := &"aim_left_%d" % device_id
+	var right := &"aim_right_%d" % device_id
+	var up := &"aim_up_%d" % device_id
+	var down := &"aim_down_%d" % device_id
 	var aim_direction := Input.get_vector(left, right, up, down)
 	_throw_pivot.rotation = aim_direction.angle()
 	_throw_pivot.visible = (aim_direction.length_squared() > 0.02)
@@ -217,7 +219,7 @@ func _update_interactable() -> void:
 	if _potential_interact and _potential_interact != nearest_interactable:
 		_potential_interact.reset_highlight_colour(device_id)
 	_interact_prompt.visible = false
-	# TODO: Get icon dynamically?
+	_interact_prompt.texture = InputManager.get_icon(InputMap.action_get_events(&"use_%d" % device_id)[0])
 	if nearest_interactable and nearest_interactable.is_visible_in_tree() and nearest_interactable.can_interact(self):
 		_interact_prompt.visible = true
 		_potential_interact = nearest_interactable
@@ -235,7 +237,7 @@ func _update_grabbable() -> void:
 	if _potential_grab and nearest_tool != _potential_grab:
 		_potential_grab.reset_highlight_colour(device_id)
 	_potential_grab = nearest_tool
-	# TODO: Get icon dynamically?
 	_grab_prompt.visible = (_potential_grab != null)
+	_grab_prompt.texture = InputManager.get_icon(InputMap.action_get_events(&"grab_%d" % device_id)[0])
 	if _grab_prompt.visible:
 		_potential_grab.set_highlight_colour(colour, device_id)

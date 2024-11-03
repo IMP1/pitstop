@@ -67,8 +67,7 @@ func _add_player(device_id: int) -> void:
 	p.accellerated.connect(_add_particle)
 	_device_players[p.device_id] = p
 	await get_tree().process_frame
-	#if _prelude.visible:
-	if true:
+	if _prelude.visible:
 		var players := [] as Array[Player]
 		for player in _players.get_children():
 			players.append(player as Player)

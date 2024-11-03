@@ -321,11 +321,11 @@ animations = [{
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ichgf"]
 atlas = ExtResource("52_twyig")
-region = Rect2(216, 72, 16, 16)
+region = Rect2(184, 56, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bqk4v"]
 atlas = ExtResource("52_twyig")
-region = Rect2(280, 72, 16, 16)
+region = Rect2(248, 56, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tdmyb"]
 atlas = ExtResource("52_twyig")
@@ -1157,6 +1157,7 @@ offset_top = 93.0
 mouse_filter = 2
 
 [node name="Debrief" parent="Overlays" instance=ExtResource("50_q8aqo")]
+visible = true
 
 [node name="GameOver" parent="Overlays" instance=ExtResource("51_v41pc")]
 

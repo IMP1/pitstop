@@ -29,7 +29,7 @@ region = Rect2(448, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f1xio"]
 atlas = ExtResource("4_xyju4")
-region = Rect2(448, 48, 16, 16)
+region = Rect2(16, 432, 16, 16)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 4

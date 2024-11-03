@@ -25,7 +25,14 @@ func set_players_to_confirm(players: Array[Player]) -> void:
 		box.color = player.colour
 		box.visible = false
 		_confirmation_devices[player.device_id] = box
+		# TODO: How to disconnect this if a player leaves or is removed from the players to confirm?
+		player.colour_changed.connect(_update_colours.bind(player)) 
 	Debug.info("[Confirm] Players to confirm: %s" % str(_confirmation_devices.keys()))
+
+
+func _update_colours(player: Player) -> void:
+	var box := _confirmation_devices[player.device_id] as ColorRect
+	box.color = player.colour
 
 
 func _input(event: InputEvent) -> void:
