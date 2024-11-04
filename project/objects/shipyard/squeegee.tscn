@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://tgrm0vdhyhdh"]
+
+[ext_resource type="PackedScene" uid="uid://t7wbwy1pdgdp" path="res://objects/tool.tscn" id="1_7e42r"]
+[ext_resource type="Script" path="res://objects/shipyard/squeegee.gd" id="2_cfbuc"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="2_y13ym"]
+[ext_resource type="Texture2D" uid="uid://dwq8nasdyvg6f" path="res://assets/shipyard/squeegee.png" id="4_legkg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_itg5h"]
+resource_local_to_scene = true
+size = Vector2(16, 6)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qy6rx"]
+resource_local_to_scene = true
+shader = ExtResource("2_y13ym")
+shader_parameter/color = Color(1, 1, 1, 0)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dv72s"]
+resource_local_to_scene = true
+radius = 12.0
+
+[node name="Squeegee" instance=ExtResource("1_7e42r")]
+script = ExtResource("2_cfbuc")
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-2, 0)
+shape = SubResource("RectangleShape2D_itg5h")
+
+[node name="Sprite2D" parent="." index="1"]
+material = SubResource("ShaderMaterial_qy6rx")
+position = Vector2(-2, 0)
+texture = ExtResource("4_legkg")
+
+[node name="GrabArea" parent="." index="2"]
+position = Vector2(-2, 0)
+
+[node name="CollisionShape2D" parent="GrabArea" index="0"]
+shape = SubResource("CircleShape2D_dv72s")

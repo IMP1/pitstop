@@ -78,6 +78,7 @@ func _try_grab() -> void:
 	var obj := _get_nearest_tool()
 	obj.grab(self)
 	obj.set_deferred(&"transform", _held_tools.transform)
+	obj.set_deferred(&"position", Vector2.ZERO)
 
 
 func _get_nearest_tool() -> Tool:

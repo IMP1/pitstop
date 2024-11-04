@@ -77,6 +77,6 @@ func _process(_delta: float) -> void:
 			var node := _hazard_nodes[sprite] as Node2D
 			sprite.global_position = node.global_position + hazard_offset
 		else:
-			Debug.error("[SMZ] There was a warning icon sprite not in the dictionary")
-			Debug.error("      Srite: '%s'" % sprite.name)
+			Debug.error("[SMZ] There was a warning icon sprite not in the dictionary\n" +
+						"Sprite: '%s'" % sprite.get_path())
 	_warning.visible = not is_clear()

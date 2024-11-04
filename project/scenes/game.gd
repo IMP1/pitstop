@@ -52,6 +52,7 @@ func _ready() -> void:
 	_reactor_shutdown.reactor_meltdown.connect(func():
 		# TODO: Meltdown specific actions
 		_repair_failure())
+	_tool_station.release_tools.call_deferred()
 	_begin()
 
 
@@ -111,8 +112,6 @@ func _finalise_ship() -> void:
 
 
 func _begin() -> void:
-	_tool_station.release_tools.call_deferred()
-	
 	var players := [] as Array[Player]
 	for p in _players.get_children():
 		players.append(p as Player)
@@ -153,7 +152,8 @@ func _repair_success() -> void:
 	await _show_debrief()
 	_ship_maneuvering_zone.visible = false
 	_ship_maneuvering_zone.lower_barriers()
-	# TODO: Prepare the next ship
+	_patch_dispenser.patches_created = 0 # TODO: Reset other things like this
+	_next_ship()
 
 
 func _repair_failure() -> void:
@@ -163,6 +163,19 @@ func _repair_failure() -> void:
 	await _show_debrief()
 	await _show_gameover()
 	# TODO: Start again from first ship?
+
+
+func _next_ship() -> void:
+	var old_ship := _ship_container.get_child(0)
+	_ship_container.remove_child(old_ship)
+	old_ship.queue_free()
+	await get_tree().process_frame
+	var next_ship := "res://ships/test_2.tscn"
+	var new_ship := (load(next_ship) as PackedScene).instantiate() as Ship
+	_ship_container.add_child(new_ship)
+	new_ship.position = Vector2(510, -142)
+	await get_tree().process_frame
+	_begin()
 
 
 func _ship_enter() -> void:

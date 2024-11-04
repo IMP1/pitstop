@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bewn521oc6sby" path="res://objects/interactable.tscn" id="12_26md6"]
 [ext_resource type="Texture2D" uid="uid://c2tsw2srrbtmm" path="res://assets/shipyard/struts.png" id="12_opyon"]
 [ext_resource type="Texture2D" uid="uid://da3u2liybfgxg" path="res://assets/shipyard/conveyor-cover.png" id="15_51tlw"]
+[ext_resource type="Texture2D" uid="uid://7e8nsxpwny5c" path="res://assets/shipyard/warning_stripes.png" id="15_sedna"]
 [ext_resource type="Theme" uid="uid://cq7h5i8xn8ywu" path="res://resources/theme.tres" id="15_t6pco"]
 [ext_resource type="AudioStream" uid="uid://dsjj3md5jygbr" path="res://assets/sounds/pick_up.ogg" id="16_iqlbm"]
 [ext_resource type="Script" path="res://objects/shipyard/fuel_pump_motor.gd" id="17_6ykmh"]
@@ -46,6 +47,7 @@
 [ext_resource type="Texture2D" uid="uid://c6fcmdi0hw2uq" path="res://assets/shipyard/lockers.png" id="38_8hh14"]
 [ext_resource type="Script" path="res://objects/shipyard/diagnostic-display.gd" id="43_de1ih"]
 [ext_resource type="Texture2D" uid="uid://coox2vjyq25ni" path="res://assets/shipyard/diagnostic-display.png" id="43_vlcp1"]
+[ext_resource type="PackedScene" uid="uid://tgrm0vdhyhdh" path="res://objects/shipyard/squeegee.tscn" id="44_5j7bs"]
 [ext_resource type="PackedScene" uid="uid://t5qvf61l1lt8" path="res://gui/to_do_list.tscn" id="45_bjx01"]
 [ext_resource type="Texture2D" uid="uid://dkye1oq56wyju" path="res://assets/shipyard/shutdown_panel.png" id="47_difou"]
 [ext_resource type="Script" path="res://objects/shipyard/reactor_shutdown_panel.gd" id="47_ro6le"]
@@ -106,14 +108,6 @@ size = Vector2(41, 385.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nc1h5"]
 size = Vector2(635.5, 127)
-
-[sub_resource type="Gradient" id="Gradient_ti7q1"]
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ccif3"]
-gradient = SubResource("Gradient_ti7q1")
-fill_to = Vector2(0.063, 0.063)
-repeat = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rm2c3"]
 size = Vector2(639, 129)
@@ -663,11 +657,11 @@ position = Vector2(82.75, -1)
 shape = SubResource("RectangleShape2D_nc1h5")
 debug_color = Color(0.992157, 0.839216, 0, 0.243137)
 
-[node name="Sprite2D" type="Sprite2D" parent="Shipyard/ShipManeuveringZone"]
+[node name="WarningStripes" type="Sprite2D" parent="Shipyard/ShipManeuveringZone"]
 modulate = Color(1, 1, 1, 0.25098)
 texture_repeat = 2
 position = Vector2(85, -1)
-texture = SubResource("GradientTexture2D_ccif3")
+texture = ExtResource("15_sedna")
 region_enabled = true
 region_rect = Rect2(0, 0, 640, 128)
 
@@ -992,6 +986,9 @@ texture = ExtResource("31_2ctx3")
 position = Vector2(-18, -13)
 bounce_coefficient = 0.9
 
+[node name="Squeegee" parent="Shipyard/ToolStation" instance=ExtResource("44_5j7bs")]
+position = Vector2(21, -12)
+
 [node name="UniformStation" parent="Shipyard" node_paths=PackedStringArray("game") instance=ExtResource("12_26md6")]
 position = Vector2(515, 32)
 script = ExtResource("37_te6ei")
@@ -1135,10 +1132,10 @@ begin_cap_mode = 1
 end_cap_mode = 1
 
 [node name="Ship" type="Node2D" parent="."]
-position = Vector2(316, 186)
+position = Vector2(200, 184)
 
 [node name="TestShip" parent="Ship" instance=ExtResource("58_56tvw")]
-position = Vector2(510, -142)
+position = Vector2(515, -125)
 
 [node name="Particles" type="Node2D" parent="."]
 
@@ -1157,7 +1154,6 @@ offset_top = 93.0
 mouse_filter = 2
 
 [node name="Debrief" parent="Overlays" instance=ExtResource("50_q8aqo")]
-visible = true
 
 [node name="GameOver" parent="Overlays" instance=ExtResource("51_v41pc")]
 
@@ -1356,6 +1352,7 @@ offset_bottom = -120.0
 [connection signal="timeout" from="Shipyard/Clock/Timer" to="Shipyard/Clock" method="_timeout"]
 [connection signal="timeout" from="Shipyard/Clock/WarningTimer" to="Shipyard/Clock" method="_timelow"]
 [connection signal="thrown" from="Shipyard/ToolStation/Blowtorch" to="." method="_throw_tool"]
+[connection signal="thrown" from="Shipyard/ToolStation/Squeegee" to="." method="_throw_tool"]
 [connection signal="pressed" from="Overlays/Menu/Options/Resume" to="." method="_resume"]
 [connection signal="pressed" from="Overlays/Menu/Options/RemoveInput" to="." method="_remove_player"]
 [connection signal="pressed" from="Overlays/Menu/Options/Settings" to="." method="_settings"]

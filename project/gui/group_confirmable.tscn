@@ -27,7 +27,7 @@ stretch_mode = 3
 [node name="PlayersConfirmed" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = -64.0
-offset_top = 16.0
+offset_top = 33.0
 offset_right = 64.0
-offset_bottom = 28.0
+offset_bottom = 45.0
 alignment = 1

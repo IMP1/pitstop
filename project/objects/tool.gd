@@ -24,7 +24,7 @@ func _ready() -> void:
 
 
 func grab(player: Player) -> void:
-	Debug.info("[Tool] Grabbing")
+	Debug.debug("[Tool] Grabbing")
 	self.reparent(player._held_tools)
 	velocity = Vector2.ZERO
 	_grab_shape.disabled = true
@@ -32,7 +32,7 @@ func grab(player: Player) -> void:
 
 
 func throw(vel: Vector2) -> void:
-	Debug.info("[Tool] Throwing")
+	Debug.debug("[Tool] Throwing")
 	thrown.emit(self, global_position, vel)
 	_grab_shape.disabled = false
 	set_highlight(true)

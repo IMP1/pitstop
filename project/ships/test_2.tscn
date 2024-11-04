@@ -1,106 +1,242 @@
-[gd_scene load_steps=16 format=3 uid="uid://ddv1nk6vtef7a"]
+[gd_scene load_steps=18 format=3 uid="uid://ddv1nk6vtef7a"]
 
 [ext_resource type="PackedScene" uid="uid://b086rvhoeesnh" path="res://objects/ship.tscn" id="1_lshj1"]
 [ext_resource type="Texture2D" uid="uid://4a8etn5s1n6s" path="res://assets/ships/ship_2.png" id="2_xva6j"]
 [ext_resource type="PackedScene" uid="uid://p03y3l1mpyss" path="res://objects/ship_fault.tscn" id="3_srhks"]
-[ext_resource type="Script" path="res://objects/ship_components/ship_fuel_intake.gd" id="4_kdled"]
-[ext_resource type="Texture2D" uid="uid://cj7jgycu3umgm" path="res://assets/shipyard/red-light.png" id="5_hg776"]
-[ext_resource type="AudioStream" uid="uid://c0ja5ea67ycd3" path="res://assets/sounds/slam_down.ogg" id="6_4i10f"]
-[ext_resource type="Texture2D" uid="uid://b1qp35uohwskw" path="res://assets/ships/window_2.png" id="7_6siwj"]
-[ext_resource type="Script" path="res://objects/ship_components/ship_dirty_window.gd" id="7_ktag0"]
-[ext_resource type="Shader" path="res://shaders/dirt_cleanup.gdshader" id="8_07s64"]
+[ext_resource type="Script" path="res://objects/ship_components/ship_crack.gd" id="4_hlpn4"]
+[ext_resource type="Texture2D" uid="uid://c6lpbl81unq14" path="res://assets/shipyard/cracks.png" id="5_6iwol"]
+[ext_resource type="AudioStream" uid="uid://br8nrfnjgx8qf" path="res://assets/sounds/lassen-35052.mp3" id="6_afdli"]
+[ext_resource type="Texture2D" uid="uid://q04ysyxvgysl" path="res://assets/characters/particle.png" id="7_808fr"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_s24i0"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_pv1f5"]
 resource_local_to_scene = true
-radius = 16.0
+radius = 8.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_snnqt"]
-resource_local_to_scene = true
-radius = 24.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqxum"]
+atlas = ExtResource("5_6iwol")
+region = Rect2(32, 0, 16, 32)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_31phb"]
-shader = ExtResource("8_07s64")
-shader_parameter/progress = 0.2
+[sub_resource type="Gradient" id="Gradient_dglu8"]
+offsets = PackedFloat32Array(0.733333, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="Gradient" id="Gradient_ip4ym"]
-colors = PackedColorArray(0, 0, 0, 1, 0.12549, 0.12549, 0.12549, 1)
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g8uls"]
+gradient = SubResource("Gradient_dglu8")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_bu868"]
-noise_type = 0
-seed = 3
-frequency = 0.2
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vyk0l"]
+lifetime_randomness = 0.8
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 81.0
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -10.0
+linear_accel_max = 10.0
+attractor_interaction_enabled = false
+scale_min = 1.5
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_g8uls")
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j2lrr"]
-width = 35
-height = 16
-color_ramp = SubResource("Gradient_ip4ym")
-noise = SubResource("FastNoiseLite_bu868")
+[sub_resource type="Gradient" id="Gradient_7og3n"]
+offsets = PackedFloat32Array(0.619048, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ll18l"]
+gradient = SubResource("Gradient_7og3n")
+
+[sub_resource type="Curve" id="Curve_eu4y7"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, -0.725275), 0.0, 0.0, 0, 0, Vector2(1, 0.32967), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_q1lxd"]
+curve = SubResource("Curve_eu4y7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iy7rj"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+direction = Vector3(1, -1, 0)
+initial_velocity_min = 12.0
+initial_velocity_max = 12.0
+orbit_velocity_min = -0.3
+orbit_velocity_max = -0.23
+orbit_velocity_curve = SubResource("CurveTexture_q1lxd")
+gravity = Vector3(2, -2, 0)
+attractor_interaction_enabled = false
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_ll18l")
 
 [node name="Ship" instance=ExtResource("1_lshj1")]
 
 [node name="CollisionPolygon2D" parent="." index="0"]
+position = Vector2(141.1, 0.199997)
 polygon = PackedVector2Array(5, -41, -6, -35, -9, -26, -12, -29, -43, -29, -47, -22, -81, -23, -84, -27, -90, -26, -90, -30, -115, -25, -115, -18, -139, -22, -136, -15, -139, -15, -139, -6, -135, -4, -136, 6, -139, 6, -138, 15, -136, 16, -139, 22, -115, 18, -115, 24, -91, 29, -89, 26, -78, 24, -46, 22, -43, 27, -12, 29, -10, 27, -6, 36, 4, 40, 36, 41, 39, 46, 56, 47, 62, 37, 66, 37, 71, 25, 82, 25, 91, 34, 120, 34, 138, 7, 138, -8, 120, -34, 91, -34, 82, -25, 71, -25, 65, -37, 62, -37, 55, -47, 39, -47, 36, -41)
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(141.1, 0.199997)
 rotation = 1.5708
 texture = ExtResource("2_xva6j")
 
 [node name="ShadowSurface" parent="." index="2"]
+position = Vector2(141.1, 0.199997)
 rotation = 1.5708
 texture = ExtResource("2_xva6j")
 
-[node name="FuelIntake" parent="Components" index="0" instance=ExtResource("3_srhks")]
-position = Vector2(-36, 0)
-script = ExtResource("4_kdled")
-capacity = 100.0
+[node name="Crack1" parent="Components" index="0" instance=ExtResource("3_srhks")]
+position = Vector2(184, 41)
+script = ExtResource("4_hlpn4")
+time_to_patch = 2.0
 
-[node name="CollisionShape2D" parent="Components/FuelIntake/Area2D" index="0"]
-shape = SubResource("CircleShape2D_s24i0")
+[node name="CollisionShape2D" parent="Components/Crack1/Area2D" index="0"]
+shape = SubResource("CircleShape2D_pv1f5")
 
-[node name="Sprite2D" parent="Components/FuelIntake" index="2"]
-position = Vector2(-5.5, 0)
+[node name="Sprite2D" parent="Components/Crack1" index="2"]
 rotation = 1.5708
-texture = ExtResource("5_hg776")
+texture = SubResource("AtlasTexture_pqxum")
+vframes = 2
 
-[node name="InsertionPoint" type="Marker2D" parent="Components/FuelIntake" index="4"]
+[node name="WeldingAudio" type="AudioStreamPlayer2D" parent="Components/Crack1" index="4"]
+rotation = -1.57079
+stream = ExtResource("6_afdli")
 
-[node name="AttachAudio" type="AudioStreamPlayer2D" parent="Components/FuelIntake" index="5"]
-stream = ExtResource("6_4i10f")
-bus = &"Sounds"
+[node name="WeldingSparks" type="GPUParticles2D" parent="Components/Crack1" index="5"]
+emitting = false
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_vyk0l")
 
-[node name="DirtyWindow" parent="Components" index="1" instance=ExtResource("3_srhks")]
-position = Vector2(119, 0)
-script = ExtResource("7_ktag0")
-icon = null
+[node name="LeakingAir" type="GPUParticles2D" parent="Components/Crack1" index="6"]
+process_material = SubResource("ParticleProcessMaterial_iy7rj")
+texture = ExtResource("7_808fr")
+explosiveness = 0.2
 
-[node name="CollisionShape2D" parent="Components/DirtyWindow/Area2D" index="0"]
-shape = SubResource("CircleShape2D_snnqt")
+[node name="Crack2" parent="Components" index="1" instance=ExtResource("3_srhks")]
+position = Vector2(71, 4)
+script = ExtResource("4_hlpn4")
+time_to_patch = 3.0
 
-[node name="Window" type="Sprite2D" parent="Components/DirtyWindow" index="4"]
+[node name="CollisionShape2D" parent="Components/Crack2/Area2D" index="0"]
+shape = SubResource("CircleShape2D_pv1f5")
+
+[node name="Sprite2D" parent="Components/Crack2" index="2"]
 rotation = 1.5708
-texture = ExtResource("7_6siwj")
+texture = SubResource("AtlasTexture_pqxum")
+vframes = 2
 
-[node name="Dirt" type="Sprite2D" parent="Components/DirtyWindow/Window" index="0"]
-light_mask = 4
-visibility_layer = 4
-material = SubResource("ShaderMaterial_31phb")
-texture = SubResource("NoiseTexture2D_j2lrr")
+[node name="WeldingAudio" type="AudioStreamPlayer2D" parent="Components/Crack2" index="4"]
+rotation = -1.57079
+stream = ExtResource("6_afdli")
 
-[node name="WindowSurface" type="PointLight2D" parent="Components/DirtyWindow" index="5"]
+[node name="WeldingSparks" type="GPUParticles2D" parent="Components/Crack2" index="5"]
+emitting = false
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_vyk0l")
+
+[node name="LeakingAir" type="GPUParticles2D" parent="Components/Crack2" index="6"]
+process_material = SubResource("ParticleProcessMaterial_iy7rj")
+texture = ExtResource("7_808fr")
+explosiveness = 0.2
+
+[node name="Crack3" parent="Components" index="2" instance=ExtResource("3_srhks")]
+position = Vector2(249, -14)
+script = ExtResource("4_hlpn4")
+time_to_patch = 3.0
+
+[node name="CollisionShape2D" parent="Components/Crack3/Area2D" index="0"]
+shape = SubResource("CircleShape2D_pv1f5")
+
+[node name="Sprite2D" parent="Components/Crack3" index="2"]
 rotation = 1.5708
-range_item_cull_mask = 4
-texture = ExtResource("7_6siwj")
+texture = SubResource("AtlasTexture_pqxum")
+vframes = 2
+
+[node name="WeldingAudio" type="AudioStreamPlayer2D" parent="Components/Crack3" index="4"]
+rotation = -1.57079
+stream = ExtResource("6_afdli")
+
+[node name="WeldingSparks" type="GPUParticles2D" parent="Components/Crack3" index="5"]
+emitting = false
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_vyk0l")
+
+[node name="LeakingAir" type="GPUParticles2D" parent="Components/Crack3" index="6"]
+process_material = SubResource("ParticleProcessMaterial_iy7rj")
+texture = ExtResource("7_808fr")
+explosiveness = 0.2
+
+[node name="Crack4" parent="Components" index="3" instance=ExtResource("3_srhks")]
+position = Vector2(148, -36)
+script = ExtResource("4_hlpn4")
+time_to_patch = 3.0
+
+[node name="CollisionShape2D" parent="Components/Crack4/Area2D" index="0"]
+shape = SubResource("CircleShape2D_pv1f5")
+
+[node name="Sprite2D" parent="Components/Crack4" index="2"]
+rotation = 1.5708
+texture = SubResource("AtlasTexture_pqxum")
+vframes = 2
+
+[node name="WeldingAudio" type="AudioStreamPlayer2D" parent="Components/Crack4" index="4"]
+rotation = -1.57079
+stream = ExtResource("6_afdli")
+
+[node name="WeldingSparks" type="GPUParticles2D" parent="Components/Crack4" index="5"]
+emitting = false
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_vyk0l")
+
+[node name="LeakingAir" type="GPUParticles2D" parent="Components/Crack4" index="6"]
+process_material = SubResource("ParticleProcessMaterial_iy7rj")
+texture = ExtResource("7_808fr")
+explosiveness = 0.2
+
+[node name="Crack5" parent="Components" index="4" instance=ExtResource("3_srhks")]
+position = Vector2(185, 8)
+script = ExtResource("4_hlpn4")
+time_to_patch = 3.0
+
+[node name="CollisionShape2D" parent="Components/Crack5/Area2D" index="0"]
+shape = SubResource("CircleShape2D_pv1f5")
+
+[node name="Sprite2D" parent="Components/Crack5" index="2"]
+rotation = 1.5708
+texture = SubResource("AtlasTexture_pqxum")
+vframes = 2
+
+[node name="WeldingAudio" type="AudioStreamPlayer2D" parent="Components/Crack5" index="4"]
+rotation = -1.57079
+stream = ExtResource("6_afdli")
+
+[node name="WeldingSparks" type="GPUParticles2D" parent="Components/Crack5" index="5"]
+emitting = false
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_vyk0l")
+
+[node name="LeakingAir" type="GPUParticles2D" parent="Components/Crack5" index="6"]
+process_material = SubResource("ParticleProcessMaterial_iy7rj")
+texture = ExtResource("7_808fr")
+explosiveness = 0.2
 
 [node name="RCS1" type="Node2D" parent="Thrusters" index="0"]
-position = Vector2(0, -34)
+position = Vector2(139, -34)
 
 [node name="RCS2" type="Node2D" parent="Thrusters" index="1"]
-position = Vector2(0, 34)
+position = Vector2(139, 34)
+
+[node name="ThrusterSound" parent="." index="5"]
+position = Vector2(141.1, 0.199997)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." index="6"]
+position = Vector2(141.1, 0.199997)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" index="0"]
-polygon = PackedVector2Array(-38, -11, -32, -5, -32, 5, -38, 11, 19, 10, 39, 4, 39, -4, 19, -10)
+polygon = PackedVector2Array(-35.1, -8.2, -32, -5, -32, 5, -35.1, 7.8, 17.9, 7.8, 35.9, 2.8, 35.9, -3.2, 17.9, -8.2)
 
-[editable path="Components/FuelIntake"]
-[editable path="Components/DirtyWindow"]
+[editable path="Components/Crack1"]
+[editable path="Components/Crack2"]
+[editable path="Components/Crack3"]
+[editable path="Components/Crack4"]
+[editable path="Components/Crack5"]

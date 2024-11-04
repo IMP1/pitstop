@@ -1,2 +1,2 @@
-class_name Blowtorch
 extends Tool
+class_name Blowtorch
