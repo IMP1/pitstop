@@ -153,7 +153,7 @@ func _repair_success() -> void:
 	_ship_maneuvering_zone.visible = false
 	_ship_maneuvering_zone.lower_barriers()
 	_patch_dispenser.patches_created = 0 # TODO: Reset other things like this
-	_next_ship()
+	_setup_next_ship()
 
 
 func _repair_failure() -> void:
@@ -165,17 +165,23 @@ func _repair_failure() -> void:
 	# TODO: Start again from first ship?
 
 
-func _next_ship() -> void:
+func _setup_next_ship() -> void:
+	# TODO: Reset clock
 	var old_ship := _ship_container.get_child(0)
 	_ship_container.remove_child(old_ship)
 	old_ship.queue_free()
 	await get_tree().process_frame
-	var next_ship := "res://ships/test_2.tscn"
+	var next_ship := _determine_next_ship()
 	var new_ship := (load(next_ship) as PackedScene).instantiate() as Ship
 	_ship_container.add_child(new_ship)
 	new_ship.position = Vector2(510, -142)
 	await get_tree().process_frame
 	_begin()
+
+
+func _determine_next_ship() -> String:
+	# TODO: Take progress into account
+	return "res://ships/test_2.tscn"
 
 
 func _ship_enter() -> void:

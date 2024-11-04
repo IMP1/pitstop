@@ -217,6 +217,9 @@ func _physics_process(delta: float):
 
 func _update_interactable() -> void:
 	var nearest_interactable := _get_nearest_interactable()
+	# BUG: Error: Attempt to call function 'reset_highlight_colour' in base 'previously freed' on a null instance.
+	# _potential_interact is <null> (and so the if condition shouldn't pass)
+	# Seems so far connected to uniform station
 	if _potential_interact and _potential_interact != nearest_interactable:
 		_potential_interact.reset_highlight_colour(device_id)
 	_interact_prompt.visible = false

@@ -49,3 +49,5 @@
 [Throw Icon](https://game-icons.net/1x1/lorc/barbed-arrow.html)
 
 [Loading Screen Image](https://www.artstation.com/artwork/XBvXnn)
+
+[Squeegee Sound](https://pixabay.com/sound-effects/squeaky-window-cleaner-84613/)

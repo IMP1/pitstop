@@ -56,7 +56,7 @@
 [ext_resource type="PackedScene" uid="uid://btfobc8djnixu" path="res://gui/debrief.tscn" id="50_q8aqo"]
 [ext_resource type="PackedScene" uid="uid://cjlt1e01vgy3v" path="res://gui/game_over.tscn" id="51_v41pc"]
 [ext_resource type="Texture2D" uid="uid://uwp03iqwerrd" path="res://assets/icons/gdb-xbox-2 (1).png" id="52_twyig"]
-[ext_resource type="PackedScene" uid="uid://dq6dnyiufq5ab" path="res://ships/test_1.tscn" id="58_56tvw"]
+[ext_resource type="PackedScene" uid="uid://0ptf278idwty" path="res://ships/test_3.tscn" id="53_jxty3"]
 [ext_resource type="PackedScene" uid="uid://8y3141pm7o1r" path="res://scenes/settings.tscn" id="62_g7uv0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwaia"]
@@ -110,7 +110,7 @@ size = Vector2(41, 385.5)
 size = Vector2(635.5, 127)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rm2c3"]
-size = Vector2(639, 129)
+size = Vector2(641, 132)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xpfag"]
 size = Vector2(122, 20)
@@ -690,7 +690,7 @@ horizontal_alignment = 1
 collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shipyard/ShipManeuveringZone/Barriers"]
-position = Vector2(83.5, -1.5)
+position = Vector2(82.5, -1)
 shape = SubResource("RectangleShape2D_rm2c3")
 
 [node name="Exit" type="Marker2D" parent="Shipyard/ShipManeuveringZone"]
@@ -1134,8 +1134,8 @@ end_cap_mode = 1
 [node name="Ship" type="Node2D" parent="."]
 position = Vector2(200, 184)
 
-[node name="TestShip" parent="Ship" instance=ExtResource("58_56tvw")]
-position = Vector2(515, -125)
+[node name="Ship" parent="Ship" instance=ExtResource("53_jxty3")]
+position = Vector2(640, -127)
 
 [node name="Particles" type="Node2D" parent="."]
 
