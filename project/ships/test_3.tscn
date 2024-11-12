@@ -71,6 +71,9 @@ color_ramp = SubResource("Gradient_7qk8j")
 noise = SubResource("FastNoiseLite_wk73n")
 
 [node name="Ship" instance=ExtResource("1_57bpf")]
+repair_reward = 60.0
+time_limit = 35.0
+early_bonus = 5.0
 
 [node name="CollisionPolygon2D" parent="." index="0"]
 polygon = PackedVector2Array(6, -24, 2, -5, 2, 5, 6, 24, 17, 19, 18, 28, 24, 39, 23, 40, 23, 44, 25, 45, 27, 45, 29, 44, 43, 49, 50, 46, 56, 20, 74, 20, 74, 17, 67, 17, 69, 12, 77, 9, 88, 9, 88, 6, 79, 6, 79, -2, 76, -6, 94, -6, 94, -9, 69, -9, 74, -12, 79, -12, 79, -15, 67, -24, 64, -22, 66, -16, 56, -17, 50, -46, 43, -49, 29, -44, 27, -45, 25, -45, 23, -44, 23, -40, 24, -39, 18, -28, 17, -19)
@@ -121,7 +124,7 @@ stream = ExtResource("7_8npfi")
 position = Vector2(36, 30)
 script = ExtResource("8_p4m68")
 time_to_clean = 2.4
-icon = null
+todo_header = "Window"
 hold_to_interact = true
 
 [node name="Window" type="Polygon2D" parent="Components/DirtyWindow1" index="4"]
@@ -129,7 +132,6 @@ light_mask = 4
 visibility_layer = 4
 material = SubResource("ShaderMaterial_iughf")
 position = Vector2(-7, -10)
-scale = Vector2(1, 1)
 texture = SubResource("NoiseTexture2D_2shsy")
 polygon = PackedVector2Array(0, 0, 15, 0, 15, 21, 9, 21, 9, 20, 1, 20, 1, 19, 0, 19)
 uv = PackedVector2Array(0.0453987, 0.0527992, 15.0454, 0.0527992, 15.0454, 21.0528, 9.0454, 21.0528, 9.0454, 20.0528, 1.0454, 20.0528, 1.0454, 19.0528, 0.0453987, 19.0528)
@@ -141,7 +143,7 @@ stream = ExtResource("11_nnnex")
 position = Vector2(37, -1)
 script = ExtResource("8_p4m68")
 time_to_clean = 2.4
-icon = null
+todo_header = "Window"
 hold_to_interact = true
 
 [node name="Window" type="Polygon2D" parent="Components/DirtyWindow2" index="4"]
@@ -149,7 +151,6 @@ light_mask = 4
 visibility_layer = 4
 material = SubResource("ShaderMaterial_eqdyh")
 position = Vector2(-8, -13)
-scale = Vector2(1, 1)
 texture = SubResource("NoiseTexture2D_clrjh")
 polygon = PackedVector2Array(0, 9.53674e-07, 15, 9.53674e-07, 15, 28, 0, 28)
 uv = PackedVector2Array(-0.00748062, 0.018867, 15.0612, -0.0467916, 15.0348, 21.0232, 0.0348263, 21.0232)
@@ -161,7 +162,7 @@ stream = ExtResource("11_nnnex")
 position = Vector2(36, -31)
 script = ExtResource("8_p4m68")
 time_to_clean = 2.4
-icon = null
+todo_header = "Window"
 hold_to_interact = true
 
 [node name="Window" type="Polygon2D" parent="Components/DirtyWindow3" index="4"]
@@ -169,7 +170,6 @@ light_mask = 4
 visibility_layer = 4
 material = SubResource("ShaderMaterial_2br7y")
 position = Vector2(-6, -10)
-scale = Vector2(1, 1)
 texture = SubResource("NoiseTexture2D_r7orm")
 polygon = PackedVector2Array(-1, 2, 0, 2, 0, 1, 8, 1, 8, 0, 14, 0, 14, 21, -1, 21)
 uv = PackedVector2Array(0.010006, 2.03569, 1.01001, 2.03569, 1.01001, 1.03569, 9.01001, 1.03569, 9.01001, 0.0356903, 15.01, 0.0356903, 15.01, 21.0357, 0.010006, 21.0357)

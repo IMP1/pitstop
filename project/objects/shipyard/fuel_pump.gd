@@ -1,8 +1,11 @@
 class_name NozzleSlot
 extends Interactable
 
+const TOOL_COLLISION_LAYER := 4
+
 var _last_nozzle_position: Vector2
 var _nozzle_initial_position: Vector2
+var _nozzle_initial_transform: Transform2D
 
 @onready var _nozzle := $Nozzle as Nozzle
 @onready var _pipe := $Pipe as Line2D
@@ -13,7 +16,9 @@ var _nozzle_initial_position: Vector2
 
 func _ready() -> void:
 	_nozzle_initial_position = _nozzle.position
+	_nozzle_initial_transform = _nozzle.global_transform
 	_last_nozzle_position = _pipe.get_point_position(1)
+	_nozzle.set_collision_layer_value(TOOL_COLLISION_LAYER, false)
 	_nozzle.set_highlight(false)
 
 
@@ -32,6 +37,7 @@ func _nozzle_taken(player: Player) -> void:
 	Debug.info("[Fuel Pump] Take Nozzle")
 	_grab_sound.play()
 	_nozzle.grab(player)
+	_nozzle.set_collision_layer_value(TOOL_COLLISION_LAYER, true)
 
 
 func _nozzle_returned() -> void:
@@ -41,8 +47,9 @@ func _nozzle_returned() -> void:
 	_nozzle.reparent(self)
 	_nozzle._grab_shape.disabled = true
 	_nozzle.set_highlight(false)
+	_nozzle.set_collision_layer_value(TOOL_COLLISION_LAYER, false)
 	_nozzle.set_deferred("position", _nozzle_initial_position)
-	# TODO: Set transform (rotation) too
+	_nozzle.set_deferred("global_transform", _nozzle_initial_transform)
 
 
 func _process(delta: float) -> void:

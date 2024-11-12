@@ -56,7 +56,7 @@
 [ext_resource type="PackedScene" uid="uid://btfobc8djnixu" path="res://gui/debrief.tscn" id="50_q8aqo"]
 [ext_resource type="PackedScene" uid="uid://cjlt1e01vgy3v" path="res://gui/game_over.tscn" id="51_v41pc"]
 [ext_resource type="Texture2D" uid="uid://uwp03iqwerrd" path="res://assets/icons/gdb-xbox-2 (1).png" id="52_twyig"]
-[ext_resource type="PackedScene" uid="uid://0ptf278idwty" path="res://ships/test_3.tscn" id="53_jxty3"]
+[ext_resource type="PackedScene" uid="uid://ddv1nk6vtef7a" path="res://ships/test_2.tscn" id="53_c2kaw"]
 [ext_resource type="PackedScene" uid="uid://8y3141pm7o1r" path="res://scenes/settings.tscn" id="62_g7uv0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwaia"]
@@ -1134,8 +1134,8 @@ end_cap_mode = 1
 [node name="Ship" type="Node2D" parent="."]
 position = Vector2(200, 184)
 
-[node name="Ship" parent="Ship" instance=ExtResource("53_jxty3")]
-position = Vector2(640, -127)
+[node name="Ship3" parent="Ship" instance=ExtResource("53_c2kaw")]
+position = Vector2(541, -133)
 
 [node name="Particles" type="Node2D" parent="."]
 
@@ -1341,6 +1341,30 @@ offset_left = 130.0
 offset_top = 120.0
 offset_right = -130.0
 offset_bottom = -120.0
+
+[node name="JoinPrompt" type="Control" parent="Overlays"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Overlays/JoinPrompt"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = -11.5
+offset_right = 94.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("15_t6pco")
+text = "Press any button to join"
 
 [connection signal="body_entered" from="Shipyard/ShipManeuveringZone" to="Shipyard/ShipManeuveringZone" method="_body_entered"]
 [connection signal="body_exited" from="Shipyard/ShipManeuveringZone" to="Shipyard/ShipManeuveringZone" method="_body_exited"]

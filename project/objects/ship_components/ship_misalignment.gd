@@ -74,6 +74,7 @@ func _process(delta: float) -> void:
 	Debug.trace("[Ship Misallignment] " + str(_offset))
 	Debug.trace("[Ship Misallignment] " + str(dist))
 	_progress_bar.value = _progress_bar.max_value - dist
+	progress = _progress_bar.value / _progress_bar.max_value
 	if dist <= EPSILON * EPSILON:
 		dist = 0
 		_offset = Vector2.ZERO
@@ -82,8 +83,8 @@ func _process(delta: float) -> void:
 		_progress_bar.value = _progress_bar.max_value
 		_sprite.visible = false
 		_is_finished = true
+		progress = 1.0
 	queue_redraw()
-	progress = _progress_bar.value / _progress_bar.max_value
 	progress_changed.emit(progress)
 
 

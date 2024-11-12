@@ -1,5 +1,7 @@
 extends Interactable
 
+const NOZZLE_SLOT_POSITION := Vector2(0, 7)
+
 @export var pipe: Line2D
 @export var nozzle: Nozzle
 @export var nozzle_slot: Interactable
@@ -76,9 +78,15 @@ func _retract_end(delta: float) -> void:
 
 
 func _retract_fixed(_delta: float) -> void:
-	#var distance := retraction_speed * delta
-	# TODO: Do something complicated - Look up string pulling algorithms? Is that a thing?
-	pass
+	var start_point := pipe.points[0]
+	var end_point := pipe.to_local(nozzle.global_position)
+	Debug.info("Pipe has %d points" % pipe.get_point_count())
+	Debug.info("First point is %s" % str(start_point))
+	Debug.info("Last point is %s" % str(end_point))
+	if end_point.distance_squared_to(NOZZLE_SLOT_POSITION) < 4:
+		pass # TODO: Pull the loop in
+	else:
+		pass # TODO: Straighten the line
 
 
 func highlight(colour: Color) -> void:

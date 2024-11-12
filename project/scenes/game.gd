@@ -37,12 +37,14 @@ var _is_ship_moving: bool = false
 @onready var _ship_container := $Ship as Node2D
 @onready var _klaxon := $Shipyard/Clock/Klaxon as AudioStreamPlayer2D
 @onready var _countdown_timer := $Shipyard/Clock/CountdownTimer as Timer
+@onready var _join_prompt := $Overlays/JoinPrompt as Control
 
 
 func _ready() -> void:
 	_menu.visible = false
 	_debrief.visible = false
 	_game_over.visible = false
+	_join_prompt.visible = true
 	for player in $Players.get_children():
 		Debug.info("[Game] Adding player %d" % player.device_id)
 		(player as Player).accellerated.connect(_add_particle)
@@ -57,6 +59,7 @@ func _ready() -> void:
 
 
 func _add_player(device_id: int) -> void:
+	_join_prompt.visible = false
 	var p := PLAYER.instantiate() as Player
 	var i := _players.get_child_count() % player_colours.size()
 	p.device_id = device_id

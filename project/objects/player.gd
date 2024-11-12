@@ -79,6 +79,7 @@ func _try_grab() -> void:
 	obj.grab(self)
 	obj.set_deferred(&"transform", _held_tools.transform)
 	obj.set_deferred(&"position", Vector2.ZERO)
+	Debug.debug("[Player] Grabbed %s" % obj.name)
 
 
 func _get_nearest_tool() -> Tool:
@@ -142,11 +143,19 @@ func current_tool() -> Tool:
 
 
 func has_tool(tool_name: NodePath) -> bool:
-	return _held_tools.has_node(tool_name)
+	if not current_tool():
+		return false
+	if current_tool().name.begins_with(tool_name):
+		return true
+	return false
 
 
 func get_tool(tool_name: NodePath) -> Tool:
-	return _held_tools.get_node_or_null(tool_name)
+	if not current_tool():
+		return null
+	if current_tool().name.begins_with(tool_name):
+		return current_tool()
+	return null
 
 
 func _process(delta: float) -> void:

@@ -46,6 +46,7 @@ func _populate_todo_list() -> void:
 		_todo_list.add_header(fault.todo_header)
 		for item in fault.todo_list:
 			_todo_list.add_item(item)
+	# TODO: Remove faults that have been fixed or otherwise dealt with
 	# TODO: Link list items/headers with ship faults graphically?
 	#       With lines overlayed, or matching icons
 

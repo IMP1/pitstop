@@ -28,6 +28,7 @@ func interact(_player: Player) -> void:
 		patches_created += 1
 		Debug.info("[Dispenser] Creating patch")
 		var patch := PATCH_OBJECT.instantiate() as Patch
+		patch.name = "Patch_%d" % patches_created
 		add_child(patch)
 		patch_released.emit(patch)
 		patch.global_position = _source.global_position

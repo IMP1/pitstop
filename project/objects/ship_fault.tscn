@@ -43,7 +43,10 @@ show_percentage = false
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
 [node name="Icon" type="Sprite2D" parent="."]
+visible = false
+z_index = 10
 scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_lrovi")
 
 [connection signal="body_entered" from="Area2D" to="." method="_player_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_player_left"]
