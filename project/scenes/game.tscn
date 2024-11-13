@@ -56,7 +56,7 @@
 [ext_resource type="PackedScene" uid="uid://btfobc8djnixu" path="res://gui/debrief.tscn" id="50_q8aqo"]
 [ext_resource type="PackedScene" uid="uid://cjlt1e01vgy3v" path="res://gui/game_over.tscn" id="51_v41pc"]
 [ext_resource type="Texture2D" uid="uid://uwp03iqwerrd" path="res://assets/icons/gdb-xbox-2 (1).png" id="52_twyig"]
-[ext_resource type="PackedScene" uid="uid://ddv1nk6vtef7a" path="res://ships/test_2.tscn" id="53_c2kaw"]
+[ext_resource type="PackedScene" uid="uid://0ptf278idwty" path="res://ships/test_3.tscn" id="53_h73mh"]
 [ext_resource type="PackedScene" uid="uid://8y3141pm7o1r" path="res://scenes/settings.tscn" id="62_g7uv0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lwaia"]
@@ -462,7 +462,7 @@ scroll_bounds = Rect2(-64, -64, 768, 768)
 [node name="Asteroid8" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
 position = Vector2(210, 349)
 texture = SubResource("AtlasTexture_43ujk")
-velocity = Vector2(8, 0)
+velocity = Vector2(9, 0)
 scroll = true
 scroll_bounds = Rect2(-64, -64, 768, 768)
 
@@ -518,7 +518,7 @@ scroll_bounds = Rect2(-64, -64, 768, 768)
 [node name="Asteroid18" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
 position = Vector2(-166, 409)
 texture = SubResource("AtlasTexture_brlu8")
-velocity = Vector2(8, 0)
+velocity = Vector2(7, 0)
 scroll = true
 scroll_bounds = Rect2(-64, -64, 768, 768)
 
@@ -567,21 +567,21 @@ scroll_bounds = Rect2(-64, -64, 768, 768)
 [node name="Asteroid22" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
 position = Vector2(-118, 437)
 texture = SubResource("AtlasTexture_0e4iq")
-velocity = Vector2(8, 0)
+velocity = Vector2(9, 0)
 scroll = true
 scroll_bounds = Rect2(-64, -64, 768, 768)
 
 [node name="Asteroid23" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
 position = Vector2(-195, 375)
 texture = SubResource("AtlasTexture_0e4iq")
-velocity = Vector2(8, 0)
+velocity = Vector2(9, 0)
 scroll = true
 scroll_bounds = Rect2(-64, -64, 768, 768)
 
 [node name="Asteroid24" parent="Background/AsteroidBelt" instance=ExtResource("2_8buhw")]
 position = Vector2(-216, 443)
 texture = SubResource("AtlasTexture_0e4iq")
-velocity = Vector2(8, 0)
+velocity = Vector2(9, 0)
 scroll = true
 scroll_bounds = Rect2(-64, -64, 768, 768)
 
@@ -1134,8 +1134,8 @@ end_cap_mode = 1
 [node name="Ship" type="Node2D" parent="."]
 position = Vector2(200, 184)
 
-[node name="Ship3" parent="Ship" instance=ExtResource("53_c2kaw")]
-position = Vector2(541, -133)
+[node name="Ship2" parent="Ship" instance=ExtResource("53_h73mh")]
+position = Vector2(681, -72)
 
 [node name="Particles" type="Node2D" parent="."]
 

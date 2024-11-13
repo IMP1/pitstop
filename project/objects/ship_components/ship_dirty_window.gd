@@ -14,6 +14,8 @@ var _cleanliness: float = 0
 
 func _ready():
 	super()
+	_progress_bar.max_value = time_to_clean
+	_progress_bar.value = 0
 
 
 func can_interact(player: Player) -> bool:
@@ -29,10 +31,12 @@ func interact(player: Player) -> void:
 		return
 	_device_interacting = player.device_id
 	_is_cleaning = true
+	_progress_bar.visible = true
 	_audio.play()
 
 
 func stop_interacting() -> void:
+	_progress_bar.visible = false
 	_is_cleaning = false
 	_audio.stop()
 
@@ -62,7 +66,7 @@ func _process(delta: float) -> void:
 		var game := get_node("/root/Game") as GameScene
 		for i in 20:
 			game._add_particle(pos + Vector2.DOWN * randf_range(-1, 1) * 6 + Vector2.RIGHT * randf_range(-1, 1), vel, 5, colour, 0.8)
-	# TODO: Play a squeaky noise?
+	_progress_bar.value = _cleanliness
 	if _cleanliness >= time_to_clean:
 		_cleanliness = time_to_clean
 		_is_finished = true

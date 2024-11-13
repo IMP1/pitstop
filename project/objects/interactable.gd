@@ -4,6 +4,7 @@ extends Node2D
 @export var hold_to_interact: bool = false
 @export var highlight_colour: Color = Color.WHITE
 @export var multiple_highlight_colour: Color = Color.WHITE
+@export var custom_interact_icon: Texture2D
 
 var _device_interacting: int
 var _highlight: bool = true

@@ -237,6 +237,8 @@ func _update_interactable() -> void:
 		_interact_prompt.visible = true
 		_potential_interact = nearest_interactable
 		_potential_interact.set_highlight_colour(colour, device_id)
+		if nearest_interactable.custom_interact_icon:
+			_interact_prompt.texture = nearest_interactable.custom_interact_icon
 
 
 func _update_grabbable() -> void:

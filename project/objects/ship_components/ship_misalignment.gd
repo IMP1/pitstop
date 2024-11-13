@@ -40,6 +40,8 @@ func stop_interacting() -> void:
 func _start_aligning(player: Player) -> void:
 	_device_interacting = player.device_id
 	_is_aligning = true
+	custom_interact_icon = InputManager.get_icon(InputMap.action_get_events(&"aim_left_%d" % _device_interacting)[0])
+	player._update_interactable()
 	_audio.play()
 
 
@@ -48,6 +50,7 @@ func _stop_aligning() -> void:
 		return
 	_audio.stop()
 	_is_aligning = false
+	custom_interact_icon = null
 	queue_redraw()
 
 
